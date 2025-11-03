@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // your next config
+  transpilePackages: ['@playground/trpcserver'],
 };
 
 module.exports = nextConfig;

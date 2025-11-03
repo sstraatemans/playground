@@ -1,8 +1,30 @@
+'use client';
+
+import { useState } from 'react';
+
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { httpBatchLink } from '@trpc/client';
+import superjson from 'superjson';
+
+import { trpc } from '@/providers/TRPCProvider';
+
 const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
+  const [queryClient] = useState(() => new QueryClient());
+  const [trpcClient] = useState(() =>
+    trpc.createClient({
+      links: [
+        httpBatchLink({
+          url: 'http://localhost:4000/trpc',
+          transformer: superjson,
+        }),
+      ],
+    })
+  );
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -15,7 +37,13 @@ const RootLayout = ({
         <meta content="text/html; charset=UTF-8" name="Content-Type" />
         <meta content="#020E1B" name="theme-color" />
       </head>
-      <body>{children}</body>
+      <body>
+        <trpc.Provider client={trpcClient} queryClient={queryClient}>
+          <QueryClientProvider client={queryClient}>
+            {children}
+          </QueryClientProvider>
+        </trpc.Provider>
+      </body>
     </html>
   );
 };
