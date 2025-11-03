@@ -1,6 +1,6 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "target": "ES2022",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "outDir": "./dist",
@@ -11,11 +11,7 @@
       "@shared/*": ["./types/*"],
       "@server/*": ["./server/*"]
     },
-    "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-
-    // These are crucial:
     "declaration": true,
     "declarationMap": true,
     "emitDeclarationOnly": false

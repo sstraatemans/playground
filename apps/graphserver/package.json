@@ -1,0 +1,34 @@
+{
+  "name": "@playground/graphserver",
+  "version": "1.0.0",
+  "main": "dist/server.js",
+  "types": "dist/server.d.ts",
+  "scripts": {
+    "dev": "tsx src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "clean": "rimraf dist"
+  },
+  "keywords": [
+    "graphql",
+    "yoga",
+    "pothos",
+    "typescript"
+  ],
+  "dependencies": {
+    "@playground/trpcserver": "workspace:*",
+    "@pothos/core": "^4.10.0",
+    "@pothos/plugin-scope-auth": "^4.1.6",
+    "@trpc/client": "^11.7.1",
+    "graphql": "^16.12.0",
+    "graphql-scalars": "^1.25.0",
+    "graphql-yoga": "^5.16.0",
+    "superjson": "^2.2.5"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "rimraf": "^6.1.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}

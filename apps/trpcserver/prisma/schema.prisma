@@ -9,8 +9,29 @@ datasource db {
 }
 
 model Album {
-  id        Int         @id @default(autoincrement())
-  number    Int  
-  title     String
-  date      String
+  id              Int         @id @default(autoincrement())
+  number          Int  
+  title           String
+  date            String
+  characters      Character[]   @relation("AlbumCharacter")
+  albumCharacters AlbumCharacter[] 
+}
+
+model Character {
+  id              Int         @id @default(autoincrement())
+  name            String  
+  description     String
+  albums          Album[]   @relation("AlbumCharacter")
+  albumCharacters AlbumCharacter[] 
+}
+
+model AlbumCharacter {
+  albumId         Int
+  characterId     Int
+
+  album           Album @relation(fields: [albumId], references: [id])
+  character       Character @relation(fields: [characterId], references: [id])
+
+  @@id([albumId, characterId])
+  @@unique([albumId, characterId])
 }
