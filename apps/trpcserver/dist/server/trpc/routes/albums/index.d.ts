@@ -25,5 +25,15 @@ export declare const albumsRouter: import("@trpc/server").TRPCBuiltRouter<{
         }[];
         meta: object;
     }>;
+    getAlbumById: import("@trpc/server").TRPCQueryProcedure<{
+        input: number;
+        output: {
+            number: number;
+            id: number;
+            title: string;
+            date: string;
+        } | null;
+        meta: object;
+    }>;
 }>>;
 //# sourceMappingURL=index.d.ts.map
