@@ -4,6 +4,7 @@ import { trpc } from '@/providers/TRPCProvider';
 
 const Page = () => {
   const { data } = trpc.albums.all.useQuery();
+
   return (
     <ul>
       {data?.map((album) => (

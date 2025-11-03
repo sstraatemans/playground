@@ -1,6 +1,7 @@
+import { allAlbums } from '@/db/albums/allAlbums.js';
 import { procedure, router } from '../../trpc.js';
 export const albumsRouter = router({
-    all: procedure.query(() => {
-        return [{ title: 'De poenschepper', nummer: 67 }];
+    all: procedure.query(async () => {
+        return await allAlbums();
     }),
 });

@@ -7,11 +7,19 @@
     "rootDir": "./src",
     "baseUrl": "./src",
     "paths": {
-      "@/*": ["*"]
+      "@/*": ["*"],
+      "@shared/*": ["./types/*"],
+      "@server/*": ["./server/*"]
     },
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+
+    // These are crucial:
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": false
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["dist"]
 }

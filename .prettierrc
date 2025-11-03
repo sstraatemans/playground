@@ -8,10 +8,6 @@
     "^[./]",
     "^.*\\.types$"
   ],
-  "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true,
-  "importOrderTypeImportsSeparation": true,
-  "importOrderMergeDuplicateImports": true,
   "semi": true,
   "singleQuote": true,
   "trailingComma": "es5",
