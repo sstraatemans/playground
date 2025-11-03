@@ -4,6 +4,7 @@ import { createTRPCProxyClient } from '@trpc/client';
 import { httpBatchLink } from '@trpc/client';
 import { DateResolver } from 'graphql-scalars';
 import superjson from 'superjson';
+import { Character } from './types/Character';
 
 // Create tRPC client pointing to local server
 const trpc = createTRPCProxyClient<AppRouter>({
@@ -33,7 +34,7 @@ builder.addScalarType('Date', DateResolver, {});
 const AlbumRef = builder.objectRef<Album>('Album');
 
 AlbumRef.implement({
-  description: 'A music album',
+  description: 'A Suske en Wiske album',
   fields: (t) => ({
     id: t.exposeID('id'),
     number: t.exposeInt('number'),
@@ -51,6 +52,31 @@ builder.queryType({
         return data.map((album) => ({
           ...album,
           date: new Date(album.date),
+        }));
+      },
+    }),
+  }),
+});
+
+const CharacterRef = builder.objectRef<Character>('Character');
+
+CharacterRef.implement({
+  description: 'A character from Suske en Wiske',
+  fields: (t) => ({
+    id: t.exposeID('id'),
+    name: t.exposeString('name'),
+    description: t.exposeString('description'),
+  }),
+});
+
+builder.queryType({
+  fields: (t) => ({
+    albums: t.field({
+      type: [CharacterRef],
+      resolve: async () => {
+        const data = await trpc.character.all.query();
+        return data.map((character) => ({
+          ...character,
         }));
       },
     }),

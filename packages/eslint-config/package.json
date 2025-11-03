@@ -1,14 +1,19 @@
 {
   "name": "@config/eslint",
   "private": true,
+  "type": "module",
   "main": "eslint.config.js",
   "devDependencies": {
     "@eslint/js": "^9.0.0",
+    "@next/eslint-plugin-next": "^16.0.1",
     "@rushstack/eslint-config": "^4.5.3",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+    "eslint-config-next": "^16.0.1",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "typescript-eslint": "^7.0.0"
+    "typescript-eslint": "^8.46.3"
   }
 }

@@ -1,6 +1,7 @@
 {
   "name": "@playground/trpcweb",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -21,7 +22,10 @@
     "superjson": "^2.2.5"
   },
   "devDependencies": {
+    "@config/eslint": "workspace:*",
     "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.2"
+    "@types/react-dom": "^19.2.2",
+    "eslint-config-next": "^16.0.1",
+    "eslint-plugin-next": "^0.0.0"
   }
 }

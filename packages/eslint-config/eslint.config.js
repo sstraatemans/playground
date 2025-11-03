@@ -1,10 +1,5 @@
-import '@rushstack/eslint-config/patch/modern-module-resolution';
+import libraryConfig from './profile/library/eslint.config.js';
 
-export default {
-  extends: ['./profile/library/eslint.config.js'],
-  parserOptions: {
-    tsconfigRootDir: __dirname,
-    // for js files
-    ecmaVersion: 'latest',
-  },
-};
+export default [
+  ...libraryConfig,
+];

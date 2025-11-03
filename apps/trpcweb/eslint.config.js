@@ -1,10 +1,11 @@
+import nextConfig from '@config/eslint/profile/next/eslint.config.js';
+
 export default [
   {
-    extends: [
-      '@config/eslint/profile/next/eslint.config.js',
-      '@config/eslint',
-      'next/core-web-vitals',
-    ],
+    ignores: ['.next/**', 'node_modules/**', '.turbo/**', 'dist/**'],
+  },
+  ...nextConfig,
+  {
     // App-specific overrides (if any)
     files: ['**/*.tsx'],
     rules: {

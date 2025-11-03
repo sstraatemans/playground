@@ -2,8 +2,7 @@
 import { initTRPC } from '@trpc/server';
 import superjson from 'superjson';
 import { ZodError } from 'zod';
-
-import { Context } from './context.js';
+import type { Context } from './context.js';
 
 export const t = initTRPC.context<Context>().create({
   transformer: superjson, // <-- enables Date, BigInt, etc.
