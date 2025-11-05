@@ -1,12 +1,21 @@
 import { useDepthLimit } from '@envelop/depth-limit';
+import { useSentry } from '@envelop/sentry';
 import { useHive } from '@graphql-hive/envelop';
+import * as Sentry from '@sentry/node';
 import { createYoga } from 'graphql-yoga';
 import { createServer } from 'node:http';
 import { schema } from './schema/index.js';
 
+// Initialize Sentry (get DSN from sentry.io after free signup)
+Sentry.init({
+  dsn: process.env.SENTRYDSN ?? '',
+  tracesSampleRate: 1.0, // Adjust for production sampling
+});
+
 export const yoga = createYoga({
   schema,
   graphiql: true, // UI at http://localhost:4000
+  graphqlEndpoint: '/graphql',
   plugins: [
     useDepthLimit({
       maxDepth: 3, // Set this to your desired limit (e.g., 5-10; test based on your schema complexity)
@@ -19,6 +28,7 @@ export const yoga = createYoga({
         target: process.env.HYVETARGET ?? '',
       },
     }),
+    useSentry(),
   ],
 });
 
