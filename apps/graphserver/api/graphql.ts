@@ -5,7 +5,7 @@ import { yoga as yogaServer } from '../src/server.js';
 // Create the Yoga instance
 const yoga = createYoga({
   ...yogaServer,
-  graphqlEndpoint: '/',
+  graphqlEndpoint: '/graphql',
 });
 
 // Export the handler for Vercel (handles Node.js req/res)
