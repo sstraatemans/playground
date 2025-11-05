@@ -2,12 +2,12 @@
   "name": "@playground/graphserver",
   "version": "1.0.0",
   "type": "module",
-  "main": "public/server.js",
-  "types": "public/server.d.ts",
+  "main": "public/src/server.js",
+  "types": "public/src/server.d.ts",
   "scripts": {
     "dev": "tsx src/server.ts",
     "build": "tsc",
-    "start": "node public/server.js",
+    "start": "node public/src/server.js",
     "clean": "rimraf dist",
     "lint": "eslint . --config eslint.config.js"
   },
