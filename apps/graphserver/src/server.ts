@@ -3,7 +3,7 @@ import { createYoga } from 'graphql-yoga';
 import { createServer } from 'node:http';
 import { schema } from './schema/index.js';
 
-const yoga = createYoga({
+export const yoga = createYoga({
   schema,
   graphiql: true, // UI at http://localhost:4000
   plugins: [
