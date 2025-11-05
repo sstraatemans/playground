@@ -1,12 +1,11 @@
 import { createYoga } from 'graphql-yoga';
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import { yoga as yogaServer } from '@/server';
+import { yoga as yogaServer } from '../src/server';
 
 // Create the Yoga instance
 const yoga = createYoga({
   ...yogaServer,
-  graphqlEndpoint: '/', // This makes it handle requests at the root of the function (no extra path needed)
-  // Add any other options like plugins, context, etc.
+  graphqlEndpoint: '/',
 });
 
 // Export the handler for Vercel (handles Node.js req/res)

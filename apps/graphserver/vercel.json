@@ -1,6 +1,4 @@
 {
-  "buildCommand": "pnpm build",
-  "outputDirectory": "public",
   "rewrites": [
     {
       "source": "/graphql",
@@ -8,7 +6,7 @@
     }
   ],
   "functions": {
-    "api/graphql.js": {
+    "api/**/*.ts": {
       "maxDuration": 30
     }
   }
