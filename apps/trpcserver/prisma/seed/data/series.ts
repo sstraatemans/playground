@@ -39,7 +39,7 @@ export default [
     id: 'VK',
     name: 'Vierkleurenreeks',
     startYear: '1967',
-    endYear: 'heden',
+    endYear: '',
   },
   {
     id: 'SK',
@@ -81,7 +81,7 @@ export default [
     id: 'HR',
     name: 'Hommagereeks',
     startYear: '2017',
-    endYear: 'heden',
+    endYear: '',
   },
   {
     id: 'KV',
@@ -99,5 +99,6 @@ export default [
     id: 'LC',
     name: 'Lecturama Collectie',
     startYear: '1986',
+    endYear: '',
   },
 ];

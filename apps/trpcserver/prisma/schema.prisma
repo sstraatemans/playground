@@ -7,6 +7,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Serie {
+  id              String    @id
+  name            String  
+  startYear       String
+  endYear         String
+  albums          Album[]   @relation("SerieAlbum")
+  serieAlbums     SerieAlbum[] 
+}
+
 model Album {
   id              Int         @id @default(autoincrement())
   number          Int  
@@ -14,6 +23,8 @@ model Album {
   date            String
   characters      Character[]   @relation("AlbumCharacter")
   albumCharacters AlbumCharacter[] 
+  series          Serie[]       @relation("SerieAlbum")
+  serieAlbums     SerieAlbum[]
 }
 
 model Character {
@@ -33,4 +44,15 @@ model AlbumCharacter {
 
   @@id([albumId, characterId])
   @@unique([albumId, characterId])
+}
+
+model SerieAlbum {
+  albumId         Int
+  serieId         String
+
+  album           Album @relation(fields: [albumId], references: [id])
+  serie           Serie @relation(fields: [serieId], references: [id])
+
+  @@id([albumId, serieId])
+  @@unique([albumId, serieId])
 }

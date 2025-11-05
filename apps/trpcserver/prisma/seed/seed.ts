@@ -1,6 +1,7 @@
 import prisma from './client';
 import albums from './data/albums';
 import characters from './data/characters';
+import series from './data/series';
 
 async function main() {
   await prisma.$transaction(
@@ -9,6 +10,16 @@ async function main() {
         where: { id: album.id },
         update: album,
         create: album,
+      })
+    )
+  );
+
+  await prisma.$transaction(
+    series.map((serie) =>
+      prisma.serie.upsert({
+        where: { id: serie.id },
+        update: serie,
+        create: serie,
       })
     )
   );
