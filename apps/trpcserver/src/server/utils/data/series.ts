@@ -101,4 +101,4 @@ export default [
     startYear: '1986',
     endYear: '',
   },
-];
+] as const;

@@ -12,18 +12,14 @@ model Serie {
   name            String  
   startYear       String
   endYear         String
-  albums          Album[]   @relation("SerieAlbum")
   serieAlbums     SerieAlbum[] 
 }
 
 model Album {
   id              Int         @id @default(autoincrement())
-  number          Int  
   title           String
   date            String
-  characters      Character[]   @relation("AlbumCharacter")
   albumCharacters AlbumCharacter[] 
-  series          Serie[]       @relation("SerieAlbum")
   serieAlbums     SerieAlbum[]
 }
 
@@ -31,7 +27,6 @@ model Character {
   id              Int         @id @default(autoincrement())
   name            String  
   description     String
-  albums          Album[]   @relation("AlbumCharacter")
   albumCharacters AlbumCharacter[] 
 }
 
@@ -43,16 +38,14 @@ model AlbumCharacter {
   character       Character @relation(fields: [characterId], references: [id])
 
   @@id([albumId, characterId])
-  @@unique([albumId, characterId])
 }
 
 model SerieAlbum {
   albumId         Int
   serieId         String
-
+  number          Int
   album           Album @relation(fields: [albumId], references: [id])
   serie           Serie @relation(fields: [serieId], references: [id])
 
   @@id([albumId, serieId])
-  @@unique([albumId, serieId])
 }

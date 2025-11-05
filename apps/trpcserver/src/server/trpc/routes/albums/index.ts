@@ -1,3 +1,4 @@
+import { getAlbumSeriesById } from 'db/albums/getAlbumSeriesById.js';
 import z from 'zod';
 import { allAlbums } from '../../../../db/albums/allAlbums.js';
 import { getAlbumById } from '../../../../db/albums/getAlbumById.js';
@@ -16,4 +17,7 @@ export const albumsRouter = router({
     .query(async ({ input }) => {
       return await getAlbumCharactersById(input);
     }),
+  getAlbumSeriesById: procedure.input(z.number()).query(async ({ input }) => {
+    return await getAlbumSeriesById(input);
+  }),
 });

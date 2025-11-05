@@ -1,4 +1,4 @@
-import type { Album } from '..';
+import type { Album } from './Album';
 
 export interface Character {
   id: number;
