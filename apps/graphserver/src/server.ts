@@ -10,6 +10,7 @@ import { schema } from './schema/index.js';
 Sentry.init({
   dsn: process.env.SENTRYDSN ?? '',
   tracesSampleRate: 1.0, // Adjust for production sampling
+  environment: process.env.ENV || 'development',
 });
 
 export const yoga = createYoga({
