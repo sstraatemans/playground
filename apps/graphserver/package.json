@@ -18,6 +18,7 @@
     "typescript"
   ],
   "dependencies": {
+    "@envelop/depth-limit": "^6.0.0",
     "@playground/trpcserver": "workspace:*",
     "@pothos/core": "^4.10.0",
     "@pothos/plugin-scope-auth": "^4.1.6",
