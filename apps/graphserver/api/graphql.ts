@@ -1,7 +1,7 @@
 import { useDepthLimit } from '@envelop/depth-limit';
 import { createYoga } from 'graphql-yoga';
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import { schema } from '@/schema/index.js';
+import { schema } from '../src/schema/index.js';
 
 // Create the Yoga instance
 const yoga = createYoga({
