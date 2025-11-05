@@ -5,9 +5,9 @@
   "main": "public/src/server.js",
   "types": "public/src/server.d.ts",
   "scripts": {
-    "dev": "tsx src/server.ts",
+    "dev": "tsx --env-file=.env src/server.ts",
     "build": "tsc",
-    "start": "node public/src/server.js",
+    "start": "node --env-file=.env public/src/server.js",
     "clean": "rimraf dist",
     "lint": "eslint . --config eslint.config.js"
   },

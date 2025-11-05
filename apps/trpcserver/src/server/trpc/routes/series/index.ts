@@ -1,4 +1,4 @@
-import { allSeries } from '@/db/series/allSeries.js';
+import { allSeries } from '../../../../db/series/allSeries.js';
 import { procedure, router } from '../../trpc.js';
 
 export const seriesRouter = router({

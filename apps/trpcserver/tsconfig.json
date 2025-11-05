@@ -6,11 +6,6 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "baseUrl": "./src",
-    "paths": {
-      "@/*": ["*"],
-      "@shared/*": ["./types/*"],
-      "@server/*": ["./server/*"]
-    },
     "esModuleInterop": true,
     "declaration": true,
     "declarationMap": true,
