@@ -1,6 +1,6 @@
 import { createYoga } from 'graphql-yoga';
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import { yoga as yogaServer } from '../src/server';
+import { yoga as yogaServer } from '../src/server.js';
 
 // Create the Yoga instance
 const yoga = createYoga({
