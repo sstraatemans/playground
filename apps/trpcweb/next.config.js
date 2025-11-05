@@ -3,4 +3,4 @@ const nextConfig = {
   transpilePackages: ['@playground/trpcserver'],
 };
 
-module.exports = nextConfig;
+export default nextConfig;

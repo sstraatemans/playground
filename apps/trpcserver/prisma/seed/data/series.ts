@@ -1,0 +1,103 @@
+export default [
+  {
+    id: 'VO',
+    name: 'Vlaamse ongekleurde reeks',
+    startYear: '1946',
+    endYear: '1959',
+  },
+  {
+    id: 'BR',
+    name: 'Blauwe reeks',
+    startYear: '1952',
+    endYear: '1957',
+  },
+  {
+    id: 'HO',
+    name: 'Hollandse ongekleurde reeks',
+    startYear: '1953',
+    endYear: '1959',
+  },
+  {
+    id: 'VT',
+    name: 'Vlaamse tweekleurenreeks',
+    startYear: '1959',
+    endYear: '1964',
+  },
+  {
+    id: 'HT',
+    name: 'Hollandse tweekleurenreeks',
+    startYear: '1959',
+    endYear: '1964',
+  },
+  {
+    id: 'GT',
+    name: 'Gezamenlijke tweekleurenreeks',
+    startYear: '1964',
+    endYear: '1966',
+  },
+  {
+    id: 'VK',
+    name: 'Vierkleurenreeks',
+    startYear: '1967',
+    endYear: 'heden',
+  },
+  {
+    id: 'SK',
+    name: 'Strip Klassiek reeks',
+    startYear: '1981',
+    endYear: '1984',
+  },
+  {
+    id: 'DS',
+    name: 'Dubbelstrips',
+    startYear: '1985',
+    endYear: '1987',
+  },
+  {
+    id: 'RK',
+    name: 'Rode Klassiek reeks',
+    startYear: '1993',
+    endYear: '1999',
+  },
+  {
+    id: 'BK',
+    name: 'Blauwe Klassiek reeks',
+    startYear: '1993',
+    endYear: '1997',
+  },
+  {
+    id: 'PR',
+    name: 'Pocket Reeks',
+    startYear: '2007',
+    endYear: '2014',
+  },
+  {
+    id: 'CL',
+    name: 'Suske en Wiske Classics',
+    startYear: '2017',
+    endYear: '2019',
+  },
+  {
+    id: 'HR',
+    name: 'Hommagereeks',
+    startYear: '2017',
+    endYear: 'heden',
+  },
+  {
+    id: 'KV',
+    name: 'Suske en Wiske in het kort',
+    startYear: '2019',
+    endYear: '2025',
+  },
+  {
+    id: 'LO',
+    name: 'Lecturama Originele Verhalen',
+    startYear: '',
+    endYear: '',
+  },
+  {
+    id: 'LC',
+    name: 'Lecturama Collectie',
+    startYear: '1986',
+  },
+];
