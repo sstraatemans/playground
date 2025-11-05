@@ -8,7 +8,6 @@ const Page = () => {
   const id = params.id;
 
   const { data } = trpc.albums.getAlbumById.useQuery(Number(id));
-
   return (
     <div>
       <div>{data?.number}</div>

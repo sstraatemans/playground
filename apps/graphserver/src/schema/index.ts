@@ -4,7 +4,7 @@ import { createTRPCProxyClient } from '@trpc/client';
 import { httpBatchLink } from '@trpc/client';
 import { DateResolver } from 'graphql-scalars';
 import superjson from 'superjson';
-import { Character } from './types/Character';
+import type { Character } from './types/Character';
 
 // Create tRPC client pointing to local server
 const trpc = createTRPCProxyClient<AppRouter>({
@@ -71,10 +71,10 @@ CharacterRef.implement({
 
 builder.queryType({
   fields: (t) => ({
-    albums: t.field({
+    characters: t.field({
       type: [CharacterRef],
       resolve: async () => {
-        const data = await trpc.character.all.query();
+        const data = await trpc.characters.all.query();
         return data.map((character) => ({
           ...character,
         }));

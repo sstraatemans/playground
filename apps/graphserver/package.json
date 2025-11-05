@@ -1,13 +1,15 @@
 {
   "name": "@playground/graphserver",
   "version": "1.0.0",
+  "type": "module",
   "main": "dist/server.js",
   "types": "dist/server.d.ts",
   "scripts": {
     "dev": "tsx src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "lint": "eslint . --config eslint.config.js"
   },
   "keywords": [
     "graphql",
@@ -26,6 +28,7 @@
     "superjson": "^2.2.5"
   },
   "devDependencies": {
+    "@config/eslint": "workspace:*",
     "@types/node": "^24.10.0",
     "rimraf": "^6.1.0",
     "tsx": "^4.20.6",

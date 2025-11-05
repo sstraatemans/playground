@@ -10,7 +10,6 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@config/eslint": "workspace:*",
     "@playground/trpcserver": "workspace:*",
     "@tanstack/react-query": "^5.90.6",
     "@trpc/client": "^11.7.1",
