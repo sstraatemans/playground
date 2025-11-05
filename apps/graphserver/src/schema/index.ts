@@ -10,7 +10,7 @@ import type { Character } from './types/Character';
 const trpc = createTRPCProxyClient<AppRouter>({
   links: [
     httpBatchLink({
-      url: 'http://localhost:4000/trpc', // Your server URL
+      url: process.env.TRPCSERVER ?? '', // Your server URL
       transformer: superjson,
     }),
   ],

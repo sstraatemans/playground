@@ -1,7 +1,7 @@
 import z from 'zod';
-import { allCharacters } from '@/db/characters/allCharacters.js';
-import { getCharacterById } from '@/db/characters/getCharacterById.js';
-import { getCharactersAlbumsById } from '@/db/characters/getCharactersAlbumsById.js';
+import { allCharacters } from '../../../../db/characters/allCharacters.js';
+import { getCharacterById } from '../../../../db/characters/getCharacterById.js';
+import { getCharactersAlbumsById } from '../../../../db/characters/getCharactersAlbumsById.js';
 import { procedure, router } from '../../trpc.js';
 
 export const charactersRouter = router({

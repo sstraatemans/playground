@@ -1,7 +1,7 @@
 import z from 'zod';
-import { getAlbumCharactersById } from '@/db/albums/getAlbumCharactersById.js';
 import { allAlbums } from '../../../../db/albums/allAlbums.js';
 import { getAlbumById } from '../../../../db/albums/getAlbumById.js';
+import { getAlbumCharactersById } from '../../../../db/albums/getAlbumCharactersById.js';
 import { procedure, router } from '../../trpc.js';
 
 export const albumsRouter = router({
