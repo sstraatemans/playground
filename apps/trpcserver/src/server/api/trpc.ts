@@ -1,9 +1,5 @@
-// src/server/api/trpc.ts
-import cookie from '@fastify/cookie';
-// 👈 NEW
 import { fastifyTRPCPlugin } from '@trpc/server/adapters/fastify';
 import Fastify from 'fastify';
-
 import { createContext } from '../trpc/context.js';
 import { appRouter } from '../trpc/index.js';
 
@@ -12,12 +8,6 @@ const app = Fastify({
 });
 
 async function main() {
-  // 1️⃣ REGISTER COOKIE **BEFORE** tRPC (critical for onRequest hook)
-  await app.register(cookie, {
-    secret: 'my-super-secret-key-greater-than-32-chars!!!',
-  });
-
-  // 2️⃣ THEN tRPC
   await app.register(fastifyTRPCPlugin, {
     prefix: '/trpc',
     trpcOptions: {
@@ -29,7 +19,7 @@ async function main() {
     },
   });
 
-  // 3️⃣ Start server
+  // Start server
   await app.listen({ port: 4000, host: '0.0.0.0' });
   console.log('🚀 tRPC + Fastify ready on http://localhost:4000/trpc');
 }

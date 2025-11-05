@@ -1,4 +1,5 @@
 import z from 'zod';
+import { getAlbumCharactersById } from '@/db/albums/getAlbumCharactersById.js';
 import { allAlbums } from '../../../../db/albums/allAlbums.js';
 import { getAlbumById } from '../../../../db/albums/getAlbumById.js';
 import { procedure, router } from '../../trpc.js';
@@ -10,4 +11,9 @@ export const albumsRouter = router({
   getAlbumById: procedure.input(z.number()).query(async ({ input }) => {
     return await getAlbumById(input);
   }),
+  getAlbumCharactersById: procedure
+    .input(z.number())
+    .query(async ({ input }) => {
+      return await getAlbumCharactersById(input);
+    }),
 });

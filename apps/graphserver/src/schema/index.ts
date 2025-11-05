@@ -32,6 +32,7 @@ export const builder = new SchemaBuilder<{
 builder.addScalarType('Date', DateResolver, {});
 
 const AlbumRef = builder.objectRef<Album>('Album');
+const CharacterRef = builder.objectRef<Character>('Character');
 
 AlbumRef.implement({
   description: 'A Suske en Wiske album',
@@ -40,6 +41,36 @@ AlbumRef.implement({
     number: t.exposeInt('number'),
     title: t.exposeString('title'),
     date: t.expose('date', { type: 'Date' }),
+    characters: t.field({
+      type: [CharacterRef],
+      resolve: async (album) => {
+        const data = await trpc.albums.getAlbumCharactersById.query(
+          Number(album.id)
+        );
+        return data;
+      },
+    }),
+  }),
+});
+
+CharacterRef.implement({
+  description: 'A character from Suske en Wiske',
+  fields: (t) => ({
+    id: t.exposeID('id'),
+    name: t.exposeString('name'),
+    description: t.exposeString('description'),
+    albums: t.field({
+      type: [AlbumRef],
+      resolve: async (character) => {
+        const data = await trpc.characters.getCharactersAlbumsById.query(
+          Number(character.id)
+        );
+        return data.map((album) => ({
+          ...album,
+          date: new Date(album.date),
+        }));
+      },
+    }),
   }),
 });
 
@@ -55,22 +86,21 @@ builder.queryType({
         }));
       },
     }),
-  }),
-});
-
-const CharacterRef = builder.objectRef<Character>('Character');
-
-CharacterRef.implement({
-  description: 'A character from Suske en Wiske',
-  fields: (t) => ({
-    id: t.exposeID('id'),
-    name: t.exposeString('name'),
-    description: t.exposeString('description'),
-  }),
-});
-
-builder.queryType({
-  fields: (t) => ({
+    album: t.field({
+      type: AlbumRef,
+      nullable: true,
+      args: {
+        id: t.arg.id({ required: true }),
+      },
+      resolve: async (_, { id }) => {
+        const data = await trpc.albums.getAlbumById.query(Number(id));
+        if (!data) return null;
+        return {
+          ...data,
+          date: new Date(data.date),
+        };
+      },
+    }),
     characters: t.field({
       type: [CharacterRef],
       resolve: async () => {
@@ -78,6 +108,17 @@ builder.queryType({
         return data.map((character) => ({
           ...character,
         }));
+      },
+    }),
+    character: t.field({
+      type: CharacterRef,
+      nullable: true,
+      args: {
+        id: t.arg.id({ required: true }),
+      },
+      resolve: async (_, { id }) => {
+        const data = await trpc.characters.getCharacterById.query(Number(id));
+        return data;
       },
     }),
   }),
