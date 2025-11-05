@@ -1,14 +1,10 @@
 {
+  "buildCommand": "pnpm build",
+  "outputDirectory": "public",
   "rewrites": [
     {
       "source": "/graphql",
       "destination": "/api/graphql"
-    }
-  ],
-  "builds": [
-    {
-      "src": "src/api/graphql.js",
-      "use": "@vercel/node"
     }
   ],
   "functions": {
