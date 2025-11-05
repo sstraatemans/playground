@@ -1,6 +1,6 @@
 import type { AppRouter } from '@playground/trpcserver';
 import SchemaBuilder from '@pothos/core';
-import { createTRPCClient, loggerLink } from '@trpc/client';
+import { createTRPCClient } from '@trpc/client';
 import { httpBatchLink } from '@trpc/client';
 import { DateResolver } from 'graphql-scalars';
 import superjson from 'superjson';

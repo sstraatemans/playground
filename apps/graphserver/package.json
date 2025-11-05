@@ -21,6 +21,7 @@
     "@envelop/depth-limit": "^6.0.0",
     "@envelop/sentry": "^14.1.0",
     "@graphql-hive/envelop": "^0.36.2",
+    "@graphql-yoga/plugin-response-cache": "^3.18.1",
     "@playground/trpcserver": "workspace:*",
     "@pothos/core": "^4.10.0",
     "@pothos/plugin-scope-auth": "^4.1.6",

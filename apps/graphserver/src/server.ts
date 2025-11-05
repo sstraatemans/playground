@@ -1,6 +1,7 @@
 import { useDepthLimit } from '@envelop/depth-limit';
 import { useSentry } from '@envelop/sentry';
 import { useHive } from '@graphql-hive/envelop';
+import { useResponseCache } from '@graphql-yoga/plugin-response-cache';
 import * as Sentry from '@sentry/node';
 import { createYoga } from 'graphql-yoga';
 import { createServer } from 'node:http';
@@ -30,6 +31,11 @@ export const yoga = createYoga({
       },
     }),
     useSentry(),
+    useResponseCache({
+      session: () => null,
+      ttl: 1000 * 60 * 60 * 24, // Global 2s TTL
+      invalidateViaMutation: true,
+    }),
   ],
 });
 
