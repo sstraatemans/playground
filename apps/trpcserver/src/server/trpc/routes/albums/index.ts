@@ -1,8 +1,8 @@
-import { getAlbumSeriesById } from 'db/albums/getAlbumSeriesById.js';
 import z from 'zod';
 import { allAlbums } from '../../../../db/albums/allAlbums.js';
 import { getAlbumById } from '../../../../db/albums/getAlbumById.js';
 import { getAlbumCharactersById } from '../../../../db/albums/getAlbumCharactersById.js';
+import { getAlbumSeriesById } from '../../../../db/albums/getAlbumSeriesById.js';
 import { procedure, router } from '../../trpc.js';
 
 export const albumsRouter = router({
