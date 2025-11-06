@@ -6,6 +6,7 @@ const nextConfig = {
       {
         source: '/graphql', // Matches /api/graph and any subpaths
         destination: `${process.env.GRAPHQLSERVER}`,
+        permanent: true,
       },
     ];
   },
