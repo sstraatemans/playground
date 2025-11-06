@@ -1,4 +1,5 @@
 import { connectAlbum2Series } from '../../src/db/albums/connectAlbum2Series';
+import artists from '../../src/server/utils/data/artists';
 import series from '../../src/server/utils/data/series';
 import { getAlbumsJson } from '../../src/server/utils/getAlbumsJson';
 import { getCharactersJson } from '../../src/server/utils/getCharactersJson';
@@ -17,25 +18,26 @@ async function main() {
   }
 
   await prisma.$transaction(
-    series.map((serie) =>
-      prisma.serie.upsert({
+    series.map((serie) => {
+      return prisma.serie.upsert({
         where: { id: serie.id },
         update: serie,
         create: serie,
-      })
-    )
-  );
-
-  await prisma.$transaction(
-    albums.map((album) => {
-      const a = { id: album.id, title: album.title, date: album.date };
-      return prisma.album.upsert({
-        where: { id: a.id },
-        update: a,
-        create: a,
       });
     })
   );
+
+  await prisma.$transaction(
+    artists.map((artist) => {
+      return prisma.artist.upsert({
+        where: { id: artist.id },
+        update: artist,
+        create: artist,
+      });
+    })
+  );
+
+  return;
 
   await prisma.$transaction(
     characters.map((character) => {
@@ -45,7 +47,9 @@ async function main() {
         description: character.description,
         years: character.years,
         albumsTemp: character.albumsTemp,
+        wikiURL: character.wikiURL,
       };
+
       return prisma.character.upsert({
         where: { name: c.name },
         update: c,

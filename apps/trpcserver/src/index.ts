@@ -1,9 +1,6 @@
 import cors from '@fastify/cors';
 import { fastifyTRPCPlugin } from '@trpc/server/adapters/fastify';
 import Fastify from 'fastify';
-import { updateAlbumHandler } from 'server/update/index.js';
-import type { AlbumParams } from 'server/update/index.js';
-import { secretHandler } from 'server/utils/secretHandler.js';
 import { createContext } from './server/trpc/context.js';
 import { appRouter } from './server/trpc/index.js';
 
@@ -58,22 +55,6 @@ async function main() {
       // },
     },
   });
-
-  await app.get<{ Params: AlbumParams }>(
-    '/update',
-    {
-      preHandler: secretHandler,
-    },
-    updateAlbumHandler
-  );
-
-  await app.get<{ Params: AlbumParams }>(
-    '/update/:albumId',
-    {
-      preHandler: secretHandler,
-    },
-    updateAlbumHandler
-  );
 
   // 3️⃣ Start server
   await app.listen({ port: 4000, host: '0.0.0.0' });

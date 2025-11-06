@@ -5,6 +5,7 @@ import { httpBatchLink } from '@trpc/client';
 import { DateResolver } from 'graphql-scalars';
 import superjson from 'superjson';
 import type { Album, AlbumSerie } from './types/Album';
+import type { Artist } from './types/Artist';
 import type { Character } from './types/Character';
 import type { Serie } from './types/Serie';
 
@@ -29,6 +30,7 @@ export const builder = new SchemaBuilder<{
 builder.addScalarType('Date', DateResolver, {});
 
 const AlbumRef = builder.objectRef<Album>('Album');
+const ArtistRef = builder.objectRef<Artist>('Artist');
 const AlbumSerieRef = builder.objectRef<AlbumSerie>('AlbumSerie'); // series of an album with number
 const CharacterRef = builder.objectRef<Character>('Character');
 const SerieRef = builder.objectRef<Serie>('Serie');
@@ -44,6 +46,24 @@ SerieRef.implement({
       type: [AlbumSerieRef],
       resolve: async (serie) => {
         const data = await trpc.series.getSerieAlbumsById.query(serie.id);
+        return data;
+      },
+    }),
+  }),
+});
+
+ArtistRef.implement({
+  description: 'A Suske en Wiske artist for the series',
+  fields: (t) => ({
+    id: t.exposeID('id'),
+    name: t.exposeString('name'),
+    albums: t.field({
+      type: [AlbumRef],
+      resolve: async (artist) => {
+        const data = await trpc.artists.getArtistAlbumsById.query(
+          Number(artist.id)
+        );
+
         return data;
       },
     }),
@@ -85,6 +105,23 @@ AlbumRef.implement({
     id: t.exposeID('id'),
     title: t.exposeString('title'),
     date: t.expose('date', { type: 'Date' }),
+    description: t.exposeString('description', { nullable: true }),
+    scenarioArtist: t.field({
+      type: ArtistRef,
+      resolve: async (album) => {
+        const data = await trpc.artists.getArtistById.query(
+          album.scenarioArtistId
+        );
+        return data;
+      },
+    }),
+    drawArtist: t.field({
+      type: ArtistRef,
+      resolve: async (album) => {
+        const data = await trpc.artists.getArtistById.query(album.drawArtistId);
+        return data;
+      },
+    }),
     characters: t.field({
       type: [CharacterRef],
       resolve: async (album) => {
@@ -130,6 +167,17 @@ CharacterRef.implement({
 
 builder.queryType({
   fields: (t) => ({
+    artist: t.field({
+      type: ArtistRef,
+      nullable: true,
+      args: {
+        id: t.arg.id({ required: true }),
+      },
+      resolve: async (_, { id }) => {
+        const data = await trpc.artists.getArtistById.query(Number(id));
+        return data;
+      },
+    }),
     series: t.field({
       type: [SerieRef],
       resolve: async () => {
@@ -156,6 +204,7 @@ builder.queryType({
       resolve: async (_, { id }) => {
         const data = await trpc.albums.getAlbumById.query(Number(id));
         if (!data) return null;
+
         return {
           ...data,
           date: new Date(data.date),

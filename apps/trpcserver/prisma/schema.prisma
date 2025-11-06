@@ -13,6 +13,7 @@ model Serie {
   startYear       String
   endYear         String
   serieAlbums     SerieAlbum[] 
+  wikiURL         String?
 }
 
 model Album {
@@ -25,6 +26,8 @@ model Album {
   DrawArtist      Artist? @relation("DrawArtist", fields: [drawArtistId], references: [id])
   albumCharacters AlbumCharacter[] 
   serieAlbums     SerieAlbum[]
+  wikiURL         String?
+  description     String?
 }
 
 model Artist {
@@ -32,6 +35,7 @@ model Artist {
   name            String
   scenarioAlbums  Album[]     @relation("ScenarioArtist")
   drawAlbums      Album[]     @relation("DrawArtist")
+  wikiURL         String?
 }
 
 model Character {
@@ -41,6 +45,7 @@ model Character {
   years           String      @default("")
   albumsTemp      String      @default("") // needed to connect the albums to the character later
   albumCharacters AlbumCharacter[] 
+  wikiURL         String?
 }
 
 model AlbumCharacter {

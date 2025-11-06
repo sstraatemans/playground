@@ -1,4 +1,6 @@
+import * as cheerio from 'cheerio';
 import { tabletojson } from 'tabletojson';
+import { createWikiURL } from './createWikiURL.js';
 import series from './data/series.js';
 
 const WIKI_ALLALBUMS_URL =
@@ -10,29 +12,41 @@ export type WikiAlbum = {
   id: number;
   title: string;
   date: string;
+  wikiURL?: string;
 } & { [K in Id]: number };
 
 export const getAlbumsJson = async (): Promise<WikiAlbum[]> => {
   const tables = await tabletojson.convertUrl(WIKI_ALLALBUMS_URL, {
-    stripHtmlFromCells: true,
+    stripHtmlFromCells: false,
   });
 
   const table = tables[0];
   const convertedJson = table.map((row: any) => {
-    if (row['Nr.']) {
-      row['id'] = Number(row['Nr.']);
-      delete row['Nr.'];
-    }
+    Object.entries(row).forEach(([key, value]) => {
+      const $ = cheerio.load(value as string); // Cast to string if needed
+      const text = $.text().trim();
 
-    if (row['Titel']) {
-      row['title'] = row['Titel'];
-      delete row['Titel'];
-    }
+      switch (key) {
+        case 'Titel':
+          row['wikiURL'] = createWikiURL(row['Titel']);
+          row['title'] = text;
+          delete row['Titel'];
+          return;
 
-    if (row['Datum']) {
-      row['date'] = row['Datum'];
-      delete row['Datum'];
-    }
+        case 'Nr.':
+          row['id'] = Number(text);
+          delete row['Nr.'];
+          return;
+
+        case 'Datum':
+          row['date'] = text;
+          delete row['Datum'];
+          return;
+
+        default:
+          row[key] = text;
+      }
+    });
 
     series.forEach((serie: any) => {
       if (!row[serie.id]) {

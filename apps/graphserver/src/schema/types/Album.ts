@@ -1,3 +1,4 @@
+import type { Artist } from './Artist';
 import type { Character } from './Character';
 
 export interface AlbumSerie {
@@ -11,4 +12,9 @@ export interface Album {
   date: Date; // ISO date string, e.g., 'YYYY-MM-DD'
   characters?: Character[];
   series?: AlbumSerie[];
+  description?: string;
+  scenarioArtistId: number;
+  drawArtistId: number;
+  scenarioArtist: Artist;
+  drawArtist: Artist;
 }

@@ -22,6 +22,7 @@
     "lint": "eslint . --config eslint.config.js",
     "type-check": "tsc --noEmit",
     "seed": "tsx ./prisma/seed/seed.ts",
+    "update:album": "tsx ./src/server/update/album.ts",
     "prisma:generate": "prisma generate"
   },
   "prisma": {
@@ -32,6 +33,7 @@
     "@fastify/cors": "^11.1.0",
     "cheerio": "^1.1.2",
     "fastify": "^5.6.1",
+    "openai": "^6.8.1",
     "superjson": "^2.2.5",
     "tabletojson": "^4.1.6"
   },
