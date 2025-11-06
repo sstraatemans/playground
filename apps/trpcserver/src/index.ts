@@ -37,25 +37,25 @@ async function main() {
       onError({ path, error }: any) {
         app.log.error(`tRPC Error on ${path}:`, error);
       },
-      responseMeta(opts: any) {
-        const { paths, errors, type } = opts;
-        // Apply caching only for public queries with no errors
-        const allPublic = paths?.every((path: string) =>
-          path.includes('public')
-        );
-        const allOk = errors.length === 0;
-        const isQuery = type === 'query';
+      // responseMeta(opts: any) {
+      //   const { paths, errors, type } = opts;
+      //   // Apply caching only for public queries with no errors
+      //   const allPublic = paths?.every((path: string) =>
+      //     path.includes('public')
+      //   );
+      //   const allOk = errors.length === 0;
+      //   const isQuery = type === 'query';
 
-        if (allPublic && allOk && isQuery) {
-          const ONE_DAY_IN_SECONDS = 60 * 60 * 24;
-          return {
-            headers: {
-              'cache-control': `s-maxage=1, stale-while-revalidate=${ONE_DAY_IN_SECONDS}`,
-            },
-          };
-        }
-        return {};
-      },
+      //   if (allPublic && allOk && isQuery) {
+      //     const ONE_DAY_IN_SECONDS = 60 * 60 * 24;
+      //     return {
+      //       headers: {
+      //         'cache-control': `s-maxage=1, stale-while-revalidate=${ONE_DAY_IN_SECONDS}`,
+      //       },
+      //     };
+      //   }
+      //   return {};
+      // },
     },
   });
 

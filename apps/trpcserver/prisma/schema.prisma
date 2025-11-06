@@ -25,8 +25,10 @@ model Album {
 
 model Character {
   id              Int         @id @default(autoincrement())
-  name            String  
-  description     String
+  name            String      @unique
+  description     String      @default("")
+  years           String      @default("")
+  albumsTemp      String      @default("") // needed to connect the albums to the character later
   albumCharacters AlbumCharacter[] 
 }
 

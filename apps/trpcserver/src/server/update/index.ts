@@ -1,6 +1,7 @@
 // the code to update an album's details
 import type { FastifyRequest, FastifyReply } from 'fastify';
 import { getAlbumsJson } from 'server/utils/getAlbumsJson.js';
+import { getCharactersJson } from 'server/utils/getCharactersJson.js';
 
 export interface AlbumParams {
   albumId: number; // Or number, if you constrain it to digits
@@ -13,6 +14,7 @@ export const updateAlbumHandler = async (
   const albumId = request.params?.albumId;
 
   const albumsJSON = await getAlbumsJson();
+  const charactersJSON = await getCharactersJson();
 
-  return reply.send(albumsJSON);
+  return reply.send(charactersJSON);
 };
