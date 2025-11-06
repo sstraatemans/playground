@@ -33,7 +33,7 @@ export const yoga = createYoga({
     useSentry(),
     useResponseCache({
       session: () => null,
-      ttl: 1000 * 60 * 60 * 24, // Global 2s TTL
+      ttl: process.env.ENV === 'production' ? 1000 * 60 * 60 * 24 : 1000, // Global 2s TTL
       invalidateViaMutation: true,
     }),
   ],
