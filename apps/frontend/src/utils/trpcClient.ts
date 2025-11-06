@@ -1,4 +1,4 @@
-import type { AppRouter } from '@playground/trpcserver';
+import type { AppRouter } from '@sw/s_w_trpcserver';
 import { createTRPCClient, httpBatchLink } from '@trpc/client';
 import superjson from 'superjson';
 

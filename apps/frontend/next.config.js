@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['@playground/trpcserver'],
+  transpilePackages: ['@sw/s_w_trpcserver'],
   async redirects() {
     return [];
   },

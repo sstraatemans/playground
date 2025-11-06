@@ -1,5 +1,5 @@
 {
-  "name": "@playground/frontend",
+  "name": "@sw/s_w_frontend",
   "private": true,
   "type": "module",
   "scripts": {
@@ -10,7 +10,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@playground/trpcserver": "workspace:*",
+    "@sw/s_w_trpcserver": "workspace:*",
     "@tanstack/react-query": "^5.90.6",
     "@trpc/client": "^11.7.1",
     "@trpc/react-query": "^11.7.1",

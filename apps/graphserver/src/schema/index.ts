@@ -1,5 +1,5 @@
-import type { AppRouter } from '@playground/trpcserver';
 import SchemaBuilder from '@pothos/core';
+import type { AppRouter } from '@sw/s_w_trpcserver';
 import { createTRPCClient } from '@trpc/client';
 import { httpBatchLink } from '@trpc/client';
 import { DateResolver } from 'graphql-scalars';
