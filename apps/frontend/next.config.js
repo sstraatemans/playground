@@ -8,7 +8,7 @@ const nextConfig = {
     return [
       {
         source: '/graphql', // Matches /api/graph and any subpaths
-        destination: process.env.GRAPHQLSERVER, // Proxies to external URL
+        destination: `${process.env.GRAPHQLSERVER}`, // Proxies to external URL
       },
     ];
   },
