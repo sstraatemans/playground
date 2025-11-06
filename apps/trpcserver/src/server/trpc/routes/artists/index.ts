@@ -1,6 +1,6 @@
-import { getArtistAlbumsById } from 'db/artists/getArtistAlbumsById.js';
 import z from 'zod';
 import { allArtists } from '../../../../db/artists/allArtists.js';
+import { getArtistAlbumsById } from '../../../../db/artists/getArtistAlbumsById.js';
 import { getArtistById } from '../../../../db/artists/getArtistById.js';
 import { procedure, router } from '../../trpc.js';
 

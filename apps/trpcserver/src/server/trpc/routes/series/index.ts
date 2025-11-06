@@ -1,6 +1,6 @@
-import { getSerieAlbumsById } from 'db/series/getSerieAlbumsById.js';
 import z from 'zod';
 import { allSeries } from '../../../../db/series/allSeries.js';
+import { getSerieAlbumsById } from '../../../../db/series/getSerieAlbumsById.js';
 import { getSerieById } from '../../../../db/series/getSerieById.js';
 import { procedure, router } from '../../trpc.js';
 

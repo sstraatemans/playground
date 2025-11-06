@@ -1,6 +1,6 @@
 import type { Serie } from '@prisma/client';
-import { prisma } from 'db/client.js';
 import type { WikiAlbum } from 'server/utils/getAlbumsJson.js';
+import { prisma } from '../../db/client.js';
 
 export const connectAlbum2Series = async (
   album: WikiAlbum,

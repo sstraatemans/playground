@@ -1,4 +1,4 @@
-import { prisma, supabaseClient } from 'db/client.js';
+import { prisma, supabaseClient } from '../../db/client.js';
 
 const addLeadingZero = (num: number, length = 3) => {
   return num.toString().padStart(length, '0');
