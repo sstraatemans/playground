@@ -1,16 +1,23 @@
 'use client';
 
-import { trpc } from '@/providers/TRPCProvider';
+import Link from 'next/link';
 
 const Page = () => {
-  const { data } = trpc.albums.all.useQuery();
-
   return (
-    <ul>
-      {data?.map((album) => (
-        <li key={album.id}>{album.title}</li>
-      ))}
-    </ul>
+    <div>
+      <h1>docs</h1>
+      <ul>
+        <li>
+          <Link href="/docs/rest">REST API Documentation (Swagger)</Link>
+        </li>
+        <li>
+          <Link href="/docs/trpc">TRPC API Documentation</Link>
+        </li>
+        <li>
+          <Link href="/graphql">GraphQL API Documentation (GraphQL)</Link>
+        </li>
+      </ul>
+    </div>
   );
 };
 
