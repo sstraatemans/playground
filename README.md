@@ -28,6 +28,10 @@ DATABASE_URL= XXX // The Supabase URL for connection
 
 ### ANALYTICS
 
+## FRONTEND
+
+A frontend with all the info you need.
+
 ## DISCLAIMER
 
 Ofcourse I don't own any rights to Suske en Wiske, but all data that is here was found on the internet, I just made it accessable in a database.

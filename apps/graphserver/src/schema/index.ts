@@ -104,11 +104,17 @@ AlbumRef.implement({
   fields: (t) => ({
     id: t.exposeID('id'),
     title: t.exposeString('title'),
-    date: t.expose('date', { type: 'Date' }),
+    date: t.field({
+      type: 'Date',
+      resolve: (album) => {
+        return album.date instanceof Date ? album.date : new Date(album.date);
+      },
+    }),
     description: t.exposeString('description', { nullable: true }),
     scenarioArtist: t.field({
       type: ArtistRef,
       resolve: async (album) => {
+        if (!album.scenarioArtistId) return;
         const data = await trpc.artists.getArtistById.query(
           album.scenarioArtistId
         );
@@ -118,6 +124,7 @@ AlbumRef.implement({
     drawArtist: t.field({
       type: ArtistRef,
       resolve: async (album) => {
+        if (!album.drawArtistId) return;
         const data = await trpc.artists.getArtistById.query(album.drawArtistId);
         return data;
       },

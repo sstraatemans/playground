@@ -8,13 +8,14 @@ export interface AlbumSerie {
 }
 export interface Album {
   id: number;
+  wikiURL?: string | null;
   title: string;
-  date: Date; // ISO date string, e.g., 'YYYY-MM-DD'
+  date: Date | string; // Can be Date object or ISO date string
   characters?: Character[];
   series?: AlbumSerie[];
-  description?: string;
-  scenarioArtistId: number;
-  drawArtistId: number;
-  scenarioArtist: Artist;
-  drawArtist: Artist;
+  description?: string | null;
+  scenarioArtistId: number | null;
+  drawArtistId: number | null;
+  scenarioArtist?: Artist;
+  drawArtist?: Artist;
 }
