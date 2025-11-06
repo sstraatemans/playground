@@ -121,20 +121,15 @@ export const updateAlbumHandler = async (albumId?: number) => {
 };
 
 const main = async () => {
-  //const albumId = process.argv[2];
-
   await downloadAlbumImages();
-  return;
-
   const albums = await prisma.album.findMany({ orderBy: { id: 'asc' } });
 
   for (const album of albums) {
     console.log(album.id, album.title);
     if (album.description || !album.wikiURL) {
-      console.log('Skipping album', album.id);
-    } else {
-      await updateAlbumHandler(album.id);
+      continue;
     }
+    await updateAlbumHandler(album.id);
   }
 };
 
