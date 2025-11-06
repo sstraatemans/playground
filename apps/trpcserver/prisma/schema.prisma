@@ -19,8 +19,19 @@ model Album {
   id              Int         @id @default(autoincrement())
   title           String
   date            String
+  scenarioArtistId Int?
+  drawArtistId     Int?
+  ScenarioArtist  Artist? @relation("ScenarioArtist", fields: [scenarioArtistId], references: [id])
+  DrawArtist      Artist? @relation("DrawArtist", fields: [drawArtistId], references: [id])
   albumCharacters AlbumCharacter[] 
   serieAlbums     SerieAlbum[]
+}
+
+model Artist {
+  id              Int         @id @default(autoincrement())
+  name            String
+  scenarioAlbums  Album[]     @relation("ScenarioArtist")
+  drawAlbums      Album[]     @relation("DrawArtist")
 }
 
 model Character {
