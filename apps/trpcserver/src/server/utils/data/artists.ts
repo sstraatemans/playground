@@ -29,4 +29,9 @@ export default [
     name: 'Wout Schoonis',
     wikiURL: 'https://nl.wikipedia.org/wiki/Wout_Schoonis',
   },
+  {
+    id: 7,
+    name: 'Eduard De Rop',
+    wikiURL: 'https://nl.wikipedia.org/wiki/Eduard_De_Rop',
+  },
 ] as const;

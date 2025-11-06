@@ -1,10 +1,13 @@
 // the code to update an album's details
 import type OpenAI from 'openai';
-import { getAlbumData, getAlbumTool } from 'server/utils/ai/tools/getAlbum.js';
+import {
+  getWikiDataTool,
+  getWikiData,
+} from 'server/utils/ai/tools/getWikiData.js';
+import { callOpenAI } from 'server/utils/callOpenAI.js';
 import { downloadAlbumImages } from 'server/utils/downloadAlbumImages.js';
 import { findArtistByName } from 'server/utils/findArtistByName.js';
 import { prisma } from '../../db/client.js';
-import { openai } from '../utils/ai/client.js';
 
 export interface AlbumParams {
   albumId: number; // Or number, if you constrain it to digits
@@ -26,6 +29,8 @@ export const updateAlbumHandler = async (albumId?: number) => {
   if (!album) {
     throw new Error(`Album with id ${albumId} not found`);
   }
+
+  console.log(`Updating album: ${album.title} (ID: ${album.id})`);
 
   const jsonSchema = {
     type: 'json_schema',
@@ -50,6 +55,9 @@ export const updateAlbumHandler = async (albumId?: number) => {
     make it in correct Markdown format. make the synopsis in Dutch language.
     Do not add links or references to Wikipedia.
     Also return the names of the scenario and draw artists for this album.
+    When there are multiple names for 1 field, take the first one (the top one).
+    You will find the artists near "scenario" and "tekeningen" on the wiki page.
+    When you cannot find the artist name, return NULL for that field.
   `;
 
   const messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
@@ -61,50 +69,24 @@ export const updateAlbumHandler = async (albumId?: number) => {
     { role: 'user', content: userPrompt },
   ];
 
-  // Call OpenAI chat completion with tools
-  let completion = await openai.chat.completions.create({
-    model: 'gpt-4o', // Or whichever model you prefer
+  const tools = [
+    {
+      tool: getWikiDataTool,
+      name: 'get_wiki_data',
+      func: () => getWikiData(album.wikiURL),
+    },
+  ];
+
+  const responseMessage = await callOpenAI({
+    jsonSchema,
     messages,
-    tools: [getAlbumTool],
-    tool_choice: 'auto',
-    response_format: jsonSchema as any,
+    tools,
   });
 
-  let responseMessage = completion.choices[0].message;
-
-  if (responseMessage.tool_calls) {
-    messages.push(responseMessage); // Add assistant's message to history
-
-    for (const toolCall of responseMessage.tool_calls) {
-      if (
-        toolCall.type === 'function' &&
-        toolCall.function.name === 'get_album_data'
-      ) {
-        const args = JSON.parse(toolCall.function.arguments);
-        console.log({ args });
-        const albumData = await getAlbumData(album)(args);
-
-        // Add tool result back to messages
-        messages.push({
-          role: 'tool',
-          tool_call_id: toolCall.id,
-          content: JSON.stringify(albumData),
-        });
-      }
-    }
-
-    // Call OpenAI again with updated messages
-    completion = await openai.chat.completions.create({
-      model: 'gpt-4o',
-      messages,
-      tools: [getAlbumTool],
-      tool_choice: 'auto',
-      response_format: jsonSchema as any,
-    });
-
-    responseMessage = completion.choices[0].message;
+  console.log('content', responseMessage.content);
+  if (!responseMessage.content) {
+    throw new Error('No content in response message');
   }
-
   const data = JSON.parse(responseMessage.content || '{}');
 
   const scenarioArtist = await findArtistByName(data.scenarioArtist);
@@ -125,7 +107,6 @@ const main = async () => {
   const albums = await prisma.album.findMany({ orderBy: { id: 'asc' } });
 
   for (const album of albums) {
-    console.log(album.id, album.title);
     if (album.description || !album.wikiURL) {
       continue;
     }

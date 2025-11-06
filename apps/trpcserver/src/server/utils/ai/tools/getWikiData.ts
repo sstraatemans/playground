@@ -1,31 +1,29 @@
-import type { Album } from '@prisma/client';
-
-export const getAlbumTool = {
+export const getWikiDataTool = {
   type: 'function',
   function: {
-    name: 'get_album_data',
+    name: 'get_wiki_data',
     description:
-      'Retrieve album data from Wikipedia page based on the album title.',
+      'Retrieve album or character data from Wikipedia page based on the album title or character name.',
     parameters: {
       type: 'object',
       properties: {
-        albumTitle: {
+        value: {
           type: 'string',
-          description: 'The title of the album.',
+          description: 'The title of the album or the name of the character .',
         },
       },
-      required: ['albumTitle'],
+      required: ['value'],
     },
   },
 } as const;
 
-export const getAlbumData =
-  (album: Album) => async (args: { albumTitle: string }) => {
-    const { albumTitle } = args;
+export const getWikiData =
+  (link?: string | null) => async (args: { value: string }) => {
+    const { value } = args;
 
-    if (!album.wikiURL) return album.title;
+    if (!link) return '';
 
-    const response = await fetch(album.wikiURL, {
+    const response = await fetch(link, {
       method: 'GET',
       headers: {
         'User-Agent':
@@ -36,7 +34,7 @@ export const getAlbumData =
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch album data for ${albumTitle}`);
+      throw new Error(`Failed to fetch data for ${value}`);
     }
 
     const pageContent = await response.text();

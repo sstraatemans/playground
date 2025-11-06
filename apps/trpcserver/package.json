@@ -23,6 +23,7 @@
     "type-check": "tsc --noEmit",
     "seed": "tsx ./prisma/seed/seed.ts",
     "update:album": "tsx ./src/server/update/album.ts",
+    "update:character": "tsx ./src/server/update/character.ts",
     "prisma:generate": "prisma generate"
   },
   "prisma": {
@@ -33,6 +34,7 @@
     "@fastify/cors": "^11.1.0",
     "@supabase/supabase-js": "^2.80.0",
     "cheerio": "^1.1.2",
+    "dotenv": "^17.2.3",
     "fastify": "^5.6.1",
     "openai": "^6.8.1",
     "superjson": "^2.2.5",
