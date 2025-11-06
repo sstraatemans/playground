@@ -37,8 +37,6 @@ async function main() {
     })
   );
 
-  return;
-
   await prisma.$transaction(
     characters.map((character) => {
       const c = {

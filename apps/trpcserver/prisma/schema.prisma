@@ -28,6 +28,7 @@ model Album {
   serieAlbums     SerieAlbum[]
   wikiURL         String?
   description     String?
+  image           String?
 }
 
 model Artist {
@@ -36,6 +37,7 @@ model Artist {
   scenarioAlbums  Album[]     @relation("ScenarioArtist")
   drawAlbums      Album[]     @relation("DrawArtist")
   wikiURL         String?
+  image           String?
 }
 
 model Character {
@@ -62,6 +64,7 @@ model SerieAlbum {
   albumId         Int
   serieId         String
   number          Int
+  image           String?
   album           Album @relation(fields: [albumId], references: [id])
   serie           Serie @relation(fields: [serieId], references: [id])
 

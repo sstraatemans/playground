@@ -53,30 +53,35 @@ export default [
     name: 'Strip Klassiek reeks',
     startYear: '1981',
     endYear: '1984',
+    wikiURL: '',
   },
   {
     id: 'DS',
     name: 'Dubbelstrips',
     startYear: '1985',
     endYear: '1987',
+    wikiURL: '',
   },
   {
     id: 'RK',
     name: 'Rode Klassiek reeks',
     startYear: '1993',
     endYear: '1999',
+    wikiURL: '',
   },
   {
     id: 'BK',
     name: 'Blauwe Klassiek reeks',
     startYear: '1993',
     endYear: '1997',
+    wikiURL: '',
   },
   {
     id: 'PR',
     name: 'Pocket Reeks',
     startYear: '2007',
     endYear: '2014',
+    wikiURL: '',
   },
   {
     id: 'CL',
@@ -90,6 +95,7 @@ export default [
     name: 'Hommagereeks',
     startYear: '2017',
     endYear: '',
+    wikiURL: '',
   },
   {
     id: 'KV',

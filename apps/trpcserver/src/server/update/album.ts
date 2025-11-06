@@ -1,6 +1,7 @@
 // the code to update an album's details
 import type OpenAI from 'openai';
 import { getAlbumData, getAlbumTool } from 'server/utils/ai/tools/getAlbum.js';
+import { downloadAlbumImages } from 'server/utils/downloadAlbumImages.js';
 import { findArtistByName } from 'server/utils/findArtistByName.js';
 import { prisma } from '../../db/client.js';
 import { openai } from '../utils/ai/client.js';
@@ -120,8 +121,21 @@ export const updateAlbumHandler = async (albumId?: number) => {
 };
 
 const main = async () => {
-  const albumId = process.argv[2];
-  await updateAlbumHandler(Number(albumId));
+  //const albumId = process.argv[2];
+
+  await downloadAlbumImages();
+  return;
+
+  const albums = await prisma.album.findMany({ orderBy: { id: 'asc' } });
+
+  for (const album of albums) {
+    console.log(album.id, album.title);
+    if (album.description || !album.wikiURL) {
+      console.log('Skipping album', album.id);
+    } else {
+      await updateAlbumHandler(album.id);
+    }
+  }
 };
 
 main().catch(console.error);
