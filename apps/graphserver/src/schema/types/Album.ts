@@ -22,6 +22,25 @@ export interface Album {
 }
 
 export const AlbumRef = builder.objectRef<Album>('Album');
+export const AlbumsRef = builder.objectRef<{
+  data: (typeof AlbumRef.$inferType)[]; // Or whatever the inferred type for AlbumRef is
+  totalCount: number;
+}>('Albums');
+
+builder.objectType(AlbumsRef, {
+  name: 'Albums',
+  description: 'Paginated albums with total count',
+  fields: (t) => ({
+    data: t.field({
+      type: [AlbumRef],
+      resolve: (root) => root.data,
+    }),
+    totalCount: t.field({
+      type: 'Int',
+      resolve: (root) => root.totalCount,
+    }),
+  }),
+});
 
 AlbumRef.implement({
   description: 'A Suske en Wiske album',

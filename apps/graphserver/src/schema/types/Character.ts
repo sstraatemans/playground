@@ -11,6 +11,25 @@ export interface Character {
 }
 
 export const CharacterRef = builder.objectRef<Character>('Character');
+export const CharactersRef = builder.objectRef<{
+  data: (typeof CharacterRef.$inferType)[]; // Or whatever the inferred type for AlbumRef is
+  totalCount: number;
+}>('Characters');
+
+builder.objectType(CharactersRef, {
+  name: 'Characters',
+  description: 'Paginated characters with total count',
+  fields: (t) => ({
+    data: t.field({
+      type: [CharacterRef],
+      resolve: (root) => root.data,
+    }),
+    totalCount: t.field({
+      type: 'Int',
+      resolve: (root) => root.totalCount,
+    }),
+  }),
+});
 
 CharacterRef.implement({
   description: 'A character from Suske en Wiske',

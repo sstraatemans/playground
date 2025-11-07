@@ -1,10 +1,10 @@
 // src/schema/queries.ts
 import { builder } from './builder';
 import { trpc } from './client';
-import { AlbumRef } from './types/Album';
-import { ArtistRef } from './types/Artist';
-import { CharacterRef } from './types/Character';
-import { SerieRef } from './types/Serie';
+import { AlbumRef, AlbumsRef } from './types/Album';
+import { ArtistRef, ArtistsRef } from './types/Artist';
+import { CharacterRef, CharactersRef } from './types/Character';
+import { SerieRef, SeriesRef } from './types/Serie';
 
 builder.queryType({
   fields: (t) => ({
@@ -20,7 +20,7 @@ builder.queryType({
       },
     }),
     artists: t.field({
-      type: [ArtistRef],
+      type: ArtistsRef,
       args: {
         offset: t.arg.int(),
         limit: t.arg.int(),
@@ -30,48 +30,38 @@ builder.queryType({
           offset: offset ?? undefined,
           limit: limit ?? undefined,
         });
-
-        return data.artists;
+        return {
+          data: data.artists,
+          totalCount: data.totalCount,
+        };
       },
     }),
-    artistCount: t.field({
-      type: 'Int',
-      resolve: async () => {
-        return await trpc.artists.count.query();
+    serie: t.field({
+      type: SerieRef,
+      nullable: true,
+      args: {
+        id: t.arg.id({ required: true }),
       },
-    }),
-    series: t.field({
-      type: [SerieRef],
-      resolve: async () => {
-        const data = await trpc.series.all.query();
+      resolve: async (_, { id }) => {
+        const data = await trpc.series.getSerieById.query(id);
         return data;
       },
     }),
-    albums: t.field({
-      type: [AlbumRef],
+    series: t.field({
+      type: SeriesRef,
       args: {
         offset: t.arg.int(),
         limit: t.arg.int(),
       },
       resolve: async (_, { offset, limit }) => {
-        const data = await trpc.albums.all.query({
+        const data = await trpc.series.all.query({
           offset: offset ?? undefined,
           limit: limit ?? undefined,
         });
-
-        return data.albums.map((album) => {
-          const parsedDate = new Date(album.date);
-          return {
-            ...album,
-            date: isNaN(parsedDate.getTime()) ? null : parsedDate,
-          };
-        });
-      },
-    }),
-    albumCount: t.field({
-      type: 'Int',
-      resolve: async () => {
-        return await trpc.albums.count.query();
+        return {
+          data: data.series,
+          totalCount: data.totalCount,
+        };
       },
     }),
     album: t.field({
@@ -90,24 +80,25 @@ builder.queryType({
         };
       },
     }),
-    characters: t.field({
-      type: [CharacterRef],
+    albums: t.field({
+      type: AlbumsRef,
       args: {
         offset: t.arg.int(),
         limit: t.arg.int(),
       },
       resolve: async (_, { offset, limit }) => {
-        const data = await trpc.characters.all.query({
+        const data = await trpc.albums.all.query({
           offset: offset ?? undefined,
           limit: limit ?? undefined,
         });
-        return data.characters;
-      },
-    }),
-    characterCount: t.field({
-      type: 'Int',
-      resolve: async () => {
-        return await trpc.characters.count.query();
+
+        return {
+          data: data.albums.map((album) => ({
+            ...album,
+            date: new Date(album.date),
+          })),
+          totalCount: data.totalCount,
+        };
       },
     }),
     character: t.field({
@@ -119,6 +110,23 @@ builder.queryType({
       resolve: async (_, { id }) => {
         const data = await trpc.characters.getCharacterById.query(Number(id));
         return data;
+      },
+    }),
+    characters: t.field({
+      type: CharactersRef,
+      args: {
+        offset: t.arg.int(),
+        limit: t.arg.int(),
+      },
+      resolve: async (_, { offset, limit }) => {
+        const data = await trpc.characters.all.query({
+          offset: offset ?? undefined,
+          limit: limit ?? undefined,
+        });
+        return {
+          data: data.characters,
+          totalCount: data.totalCount,
+        };
       },
     }),
   }),

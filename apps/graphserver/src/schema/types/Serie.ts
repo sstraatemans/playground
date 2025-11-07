@@ -1,7 +1,6 @@
 import { builder } from '../builder';
 import { trpc } from '../client';
 import type { Album } from './Album';
-// Adjust path if needed
 import { AlbumSerieRef } from './AlbumSerie';
 
 export interface Serie {
@@ -13,6 +12,25 @@ export interface Serie {
 }
 
 export const SerieRef = builder.objectRef<Serie>('Serie');
+export const SeriesRef = builder.objectRef<{
+  data: (typeof SerieRef.$inferType)[]; // Or whatever the inferred type for AlbumRef is
+  totalCount: number;
+}>('Series');
+
+builder.objectType(SeriesRef, {
+  name: 'Series',
+  description: 'Paginated series with total count',
+  fields: (t) => ({
+    data: t.field({
+      type: [SerieRef],
+      resolve: (root) => root.data,
+    }),
+    totalCount: t.field({
+      type: 'Int',
+      resolve: (root) => root.totalCount,
+    }),
+  }),
+});
 
 SerieRef.implement({
   description: 'A Suske en Wiske albums series',

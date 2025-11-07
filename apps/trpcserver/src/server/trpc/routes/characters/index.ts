@@ -10,7 +10,6 @@ import { procedure, router } from '../../trpc.js';
 
 export const charactersRouter = router({
   count: procedure.query(async () => {
-    // This is just a placeholder, implement as needed
     return await characterCount();
   }),
   all: procedure.input(AllCharactersSchema).query(async ({ input }) => {
