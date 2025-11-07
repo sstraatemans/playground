@@ -1,0 +1,65 @@
+@import "tailwindcss";
+@plugin "tailwindcss-react-aria-components";
+
+.react-aria-Tabs {
+  display: flex;
+  color: var(--text-base);
+
+  &[data-orientation="horizontal"] {
+    flex-direction: column;
+  }
+}
+
+.react-aria-TabList {
+  display: flex;
+
+  &[data-orientation="horizontal"] {
+    border-bottom: 1px solid var(--color-primary);
+
+    .react-aria-SelectionIndicator {
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      border-bottom: 3px solid var(--color-primary);
+    }
+  }
+}
+
+.react-aria-Tab {
+  padding: 10px;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  color: var(--color-black);
+  transition: color 200ms;
+  --border-color: transparent;
+  forced-color-adjust: none;
+
+  .react-aria-SelectionIndicator {
+    position: absolute;
+    transition-property: translate, width, height;
+    transition-duration: 200ms;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+
+  &[data-hovered],
+  &[data-focused] {
+    color: var(--color-primary);
+  }
+
+  &[data-selected] {
+    --border-color: black;
+    color: var(--color-primary);
+  }
+
+  &[data-focus-visible]:after {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    border-radius: 4px;
+    border: 2px solid var(--color-primary);
+  }
+}

@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@plugin "tailwindcss-react-aria-components";
+
 @variant dark (&:where(.dark, .dark *));
 
 @theme inline {

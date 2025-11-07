@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 import type { Config } from "tailwindcss";
 import theme from "tailwindcss/defaultTheme";
+import reactAria from "tailwindcss-react-aria-components";
 
 // Import default theme for fallback
 
@@ -19,7 +20,7 @@ const config: Config = {
     },
   },
 
-  plugins: [],
+  plugins: [reactAria],
 };
 
 export default config;

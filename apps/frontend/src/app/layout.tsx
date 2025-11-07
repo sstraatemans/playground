@@ -8,12 +8,16 @@ import { trpc } from "@/providers/TRPCProvider";
 import { kodeMono, roboto } from "./fonts";
 import "./globals.css";
 import Stack from "@/components/layout/Stack";
+import { TabList, Tabs } from "react-aria-components";
+import { useRouter } from "next/navigation";
+import { Tab } from "@/components/Tabs/Tab";
 
 const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
+  const router = useRouter();
   const [queryClient] = useState(() => new QueryClient());
   const [trpcClient] = useState(() =>
     trpc.createClient({
@@ -25,6 +29,10 @@ const RootLayout = ({
       ],
     }),
   );
+
+  const handleTabChange = (url: string) => {
+    router.push(url);
+  };
 
   return (
     <html
@@ -48,7 +56,44 @@ const RootLayout = ({
             >
               <img src="/assets/header.png" />
 
-              <Stack className="flex inline-block w-full max-w-full flex-1 border-[5px] border-white bg-gray-200 bg-white p-8 outline outline-1 outline-offset-[-16px] outline-black">
+              <Stack className="flex inline-block w-full max-w-full flex-1 rounded border-[5px] border-white bg-gray-200 bg-white p-8 outline outline-1 outline-offset-[-16px] outline-black">
+                <Tabs className="w-full">
+                  <TabList aria-label="Article categories">
+                    <Tab
+                      id="home"
+                      onClick={() => {
+                        handleTabChange("/");
+                      }}
+                    >
+                      Home
+                    </Tab>
+                    <Tab
+                      id="graph"
+                      onClick={() => {
+                        handleTabChange("/graphql");
+                      }}
+                    >
+                      GraphQL
+                    </Tab>
+                    <Tab
+                      id="rest"
+                      onClick={() => {
+                        handleTabChange("/docs/rest");
+                      }}
+                    >
+                      Rest
+                    </Tab>
+                    <Tab
+                      id="trpc"
+                      onClick={() => {
+                        handleTabChange("/docs/trpc");
+                      }}
+                    >
+                      tRPC
+                    </Tab>
+                  </TabList>
+                </Tabs>
+
                 {children}
               </Stack>
               <Stack className="h-7"> </Stack>
