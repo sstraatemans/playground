@@ -1,11 +1,12 @@
+import { builder } from '../builder';
+import { trpc } from '../client';
+import type { AlbumSerie } from './AlbumSerie';
+import { AlbumSerieRef } from './AlbumSerie';
 import type { Artist } from './Artist';
+import { ArtistRef } from './Artist';
 import type { Character } from './Character';
+import { CharacterRef } from './Character';
 
-export interface AlbumSerie {
-  number: number;
-  serieId: string;
-  albumId: number;
-}
 export interface Album {
   id: number;
   wikiURL?: string | null;
@@ -19,3 +20,58 @@ export interface Album {
   scenarioArtist?: Artist;
   drawArtist?: Artist;
 }
+
+export const AlbumRef = builder.objectRef<Album>('Album');
+
+AlbumRef.implement({
+  description: 'A Suske en Wiske album',
+  fields: (t) => ({
+    id: t.exposeID('id'),
+    title: t.exposeString('title'),
+    date: t.field({
+      type: 'Date',
+      resolve: (album) => {
+        const parsedDate = new Date(album.date ?? '');
+        return isNaN(parsedDate.getTime()) ? null : parsedDate;
+      },
+    }),
+    description: t.exposeString('description', { nullable: true }),
+    scenarioArtist: t.field({
+      type: ArtistRef,
+      resolve: async (album) => {
+        if (!album.scenarioArtistId) return;
+        const data = await trpc.artists.getArtistById.query(
+          album.scenarioArtistId
+        );
+        return data;
+      },
+    }),
+    drawArtist: t.field({
+      type: ArtistRef,
+      resolve: async (album) => {
+        if (!album.drawArtistId) return;
+        const data = await trpc.artists.getArtistById.query(album.drawArtistId);
+        return data;
+      },
+    }),
+    characters: t.field({
+      type: [CharacterRef],
+      resolve: async (album) => {
+        const data = await trpc.albums.getAlbumCharactersById.query(
+          Number(album.id)
+        );
+        return data;
+      },
+    }),
+    series: t.field({
+      type: [AlbumSerieRef],
+      resolve: async (album) => {
+        const data = await trpc.albums.getAlbumSeriesById.query(
+          Number(album.id)
+        );
+
+        return data.flat();
+      },
+    }),
+  }),
+});
