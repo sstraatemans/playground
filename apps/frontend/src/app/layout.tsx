@@ -5,7 +5,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { httpBatchLink } from '@trpc/client';
 import superjson from 'superjson';
 import { trpc } from '@/providers/TRPCProvider';
-import './global.css';
+import { kodeMono, roboto } from './fonts';
+import './globals.css';
 
 const RootLayout = ({
   children,
@@ -25,7 +26,11 @@ const RootLayout = ({
   );
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${roboto.variable} ${kodeMono.variable} antialiased`}
+    >
       <head>
         <title>TRPC demo</title>
         <meta
@@ -36,7 +41,7 @@ const RootLayout = ({
         <meta content="text/html; charset=UTF-8" name="Content-Type" />
         <meta content="#020E1B" name="theme-color" />
       </head>
-      <body>
+      <body className="font-body">
         <trpc.Provider client={trpcClient} queryClient={queryClient}>
           <QueryClientProvider client={queryClient}>
             {children}

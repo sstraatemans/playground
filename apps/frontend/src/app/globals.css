@@ -1,0 +1,11 @@
+@import 'tailwindcss';
+@variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --font-mono: var(--font-kodemono);
+}
+
+/* Optional: Ensure the font applies to body or root elements */
+:root {
+  font-family: var(--font-roboto), sans-serif;
+}
