@@ -1,0 +1,4 @@
+{
+  "extends": ["../../.prettierrc"],
+  "plugins": ["prettier-plugin-tailwindcss"]
+}

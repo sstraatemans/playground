@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
+import Link from "next/link";
 
 const Page = () => {
   return (
@@ -17,8 +17,6 @@ const Page = () => {
           <Link href="/graphql">GraphQL API Documentation (GraphQL)</Link>
         </li>
       </ul>
-
-      <pre className="font-mono">kodemono font</pre>
     </div>
   );
 };

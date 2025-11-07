@@ -1,11 +1,17 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 @variant dark (&:where(.dark, .dark *));
 
 @theme inline {
   --font-mono: var(--font-kodemono);
+
+  --color-primary: #f50000;
 }
 
 /* Optional: Ensure the font applies to body or root elements */
 :root {
   font-family: var(--font-roboto), sans-serif;
+}
+
+@utility bg-primary {
+  background-color: var(--color-primary);
 }
