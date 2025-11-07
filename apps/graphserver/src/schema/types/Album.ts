@@ -10,7 +10,7 @@ export interface Album {
   id: number;
   wikiURL?: string | null;
   title: string;
-  date: Date | string; // Can be Date object or ISO date string
+  date: Date | string | null; // Can be Date object, ISO date string, or null for invalid dates
   characters?: Character[];
   series?: AlbumSerie[];
   description?: string | null;

@@ -107,7 +107,8 @@ AlbumRef.implement({
     date: t.field({
       type: 'Date',
       resolve: (album) => {
-        return album.date instanceof Date ? album.date : new Date(album.date);
+        const parsedDate = new Date(album.date ?? '');
+        return isNaN(parsedDate.getTime()) ? null : parsedDate;
       },
     }),
     description: t.exposeString('description', { nullable: true }),
@@ -194,12 +195,29 @@ builder.queryType({
     }),
     albums: t.field({
       type: [AlbumRef],
+      args: {
+        offset: t.arg.int(),
+        limit: t.arg.int(),
+      },
+      resolve: async (_, { offset, limit }) => {
+        const data = await trpc.albums.all.query({
+          offset: offset ?? undefined,
+          limit: limit ?? undefined,
+        });
+
+        return data.albums.map((album) => {
+          const parsedDate = new Date(album.date);
+          return {
+            ...album,
+            date: isNaN(parsedDate.getTime()) ? null : parsedDate,
+          };
+        });
+      },
+    }),
+    albumCount: t.field({
+      type: 'Int',
       resolve: async () => {
-        const data = await trpc.albums.all.query();
-        return data.map((album) => ({
-          ...album,
-          date: new Date(album.date),
-        }));
+        return await trpc.albums.count.query();
       },
     }),
     album: t.field({
@@ -220,9 +238,22 @@ builder.queryType({
     }),
     characters: t.field({
       type: [CharacterRef],
+      args: {
+        offset: t.arg.int(),
+        limit: t.arg.int(),
+      },
+      resolve: async (_, { offset, limit }) => {
+        const data = await trpc.characters.all.query({
+          offset: offset ?? undefined,
+          limit: limit ?? undefined,
+        });
+        return data.characters;
+      },
+    }),
+    characterCount: t.field({
+      type: 'Int',
       resolve: async () => {
-        const data = await trpc.characters.all.query();
-        return data;
+        return await trpc.characters.count.query();
       },
     }),
     character: t.field({

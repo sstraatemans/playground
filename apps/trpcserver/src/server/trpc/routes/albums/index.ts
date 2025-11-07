@@ -1,13 +1,17 @@
+import { albumCount } from 'db/albums/albumCount.js';
 import z from 'zod';
-import { allAlbums } from '../../../../db/albums/allAlbums.js';
+import { allAlbums, AllAlbumsSchema } from '../../../../db/albums/allAlbums.js';
 import { getAlbumById } from '../../../../db/albums/getAlbumById.js';
 import { getAlbumCharactersById } from '../../../../db/albums/getAlbumCharactersById.js';
 import { getAlbumSeriesById } from '../../../../db/albums/getAlbumSeriesById.js';
 import { procedure, router } from '../../trpc.js';
 
 export const albumsRouter = router({
-  all: procedure.query(async () => {
-    return await allAlbums();
+  count: procedure.query(async () => {
+    return await albumCount();
+  }),
+  all: procedure.input(AllAlbumsSchema).query(async ({ input }) => {
+    return await allAlbums(input);
   }),
   getAlbumById: procedure.input(z.number()).query(async ({ input }) => {
     return await getAlbumById(input);
