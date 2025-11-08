@@ -9,7 +9,8 @@ const nextConfig = {
       {
         source: "/graphql/v1", // Matches /api/graph and any subpaths
         destination:
-          process.env.GRAPHQLSERVER || "https://graphql.suskeenwiske.dev/v1", // Proxies to external URL
+          process.env.GRAPHQLSERVER ||
+          "https://swgraphserver-git-fixbuild-steven-straatemans-projects.vercel.app/v1", // Proxies to external URL
       },
     ];
   },
