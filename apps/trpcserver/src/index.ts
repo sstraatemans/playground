@@ -66,3 +66,4 @@ main().catch((err) => {
 });
 
 export type { AppRouter } from './server/trpc/index.js';
+export * from './generated/zod/schemas.js';
