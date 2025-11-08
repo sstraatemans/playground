@@ -1,5 +1,5 @@
-import { CONSTANTS } from 'constants.js';
 import z from 'zod';
+import { CONSTANTS } from '../../constants.js';
 import { prisma } from '../client.js';
 import { serieCount } from './serieCount.js';
 
