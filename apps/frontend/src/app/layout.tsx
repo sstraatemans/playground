@@ -11,6 +11,7 @@ import Stack from "@/components/layout/Stack";
 import { TabList, Tabs } from "react-aria-components";
 import { useRouter } from "next/navigation";
 import { Tab } from "@/components/Tabs/Tab";
+import Link from "next/link";
 
 const RootLayout = ({
   children,
@@ -70,7 +71,7 @@ const RootLayout = ({
                     <Tab
                       id="graph"
                       onClick={() => {
-                        handleTabChange("/graphql");
+                        handleTabChange("/graphql/v1");
                       }}
                     >
                       GraphQL
@@ -96,7 +97,10 @@ const RootLayout = ({
 
                 {children}
               </Stack>
-              <Stack className="h-7"> </Stack>
+              <Stack className="h-7 flex-row gap-2">
+                <Link href="/changelog">Changelog</Link>
+                <Link href="/about">About us</Link>
+              </Stack>
             </Stack>
           </QueryClientProvider>
         </trpc.Provider>

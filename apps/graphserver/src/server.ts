@@ -17,7 +17,7 @@ Sentry.init({
 export const yoga = createYoga({
   schema,
   graphiql: true, // UI at http://localhost:4000
-  graphqlEndpoint: '/graphql',
+  graphqlEndpoint: '/v1',
   plugins: [
     useDepthLimit({
       maxDepth: 3, // Set this to your desired limit (e.g., 5-10; test based on your schema complexity)
@@ -43,5 +43,5 @@ const server = createServer(yoga);
 
 const port = process.env.PORT ?? 4001;
 server.listen(port, () => {
-  console.log(`GraphQL server ready at http://localhost:${port}/graphql`);
+  console.log(`GraphQL server ready at http://localhost:${port}/v1`);
 });

@@ -27,7 +27,7 @@ async function main() {
   });
 
   await app.register(fastifyTRPCPlugin, {
-    prefix: '/trpc',
+    prefix: '/trpc/v1',
     trpcOptions: {
       router: appRouter,
       createContext,
@@ -58,7 +58,7 @@ async function main() {
 
   // 3️⃣ Start server
   await app.listen({ port: 4000, host: '0.0.0.0' });
-  console.log('🚀 tRPC + Fastify ready on http://localhost:4000/trpc');
+  console.log('🚀 tRPC + Fastify ready on http://localhost:4000/trpc/v1');
 }
 
 main().catch((err) => {

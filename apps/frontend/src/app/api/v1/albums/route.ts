@@ -1,4 +1,4 @@
-import { trpcClient } from '@/utils/trpcClient';
+import { trpcClient } from "@/utils/trpcClient";
 
 /**
  * @swagger
@@ -24,8 +24,8 @@ export async function GET() {
     return Response.json(data);
   } catch (error) {
     return Response.json(
-      { message: 'Error fetching data', error },
-      { status: 500 }
+      { message: "Error fetching data", error },
+      { status: 500 },
     );
   }
 }
