@@ -7,12 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Serie {
+model Collection {
   id              String    @id
   name            String  
   startYear       String
   endYear         String
-  serieAlbums     SerieAlbum[] 
+  collectionAlbums     CollectionAlbum[] 
   wikiURL         String?
 }
 
@@ -25,7 +25,7 @@ model Album {
   ScenarioArtist  Artist? @relation("ScenarioArtist", fields: [scenarioArtistId], references: [id])
   DrawArtist      Artist? @relation("DrawArtist", fields: [drawArtistId], references: [id])
   albumCharacters AlbumCharacter[] 
-  serieAlbums     SerieAlbum[]
+  collectionAlbums     CollectionAlbum[]
   wikiURL         String?
   description     String?
   image           String?
@@ -60,13 +60,13 @@ model AlbumCharacter {
   @@id([albumId, characterId])
 }
 
-model SerieAlbum {
+model CollectionAlbum {
   albumId         Int
-  serieId         String
+  collectionId         String
   number          Int
   image           String?
   album           Album @relation(fields: [albumId], references: [id])
-  serie           Serie @relation(fields: [serieId], references: [id])
+  collection      Collection @relation(fields: [collectionId], references: [id])
 
-  @@id([albumId, serieId])
+  @@id([albumId, collectionId])
 }

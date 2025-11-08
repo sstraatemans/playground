@@ -38,16 +38,16 @@ const findAlbumImage = async (number: number): Promise<ArrayBuffer | null> => {
 };
 
 export const downloadAlbumImages = async () => {
-  // getting all the follow numbers for serie VK (vierkleuren)
+  // getting all the follow numbers for collection VK (vierkleuren)
   // the follow numbers corresponds with the image names on https://suskeenwiske.ophetwww.net/
   // and then we save the image with the albumID
   // we only try the numbers that don't have an image yet
-  const albumIds = await prisma.serieAlbum.findMany({
-    where: { serieId: 'VK' },
+  const albumIds = await prisma.collectionAlbum.findMany({
+    where: { collectionId: 'VK' },
     orderBy: { number: 'asc' },
   });
 
-  console.log(`Found ${albumIds.length} albums in VK series.`);
+  console.log(`Found ${albumIds.length} albums in VK collection.`);
   for (const vkAlbum of albumIds) {
     //download
 
@@ -85,9 +85,12 @@ export const downloadAlbumImages = async () => {
         where: { id: vkAlbum.albumId },
         data: { image: publicData.publicUrl },
       });
-      await prisma.serieAlbum.update({
+      await prisma.collectionAlbum.update({
         where: {
-          albumId_serieId: { albumId: vkAlbum.albumId, serieId: 'VK' },
+          albumId_collectionId: {
+            albumId: vkAlbum.albumId,
+            collectionId: 'VK',
+          },
         },
         data: { image: publicData.publicUrl },
       });

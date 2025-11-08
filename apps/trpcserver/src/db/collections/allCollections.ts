@@ -1,32 +1,32 @@
 import z from 'zod';
 import { CONSTANTS } from '../../constants.js';
 import { prisma } from '../client.js';
-import { serieCount } from './serieCount.js';
+import { collectionCount } from './collectionCount.js';
 
-export interface AllSeriessParams {
+export interface AllCollectionsParams {
   offset?: number;
   limit?: number;
 }
 
-export const AllSeriessSchema = z
+export const AllCollectionsSchema = z
   .object({
     offset: z.number().optional(),
     limit: z.number().optional(),
   })
   .optional();
 
-export const allSeries = async ({
+export const allCollections = async ({
   offset = CONSTANTS.DEFAULT_OFFSET,
   limit = CONSTANTS.DEFAULT_LIMIT,
-}: AllSeriessParams = {}) => {
+}: AllCollectionsParams = {}) => {
   if (offset < 0) offset = CONSTANTS.DEFAULT_OFFSET;
   if (limit < 1 || limit > CONSTANTS.DEFAULT_LIMIT)
     limit = CONSTANTS.DEFAULT_LIMIT;
 
-  const data = await prisma.serie.findMany({
+  const data = await prisma.collection.findMany({
     skip: offset,
     take: limit,
     orderBy: { name: 'asc' },
   });
-  return { totalCount: await serieCount(), series: data };
+  return { totalCount: await collectionCount(), data };
 };

@@ -28,5 +28,5 @@ export const allArtists = async ({
     take: limit,
     orderBy: { id: 'asc' },
   });
-  return { totalCount: await artistCount(), artists: data };
+  return { totalCount: await artistCount(), data: data };
 };

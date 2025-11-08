@@ -28,5 +28,5 @@ export const allCharacters = async ({
     take: limit,
     orderBy: { name: 'asc' },
   });
-  return { totalCount: await characterCount(), characters: data };
+  return { totalCount: await characterCount(), data: data };
 };

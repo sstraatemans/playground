@@ -28,5 +28,5 @@ export const allAlbums = async ({
     take: limit,
     orderBy: { id: 'asc' },
   });
-  return { totalCount: await albumCount(), albums: data };
+  return { totalCount: await albumCount(), data: data };
 };

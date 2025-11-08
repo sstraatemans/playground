@@ -3,7 +3,7 @@ import { albumCount } from '../../../../db/albums/albumCount.js';
 import { allAlbums, AllAlbumsSchema } from '../../../../db/albums/allAlbums.js';
 import { getAlbumById } from '../../../../db/albums/getAlbumById.js';
 import { getAlbumCharactersById } from '../../../../db/albums/getAlbumCharactersById.js';
-import { getAlbumSeriesById } from '../../../../db/albums/getAlbumSeriesById.js';
+import { getAlbumCollectionsById } from '../../../../db/albums/getAlbumCollectionsById.js';
 import { procedure, router } from '../../trpc.js';
 
 export const albumsRouter = router({
@@ -21,7 +21,9 @@ export const albumsRouter = router({
     .query(async ({ input }) => {
       return await getAlbumCharactersById(input);
     }),
-  getAlbumSeriesById: procedure.input(z.number()).query(async ({ input }) => {
-    return await getAlbumSeriesById(input);
-  }),
+  getAlbumCollectionsById: procedure
+    .input(z.number())
+    .query(async ({ input }) => {
+      return await getAlbumCollectionsById(input);
+    }),
 });
