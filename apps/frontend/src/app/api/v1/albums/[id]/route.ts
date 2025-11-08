@@ -5,37 +5,50 @@ import type { NextRequest } from "next/server";
 
 /**
  * @swagger
- * /api/v1/albums/[id]:
+ * /api/v1/albums/{id}:
  *   get:
  *     summary: Get an album by ID
  *     description: |
- *       Returns an album by id following HAL+JSON conventions.
- *       Clients **must** follow `_links` for navigation (next/prev/first/last).
+ *       Returns a single album by ID following HAL+JSON conventions.
+ *       Clients **must** follow `_links` for navigation.
  *     operationId: getAlbumById
  *     tags:
- *       - Album
+ *       - Albums
  *     parameters:
- *       - in: query
+ *       - in: path
  *         name: id
+ *         required: true
  *         schema:
  *           type: integer
- *         description: id of the album to retrieve
+ *           minimum: 1
+ *         description: The album ID
  *     responses:
  *       200:
- *         description: Successful response – album by id
+ *         description: Successful response – single album resource
  *         content:
  *           application/hal+json:
  *             schema:
  *               $ref: '#/components/schemas/Album'
  *             examples:
  *               default:
- *                 summary: Example with 2 albums
+ *                 summary: Example album
  *                 value:
+ *                   _links:
+ *                     self: { href: "/api/v1/albums/67" }
+ *                     collection: { href: "/api/v1/albums" }
  *                   id: 67
  *                   title: "Jeromba de Griek"
  *                   date: "1965-10-11"
- *                   _links:
- *                     self: { href: "/api/v1/albums/67" }
+ *       404:
+ *         description: Album not found
+ *         content:
+ *           application/hal+json:
+ *             example:
+ *               error:
+ *                 code: "NOT_FOUND"
+ *                 message: "Album not found"
+ *               _links:
+ *                 self: { href: "/api/v1/albums/67" }
  *       400:
  *         $ref: '#/components/responses/BadRequest'
  *       500:
@@ -43,48 +56,55 @@ import type { NextRequest } from "next/server";
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: number } },
+  { params }: { params: Promise<{ id: string }> }, // Next.js gives string, not number
 ) {
-  const { id } = params;
+  const resolvedParams = await params;
+  const rawId = resolvedParams.id;
+  const id = parseInt(rawId, 10);
+  console.log("Fetching album with ID:", resolvedParams, rawId, id);
 
-  if (!id || isNaN(Number(id))) {
+  // Validation: must be a positive integer
+  if (!rawId || isNaN(id) || id < 1) {
+    const pathname = new URL(request.url).pathname;
     return NextResponse.json(
       {
-        error: { code: "BAD_REQUEST", message: "Album not found" },
-        _links: { self: { href: new URL(request.url).pathname } },
+        error: { code: "BAD_REQUEST", message: "Invalid album ID" },
+        _links: { self: { href: pathname } },
       },
-      { status: 404 },
+      { status: 400 },
     );
   }
 
   try {
     const data = await trpcClient.albums.getAlbumById.query(id);
-    console.log(data);
 
     if (!data) {
+      const selfUrl = `${request.nextUrl.origin}/api/v1/albums/${id}`;
       return NextResponse.json(
         {
-          error: { code: "BAD_REQUEST", message: "Album not found" },
-          _links: { self: { href: new URL(request.url).pathname } },
+          error: { code: "NOT_FOUND", message: "Album not found" },
+          _links: { self: { href: selfUrl } },
         },
         { status: 404 },
       );
     }
 
     const parsedAlbum = AlbumSchema.parse(data);
+
     const baseUrl = `${request.nextUrl.origin}/api/v1/albums`;
     const selfUrl = `${baseUrl}/${parsedAlbum.id}`;
 
     const _links = {
       self: { href: selfUrl },
+      collection: { href: baseUrl },
     };
 
-    const responseBody = {
+    const albumWithLinks = {
+      ...parsedAlbum,
       _links,
-      parsedAlbum,
     };
 
-    return NextResponse.json(responseBody, {
+    return NextResponse.json(albumWithLinks, {
       status: 200,
       headers: {
         "Content-Type": "application/hal+json",
@@ -92,7 +112,7 @@ export async function GET(
       },
     });
   } catch (error) {
-    return Response.json(
+    return NextResponse.json(
       { message: "Error fetching data", error },
       { status: 500 },
     );
