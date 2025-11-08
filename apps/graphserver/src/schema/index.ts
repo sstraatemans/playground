@@ -1,8 +1,5 @@
-// src/schema/index.ts
-import './builder';
 import { builder } from './builder';
 import './queries';
-// Initializes builder and scalars
 import './types/Album';
 import './types/AlbumSerie';
 import './types/Artist';
