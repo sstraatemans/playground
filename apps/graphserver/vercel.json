@@ -1,4 +1,6 @@
 {
+  "buildCommand": "cd ../.. && pnpm build --filter=@sw/s_w_graphserver...",
+  "installCommand": "pnpm install",
   "rewrites": [
     {
       "source": "/graphql",

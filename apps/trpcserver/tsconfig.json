@@ -10,7 +10,8 @@
     "declaration": true,
     "declarationMap": true,
     "emitDeclarationOnly": false,
-    "noEmit": false
+    "noEmit": false,
+    "composite": true
   },
   "include": ["src"],
   "exclude": ["dist"]

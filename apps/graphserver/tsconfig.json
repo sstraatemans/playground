@@ -6,11 +6,18 @@
     "incremental": true,
     "outDir": "public",
     "noEmit": false,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "baseUrl": "./src",
     "paths": {
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules", "public"],
+  "references": [
+    {
+      "path": "../trpcserver"
+    }
+  ]
 }
