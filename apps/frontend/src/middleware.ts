@@ -9,7 +9,7 @@ export function middleware(request: NextRequest) {
     const targetPath = path.replace("/graphql/v1", "/v1");
     const url = new URL(
       targetPath + request.nextUrl.search,
-      "https://swgraphserver-git-fixbuild-steven-straatemans-projects.vercel.app",
+      process.env.GRAPHQLSERVER || "",
     );
 
     return NextResponse.rewrite(url);
