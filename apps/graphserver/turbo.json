@@ -1,5 +1,5 @@
 {
-  "globalEnv": ["TRPCSERVER", "HYVETOKEN", "HYVETARGET", "SENTRYDSN", "ENV"],
+  "extends": ["//"],
   "tasks": {
     "build": {
       "env": ["TRPCSERVER", "HYVETOKEN", "HYVETARGET", "SENTRYDSN", "ENV"]
