@@ -1,7 +1,7 @@
-import { builder } from '../builder';
-import { trpc } from '../client';
-import type { Album } from './Album';
-import { AlbumRef } from './Album';
+import { builder } from '../builder.js';
+import { trpc } from '../client.js';
+import type { Album } from './Album.js';
+import { AlbumRef } from './Album.js';
 
 export interface Character {
   id: number;

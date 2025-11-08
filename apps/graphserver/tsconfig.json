@@ -6,8 +6,8 @@
     "incremental": true,
     "outDir": "public",
     "noEmit": false,
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "baseUrl": "./src",
     "paths": {
       "@/*": ["./*"]
