@@ -1,10 +1,10 @@
 // src/schema/queries.ts
-import { builder } from './builder';
-import { trpc } from './client';
-import { AlbumRef, AlbumsRef } from './types/Album';
-import { ArtistRef, ArtistsRef } from './types/Artist';
-import { CharacterRef, CharactersRef } from './types/Character';
-import { SerieRef, SeriesRef } from './types/Serie';
+import { builder } from './builder.js';
+import { trpc } from './client.js';
+import { AlbumRef, AlbumsRef } from './types/Album.js';
+import { ArtistRef, ArtistsRef } from './types/Artist.js';
+import { CharacterRef, CharactersRef } from './types/Character.js';
+import { SerieRef, SeriesRef } from './types/Serie.js';
 
 builder.queryType({
   fields: (t) => ({

@@ -1,7 +1,7 @@
-import { builder } from '../builder';
-import { trpc } from '../client';
-import { AlbumRef } from './Album';
-import { SerieRef } from './Serie';
+import { builder } from '../builder.js';
+import { trpc } from '../client.js';
+import { AlbumRef } from './Album.js';
+import { SerieRef } from './Serie.js';
 
 export interface AlbumSerie {
   number: number;

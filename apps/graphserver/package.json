@@ -4,6 +4,9 @@
   "type": "module",
   "main": "public/src/server.js",
   "types": "public/src/server.d.ts",
+  "vercel": {
+    "output": "public"
+  },
   "scripts": {
     "dev": "tsx --env-file=.env src/server.ts",
     "build": "tsc",
@@ -22,10 +25,11 @@
     "@envelop/sentry": "^14.1.0",
     "@graphql-hive/envelop": "^0.36.2",
     "@graphql-yoga/plugin-response-cache": "^3.18.1",
-    "@sw/s_w_trpcserver": "workspace:*",
     "@pothos/core": "^4.10.0",
     "@pothos/plugin-scope-auth": "^4.1.6",
-    "@sentry/node": "^10.22.0",
+    "@sentry/node": "^10.23.0",
+    "@sentry/tracing": "^7.120.4",
+    "@sw/s_w_trpcserver": "workspace:*",
     "@trpc/client": "^11.7.1",
     "graphql": "^16.12.0",
     "graphql-scalars": "^1.25.0",

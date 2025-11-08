@@ -9,7 +9,7 @@ import { schema } from './schema/index.js';
 
 // Initialize Sentry (get DSN from sentry.io after free signup)
 Sentry.init({
-  dsn: process.env.SENTRYDSN ?? '',
+  dsn: (process.env.SENTRYDSN ?? '') as any,
   tracesSampleRate: 1.0, // Adjust for production sampling
   environment: process.env.ENV || 'development',
 });
