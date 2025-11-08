@@ -1,9 +1,8 @@
 import type { AppRouter } from '@sw/s_w_trpcserver';
-import { createTRPCClient } from '@trpc/client';
-import { httpBatchLink } from '@trpc/client';
+import { createTRPCProxyClient, httpBatchLink } from '@trpc/client';
 import superjson from 'superjson';
 
-export const trpc = createTRPCClient<AppRouter>({
+export const trpc = createTRPCProxyClient<AppRouter>({
   links: [
     httpBatchLink({
       url: process.env.TRPCSERVER ?? '', // Your server URL
