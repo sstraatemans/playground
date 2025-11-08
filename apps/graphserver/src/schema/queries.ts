@@ -4,7 +4,7 @@ import { trpc } from './client.js';
 import { AlbumRef, AlbumsRef } from './types/Album.js';
 import { ArtistRef, ArtistsRef } from './types/Artist.js';
 import { CharacterRef, CharactersRef } from './types/Character.js';
-import { SerieRef, SeriesRef } from './types/Serie.js';
+import { CollectionRef, CollectionsRef } from './types/Collection.js';
 
 builder.queryType({
   fields: (t) => ({
@@ -26,41 +26,41 @@ builder.queryType({
         limit: t.arg.int(),
       },
       resolve: async (_, { offset, limit }) => {
-        const data = await trpc.artists.all.query({
+        const { data, totalCount } = await trpc.artists.all.query({
           offset: offset ?? undefined,
           limit: limit ?? undefined,
         });
         return {
-          data: data.artists,
-          totalCount: data.totalCount,
+          data,
+          totalCount,
         };
       },
     }),
-    serie: t.field({
-      type: SerieRef,
+    collection: t.field({
+      type: CollectionRef,
       nullable: true,
       args: {
         id: t.arg.id({ required: true }),
       },
       resolve: async (_, { id }) => {
-        const data = await trpc.series.getSerieById.query(id);
+        const data = await trpc.collections.getCollectionById.query(id);
         return data;
       },
     }),
-    series: t.field({
-      type: SeriesRef,
+    collections: t.field({
+      type: CollectionsRef,
       args: {
         offset: t.arg.int(),
         limit: t.arg.int(),
       },
       resolve: async (_, { offset, limit }) => {
-        const data = await trpc.series.all.query({
+        const { data, totalCount } = await trpc.collections.all.query({
           offset: offset ?? undefined,
           limit: limit ?? undefined,
         });
         return {
-          data: data.series,
-          totalCount: data.totalCount,
+          data,
+          totalCount,
         };
       },
     }),
@@ -87,17 +87,17 @@ builder.queryType({
         limit: t.arg.int(),
       },
       resolve: async (_, { offset, limit }) => {
-        const data = await trpc.albums.all.query({
+        const { data, totalCount } = await trpc.albums.all.query({
           offset: offset ?? undefined,
           limit: limit ?? undefined,
         });
 
         return {
-          data: data.albums.map((album) => ({
+          data: data.map((album) => ({
             ...album,
             date: new Date(album.date),
           })),
-          totalCount: data.totalCount,
+          totalCount,
         };
       },
     }),
@@ -119,13 +119,13 @@ builder.queryType({
         limit: t.arg.int(),
       },
       resolve: async (_, { offset, limit }) => {
-        const data = await trpc.characters.all.query({
+        const { data, totalCount } = await trpc.characters.all.query({
           offset: offset ?? undefined,
           limit: limit ?? undefined,
         });
         return {
-          data: data.characters,
-          totalCount: data.totalCount,
+          data,
+          totalCount,
         };
       },
     }),

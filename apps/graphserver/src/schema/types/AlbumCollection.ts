@@ -1,25 +1,28 @@
 import { builder } from '../builder.js';
 import { trpc } from '../client.js';
 import { AlbumRef } from './Album.js';
-import { SerieRef } from './Serie.js';
+import { CollectionRef } from './Collection.js';
 
-export interface AlbumSerie {
+export interface AlbumCollection {
   number: number;
-  serieId: string;
+  collectionId: string;
   albumId: number;
 }
 
-export const AlbumSerieRef = builder.objectRef<AlbumSerie>('AlbumSerie');
+export const AlbumCollectionRef =
+  builder.objectRef<AlbumCollection>('AlbumCollection');
 
-AlbumSerieRef.implement({
+AlbumCollectionRef.implement({
   description: 'An album series relation with number',
   fields: (t) => ({
     albumId: t.exposeInt('albumId'),
     album: t.field({
       type: AlbumRef,
       nullable: true,
-      resolve: async (albumSerie) => {
-        const data = await trpc.albums.getAlbumById.query(albumSerie.albumId);
+      resolve: async (albumCollection) => {
+        const data = await trpc.albums.getAlbumById.query(
+          albumCollection.albumId
+        );
         if (!data) return null;
         return {
           ...data,
@@ -27,12 +30,14 @@ AlbumSerieRef.implement({
         };
       },
     }),
-    serieId: t.exposeID('serieId'),
+    serieId: t.exposeID('collectionId'),
     serie: t.field({
-      type: SerieRef,
+      type: CollectionRef,
       nullable: true,
       resolve: async (albumSerie) => {
-        const data = await trpc.series.getSerieById.query(albumSerie.serieId);
+        const data = await trpc.collections.getCollectionById.query(
+          albumSerie.collectionId
+        );
         return data;
       },
     }),
