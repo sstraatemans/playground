@@ -61,7 +61,6 @@ export async function GET(
   const resolvedParams = await params;
   const rawId = resolvedParams.id;
   const id = parseInt(rawId, 10);
-  console.log("Fetching album with ID:", resolvedParams, rawId, id);
 
   // Validation: must be a positive integer
   if (!rawId || isNaN(id) || id < 1) {
