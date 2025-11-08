@@ -1,11 +1,11 @@
-import { builder } from '../builder.js';
-import { trpc } from '../client.js';
-import type { AlbumSerie } from './AlbumSerie.js';
-import { AlbumSerieRef } from './AlbumSerie.js';
-import type { Artist } from './Artist.js';
-import { ArtistRef } from './Artist.js';
-import type { Character } from './Character.js';
-import { CharacterRef } from './Character.js';
+import { builder } from '../builder';
+import { trpc } from '../client';
+import type { AlbumSerie } from './AlbumSerie';
+import { AlbumSerieRef } from './AlbumSerie';
+import type { Artist } from './Artist';
+import { ArtistRef } from './Artist';
+import type { Character } from './Character';
+import { CharacterRef } from './Character';
 
 export interface Album {
   id: number;

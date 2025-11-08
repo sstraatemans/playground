@@ -5,7 +5,7 @@ import { useResponseCache } from '@graphql-yoga/plugin-response-cache';
 import * as Sentry from '@sentry/node';
 import { createYoga } from 'graphql-yoga';
 import { createServer } from 'node:http';
-import { schema } from './schema/index.js';
+import { schema } from './schema/index';
 
 // Initialize Sentry (get DSN from sentry.io after free signup)
 Sentry.init({
