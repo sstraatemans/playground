@@ -7,7 +7,6 @@ const nextConfig = {
         source: "/graphql/v1",
         destination:
           "https://swgraphserver-git-fixbuild-steven-straatemans-projects.vercel.app/v1",
-        permanent: true,
       },
     ];
   },
