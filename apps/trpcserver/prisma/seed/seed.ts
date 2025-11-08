@@ -1,6 +1,6 @@
-import { connectAlbum2Series } from '../../src/db/albums/connectAlbum2Series';
+import { connectAlbum2Collections } from '../../src/db/albums/connectAlbum2Collections';
 import artists from '../../src/server/utils/data/artists';
-import series from '../../src/server/utils/data/series';
+import collections from '../../src/server/utils/data/collections';
 import { getAlbumsJson } from '../../src/server/utils/getAlbumsJson';
 import { getCharactersJson } from '../../src/server/utils/getCharactersJson';
 import prisma from './client';
@@ -18,11 +18,11 @@ async function main() {
   }
 
   await prisma.$transaction(
-    series.map((serie) => {
-      return prisma.serie.upsert({
-        where: { id: serie.id },
-        update: serie,
-        create: serie,
+    collections.map((collection) => {
+      return prisma.collection.upsert({
+        where: { id: collection.id },
+        update: collection,
+        create: collection,
       });
     })
   );
@@ -56,9 +56,9 @@ async function main() {
     })
   );
 
-  //add series relations to albums
+  //add collections relations to albums
   const promises = albums.map(async (album) => {
-    return await connectAlbum2Series(album, series);
+    return await connectAlbum2Collections(album, collections);
   });
 
   await Promise.allSettled(promises);

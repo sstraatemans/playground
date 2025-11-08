@@ -1,12 +1,12 @@
 import * as cheerio from 'cheerio';
 import { tabletojson } from 'tabletojson';
 import { createWikiURL } from './createWikiURL.js';
-import series from './data/series.js';
+import collections from './data/collections.js';
 
 const WIKI_ALLALBUMS_URL =
   'https://nl.wikipedia.org/wiki/Lijst_van_verhalen_van_Suske_en_Wiske';
 
-type Id = (typeof series)[number]['id'];
+type Id = (typeof collections)[number]['id'];
 
 export type WikiAlbum = {
   id: number;
@@ -48,9 +48,9 @@ export const getAlbumsJson = async (): Promise<WikiAlbum[]> => {
       }
     });
 
-    series.forEach((serie: any) => {
-      if (!row[serie.id]) {
-        delete row[serie.id];
+    collections.forEach((collection: any) => {
+      if (!row[collection.id]) {
+        delete row[collection.id];
       }
     });
 

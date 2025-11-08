@@ -4,28 +4,30 @@ import { logger } from '../../utils/logger.js';
 import { prisma } from '../client.js';
 
 /**
- * Get the total number of artists in the database.
- * This procedure is safe to call unauthenticated (public) and is cached
+ * Get a single collection by its ID.
+ * This procedure is safe to call unauthenticated (public).
  *
  * @example
  *   // Client-side (tRPC React/Query)
- *   const { data: count } = trpc.artist.count.useQuery();
- *   // → count = 25
+ *   const { data: collection } = trpc.collection.byId.useQuery({ id: "tintin" });
+ *   // → { id: "tintin", name: "The Adventures of Tintin", ... }
  *
  *   // Server-side
- *   const count = await ctx.artist.count();
- *   // → 25
+ *   const collection = await ctx.collection.byId({ id: "tintin" });
+ *   // → { id: "tintin", name: "The Adventures of Tintin", ... }
+ *
+ * @param {string} id - The unique ID of the collection to retrieve
  *
  * @throws {TRPCError} Only throws typed tRPC errors:
  *   - `INTERNAL_SERVER_ERROR` – unexpected Prisma/error
  *   - `SERVICE_UNAVAILABLE` – Prisma can't connect
  *
- * @returns {Promise<number>} Total number of artists (always >= 0)
+ * @returns {Promise<Collection | null>} The collection if found, null otherwise
  */
-export const artistCount = async (): Promise<number> => {
+export const getCollectionById = async (id: string) => {
   try {
-    const count = await prisma.artist.count();
-    return count;
+    const data = await prisma.collection.findUnique({ where: { id } });
+    return data;
   } catch (error) {
     logger.error(
       {
@@ -35,8 +37,9 @@ export const artistCount = async (): Promise<number> => {
             : '',
         error: error instanceof Error ? error.message : String(error),
         stack: error instanceof Error ? error.stack : undefined,
+        id,
       },
-      'Failed to retrieve artist count'
+      'Failed to retrieve collection by ID'
     );
 
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -52,7 +55,7 @@ export const artistCount = async (): Promise<number> => {
 
     throw new TRPCError({
       code: 'INTERNAL_SERVER_ERROR',
-      message: 'Failed to retrieve artist count',
+      message: 'Failed to retrieve collection by ID',
       cause: error,
     });
   }

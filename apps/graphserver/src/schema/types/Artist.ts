@@ -31,7 +31,7 @@ builder.objectType(ArtistsRef, {
 });
 
 ArtistRef.implement({
-  description: 'A Suske en Wiske artist for the series',
+  description: 'A Suske en Wiske artist for the collections',
   fields: (t) => ({
     id: t.exposeID('id'),
     name: t.exposeString('name'),

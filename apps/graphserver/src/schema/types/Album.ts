@@ -1,7 +1,7 @@
 import { builder } from '../builder.js';
 import { trpc } from '../client.js';
-import type { AlbumSerie } from './AlbumSerie.js';
-import { AlbumSerieRef } from './AlbumSerie.js';
+import type { AlbumCollection } from './AlbumCollection.js';
+import { AlbumCollectionRef } from './AlbumCollection.js';
 import type { Artist } from './Artist.js';
 import { ArtistRef } from './Artist.js';
 import type { Character } from './Character.js';
@@ -13,7 +13,7 @@ export interface Album {
   title: string;
   date: Date | string | null; // Can be Date object, ISO date string, or null for invalid dates
   characters?: Character[];
-  series?: AlbumSerie[];
+  collections?: AlbumCollection[];
   description?: string | null;
   scenarioArtistId: number | null;
   drawArtistId: number | null;
@@ -82,10 +82,10 @@ AlbumRef.implement({
         return data;
       },
     }),
-    series: t.field({
-      type: [AlbumSerieRef],
+    collections: t.field({
+      type: [AlbumCollectionRef],
       resolve: async (album) => {
-        const data = await trpc.albums.getAlbumSeriesById.query(
+        const data = await trpc.albums.getAlbumCollectionsById.query(
           Number(album.id)
         );
 

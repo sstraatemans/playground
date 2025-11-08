@@ -1,9 +1,9 @@
 import { builder } from '../builder.js';
 import { trpc } from '../client.js';
 import type { Album } from './Album.js';
-import { AlbumSerieRef } from './AlbumSerie.js';
+import { AlbumCollectionRef } from './AlbumCollection.js';
 
-export interface Serie {
+export interface Collection {
   id: string;
   name: string;
   startYear: string;
@@ -11,18 +11,18 @@ export interface Serie {
   albums?: Album[];
 }
 
-export const SerieRef = builder.objectRef<Serie>('Serie');
-export const SeriesRef = builder.objectRef<{
-  data: (typeof SerieRef.$inferType)[]; // Or whatever the inferred type for AlbumRef is
+export const CollectionRef = builder.objectRef<Collection>('Collection');
+export const CollectionsRef = builder.objectRef<{
+  data: (typeof CollectionRef.$inferType)[]; // Or whatever the inferred type for AlbumRef is
   totalCount: number;
-}>('Series');
+}>('Collections');
 
-builder.objectType(SeriesRef, {
-  name: 'Series',
-  description: 'Paginated series with total count',
+builder.objectType(CollectionsRef, {
+  name: 'Collections',
+  description: 'Paginated collections with total count',
   fields: (t) => ({
     data: t.field({
-      type: [SerieRef],
+      type: [CollectionRef],
       resolve: (root) => root.data,
     }),
     totalCount: t.field({
@@ -32,7 +32,7 @@ builder.objectType(SeriesRef, {
   }),
 });
 
-SerieRef.implement({
+CollectionRef.implement({
   description: 'A Suske en Wiske albums series',
   fields: (t) => ({
     id: t.exposeID('id'),
@@ -40,9 +40,11 @@ SerieRef.implement({
     startYear: t.exposeString('startYear'),
     endYear: t.exposeString('endYear'),
     albums: t.field({
-      type: [AlbumSerieRef],
-      resolve: async (serie) => {
-        const data = await trpc.series.getSerieAlbumsById.query(serie.id);
+      type: [AlbumCollectionRef],
+      resolve: async (collection) => {
+        const data = await trpc.collections.getCollectionAlbumsById.query(
+          collection.id
+        );
         return data;
       },
     }),

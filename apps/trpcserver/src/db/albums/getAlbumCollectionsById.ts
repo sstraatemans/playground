@@ -4,39 +4,53 @@ import { logger } from '../../utils/logger.js';
 import { prisma } from '../client.js';
 
 /**
- * Get all albums that feature a specific character.
+ * Get all collections that include a specific album.
+ * Returns the junction table records (CollectionAlbum) which include both
+ * the collection reference and the album's number within that collection.
  * This procedure is safe to call unauthenticated (public).
  *
  * @example
  *   // Client-side (tRPC React/Query)
- *   const { data: albums } = trpc.character.albums.useQuery({ id: 1 });
- *   // → [{ id: 1, title: "Tintin in America", ... }, ...]
+ *   const { data: collections } = trpc.album.collections.useQuery({ id: 1 });
+ *   // → [[{ albumId: 1, collectionId: 5, number: 3 }], ...]
  *
  *   // Server-side
- *   const albums = await ctx.character.albums({ id: 1 });
- *   // → [{ id: 1, title: "Tintin in America", ... }, ...]
+ *   const collections = await ctx.album.collections({ id: 1 });
+ *   // → [[{ albumId: 1, collectionId: 5, number: 3 }], ...]
  *
- * @param {number} id - The unique ID of the character
+ * @param {number} id - The unique ID of the album
  *
  * @throws {TRPCError} Only throws typed tRPC errors:
  *   - `INTERNAL_SERVER_ERROR` – unexpected Prisma/error
  *   - `SERVICE_UNAVAILABLE` – Prisma can't connect
  *
- * @returns {Promise<Album[]>} Array of albums featuring the character (empty array if none)
+ * @returns {Promise<CollectionAlbum[][]>} Array of collection-album junction records grouped by collection
  */
-export const getCharactersAlbumsById = async (id: number) => {
+export const getAlbumCollectionsById = async (id: number) => {
   try {
-    const albums = await prisma.album.findMany({
+    const collections = await prisma.collection.findMany({
       where: {
-        albumCharacters: {
+        collectionAlbums: {
           some: {
-            characterId: id,
+            albumId: id,
+          },
+        },
+      },
+      include: {
+        collectionAlbums: {
+          where: {
+            albumId: id, // limits to the relevant junction per collections
           },
         },
       },
     });
 
-    return albums;
+    const convertedCollections = collections.map((collection) => {
+      const { collectionAlbums } = collection;
+      return collectionAlbums;
+    });
+
+    return convertedCollections;
   } catch (error) {
     logger.error(
       {
@@ -48,7 +62,7 @@ export const getCharactersAlbumsById = async (id: number) => {
         stack: error instanceof Error ? error.stack : undefined,
         id,
       },
-      'Failed to retrieve character albums'
+      'Failed to retrieve album collections'
     );
 
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -64,7 +78,7 @@ export const getCharactersAlbumsById = async (id: number) => {
 
     throw new TRPCError({
       code: 'INTERNAL_SERVER_ERROR',
-      message: 'Failed to retrieve character albums',
+      message: 'Failed to retrieve album collections',
       cause: error,
     });
   }

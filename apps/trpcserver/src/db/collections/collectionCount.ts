@@ -4,27 +4,27 @@ import { logger } from '../../utils/logger.js';
 import { prisma } from '../client.js';
 
 /**
- * Get the total number of artists in the database.
+ * Get the total number of collections in the database.
  * This procedure is safe to call unauthenticated (public) and is cached
  *
  * @example
  *   // Client-side (tRPC React/Query)
- *   const { data: count } = trpc.artist.count.useQuery();
- *   // → count = 25
+ *   const { data: count } = trpc.collection.count.useQuery();
+ *   // → count = 8
  *
  *   // Server-side
- *   const count = await ctx.artist.count();
- *   // → 25
+ *   const count = await ctx.collection.count();
+ *   // → 8
  *
  * @throws {TRPCError} Only throws typed tRPC errors:
  *   - `INTERNAL_SERVER_ERROR` – unexpected Prisma/error
  *   - `SERVICE_UNAVAILABLE` – Prisma can't connect
  *
- * @returns {Promise<number>} Total number of artists (always >= 0)
+ * @returns {Promise<number>} Total number of collections (always >= 0)
  */
-export const artistCount = async (): Promise<number> => {
+export const collectionCount = async (): Promise<number> => {
   try {
-    const count = await prisma.artist.count();
+    const count = await prisma.collection.count();
     return count;
   } catch (error) {
     logger.error(
@@ -36,7 +36,7 @@ export const artistCount = async (): Promise<number> => {
         error: error instanceof Error ? error.message : String(error),
         stack: error instanceof Error ? error.stack : undefined,
       },
-      'Failed to retrieve artist count'
+      'Failed to retrieve collection count'
     );
 
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -52,7 +52,7 @@ export const artistCount = async (): Promise<number> => {
 
     throw new TRPCError({
       code: 'INTERNAL_SERVER_ERROR',
-      message: 'Failed to retrieve artist count',
+      message: 'Failed to retrieve collection count',
       cause: error,
     });
   }

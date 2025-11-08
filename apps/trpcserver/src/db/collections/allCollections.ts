@@ -4,14 +4,14 @@ import z from 'zod';
 import { CONSTANTS } from '../../constants.js';
 import { logger } from '../../utils/logger.js';
 import { prisma } from '../client.js';
-import { albumCount } from './albumCount.js';
+import { collectionCount } from './collectionCount.js';
 
-export interface AllAlbumsParams {
+export interface AllCollectionsParams {
   offset?: number;
   limit?: number;
 }
 
-export const AllAlbumsSchema = z
+export const AllCollectionsSchema = z
   .object({
     offset: z.number().optional(),
     limit: z.number().optional(),
@@ -19,19 +19,19 @@ export const AllAlbumsSchema = z
   .optional();
 
 /**
- * Get a paginated list of all albums in the database.
+ * Get a paginated list of all collections in the database.
  * This procedure is safe to call unauthenticated (public).
  *
  * @example
  *   // Client-side (tRPC React/Query)
- *   const { data } = trpc.album.all.useQuery({ offset: 0, limit: 10 });
- *   // → { totalCount: 42, data: [...] }
+ *   const { data } = trpc.collection.all.useQuery({ offset: 0, limit: 10 });
+ *   // → { totalCount: 8, data: [...] }
  *
  *   // Server-side
- *   const albums = await ctx.album.all({ offset: 0, limit: 10 });
- *   // → { totalCount: 42, data: [...] }
+ *   const collections = await ctx.collection.all({ offset: 0, limit: 10 });
+ *   // → { totalCount: 8, data: [...] }
  *
- * @param {AllAlbumsParams} params - Pagination parameters
+ * @param {AllCollectionsParams} params - Pagination parameters
  * @param {number} [params.offset=0] - Number of records to skip (negative values default to 0)
  * @param {number} [params.limit=100] - Maximum number of records to return (clamped to 1-100)
  *
@@ -39,23 +39,23 @@ export const AllAlbumsSchema = z
  *   - `INTERNAL_SERVER_ERROR` – unexpected Prisma/error
  *   - `SERVICE_UNAVAILABLE` – Prisma can't connect
  *
- * @returns {Promise<{ totalCount: number; data: Album[] }>} Paginated album list with total count
+ * @returns {Promise<{ totalCount: number; data: Collection[] }>} Paginated collection list with total count
  */
-export const allAlbums = async ({
+export const allCollections = async ({
   offset = CONSTANTS.DEFAULT_OFFSET,
   limit = CONSTANTS.DEFAULT_LIMIT,
-}: AllAlbumsParams = {}) => {
+}: AllCollectionsParams = {}) => {
   if (offset < 0) offset = CONSTANTS.DEFAULT_OFFSET;
   if (limit < 1 || limit > CONSTANTS.DEFAULT_LIMIT)
     limit = CONSTANTS.DEFAULT_LIMIT;
 
   try {
-    const data = await prisma.album.findMany({
+    const data = await prisma.collection.findMany({
       skip: offset,
       take: limit,
-      orderBy: { id: 'asc' },
+      orderBy: { name: 'asc' },
     });
-    return { totalCount: await albumCount(), data: data };
+    return { totalCount: await collectionCount(), data };
   } catch (error) {
     logger.error(
       {
@@ -68,7 +68,7 @@ export const allAlbums = async ({
         offset,
         limit,
       },
-      'Failed to retrieve albums'
+      'Failed to retrieve collections'
     );
 
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -84,7 +84,7 @@ export const allAlbums = async ({
 
     throw new TRPCError({
       code: 'INTERNAL_SERVER_ERROR',
-      message: 'Failed to retrieve albums',
+      message: 'Failed to retrieve collections',
       cause: error,
     });
   }
