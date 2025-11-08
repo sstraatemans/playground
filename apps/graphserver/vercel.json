@@ -3,8 +3,8 @@
   "installCommand": "pnpm install",
   "rewrites": [
     {
-      "source": "/graphql",
-      "destination": "/api/graphql"
+      "source": "/v1",
+      "destination": "/api/v1"
     }
   ],
   "functions": {
