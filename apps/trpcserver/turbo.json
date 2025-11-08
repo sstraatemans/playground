@@ -1,0 +1,10 @@
+{
+  "extends": ["//"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"],
+      "env": ["TRPCSERVER", "HYVETOKEN", "HYVETARGET", "SENTRYDSN", "ENV"]
+    }
+  }
+}
