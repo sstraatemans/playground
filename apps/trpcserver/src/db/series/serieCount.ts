@@ -1,4 +1,4 @@
-import { prisma } from 'db/client.js';
+import { prisma } from '../client.js';
 
 export const serieCount = async () => {
   const count = await prisma.serie.count();

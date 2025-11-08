@@ -1,4 +1,3 @@
-import { serieCount } from 'db/series/serieCount.js';
 import z from 'zod';
 import {
   allSeries,
@@ -6,6 +5,7 @@ import {
 } from '../../../../db/series/allSeries.js';
 import { getSerieAlbumsById } from '../../../../db/series/getSerieAlbumsById.js';
 import { getSerieById } from '../../../../db/series/getSerieById.js';
+import { serieCount } from '../../../../db/series/serieCount.js';
 import { procedure, router } from '../../trpc.js';
 
 export const seriesRouter = router({

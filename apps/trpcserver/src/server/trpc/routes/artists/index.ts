@@ -1,9 +1,9 @@
-import { artistCount } from 'db/artists/artistCount.js';
 import z from 'zod';
 import {
   allArtists,
   AllArtistsSchema,
 } from '../../../../db/artists/allArtists.js';
+import { artistCount } from '../../../../db/artists/artistCount.js';
 import { getArtistAlbumsById } from '../../../../db/artists/getArtistAlbumsById.js';
 import { getArtistById } from '../../../../db/artists/getArtistById.js';
 import { procedure, router } from '../../trpc.js';

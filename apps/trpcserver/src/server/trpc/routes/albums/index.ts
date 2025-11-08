@@ -1,5 +1,5 @@
-import { albumCount } from 'db/albums/albumCount.js';
 import z from 'zod';
+import { albumCount } from '../../../../db/albums/albumCount.js';
 import { allAlbums, AllAlbumsSchema } from '../../../../db/albums/allAlbums.js';
 import { getAlbumById } from '../../../../db/albums/getAlbumById.js';
 import { getAlbumCharactersById } from '../../../../db/albums/getAlbumCharactersById.js';

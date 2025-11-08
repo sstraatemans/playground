@@ -1,4 +1,4 @@
-import { prisma } from 'db/client.js';
+import { prisma } from '../client.js';
 
 export const characterCount = async () => {
   const count = await prisma.character.count();
