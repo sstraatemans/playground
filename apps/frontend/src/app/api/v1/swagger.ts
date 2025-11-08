@@ -314,6 +314,88 @@
  *             returned:
  *               type: integer
  *               minimum: 0
+ *     CollectionAlbum:
+ *       type: object
+ *       required:
+ *         - albumId
+ *         - collectionId
+ *         - number
+ *         - _links
+ *       properties:
+ *         albumId:
+ *           type: integer
+ *           description: ID of the album in this collection
+ *           example: 67
+ *         collectionId:
+ *           type: string
+ *           description: ID of the collection
+ *           example: "summer-2024"
+ *         number:
+ *           type: integer
+ *           description: Position/order of the album in the collection
+ *           example: 5
+ *         image:
+ *           type: string
+ *           format: uri
+ *           nullable: true
+ *           description: Optional override image for this album in the collection
+ *           example: "https://example.com/collections/summer-2024/album-67.jpg"
+ *         _links:
+ *           $ref: '#/components/schemas/Links'
+ *       example:
+ *         albumId: 67
+ *         collectionId: "summer-2024"
+ *         number: 5
+ *         image: "https://example.com/collections/summer-2024/album-67.jpg"
+ *         _links:
+ *           self:
+ *             href: /api/v1/collections/summer-2024/albums/67
+ *           album:
+ *             href: /api/v1/albums/67
+ *           collection:
+ *             href: /api/v1/collections/summer-2024
+ *
+ *     CollectionAlbumCollection:
+ *       type: object
+ *       required:
+ *         - _links
+ *         - items
+ *         - totalCount
+ *         - page
+ *       properties:
+ *         _links:
+ *           $ref: '#/components/schemas/Links'
+ *         items:
+ *           type: array
+ *           description: List of CollectionAlbum entries (albums in a specific collection or all links)
+ *           items:
+ *             $ref: '#/components/schemas/CollectionAlbum'
+ *         totalCount:
+ *           type: integer
+ *           minimum: 0
+ *           example: 42
+ *         page:
+ *           $ref: '#/components/schemas/AlbumCollection/properties/page'
+ *       example:
+ *         _links:
+ *           self:
+ *             href: /api/v1/collections/summer-2024/albums?limit=20&offset=0
+ *           collection:
+ *             href: /api/v1/collections/summer-2024
+ *         items:
+ *           - albumId: 67
+ *             collectionId: "summer-2024"
+ *             number: 1
+ *             image: null
+ *           - albumId: 68
+ *             collectionId: "summer-2024"
+ *             number: 2
+ *             image: "https://example.com/custom-cover.jpg"
+ *         totalCount: 42
+ *         page:
+ *           limit: 20
+ *           offset: 0
+ *           returned: 20
  *
  *   responses:
  *     BadRequest:
