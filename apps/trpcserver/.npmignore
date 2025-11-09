@@ -1,0 +1,45 @@
+# Source files (except what's needed for types)
+src/server.ts
+src/server/
+src/db/
+src/utils/
+
+# Prisma
+prisma/
+*.db
+*.db-journal
+
+# Config files
+eslint.config.js
+tsconfig.json
+turbo.json
+vercel.json
+.env*
+!.env.example
+
+# Development files
+*.log
+.DS_Store
+node_modules/
+
+# Tests
+**/*.test.*
+**/*.spec.*
+__tests__/
+
+# Build artifacts
+*.tsbuildinfo
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Misc
+README.md
+pnpm-lock.yaml

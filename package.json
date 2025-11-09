@@ -23,6 +23,8 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "prettier": "^3.6.2",
     "turbo": "^2.6.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "tabletojson": "^4.1.6",
+    "zod": "^4.1.12"
   }
 }

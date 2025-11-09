@@ -1,0 +1,22 @@
+# Source files
+src/server.ts
+src/server/
+src/db/
+src/utils/
+
+# Prisma
+prisma/
+
+# Config files
+*.config.js
+*.config.ts
+.env*
+tsconfig.json
+
+# Build artifacts
+*.log
+.DS_Store
+
+# Tests
+**/*.test.*
+**/*.spec.*
