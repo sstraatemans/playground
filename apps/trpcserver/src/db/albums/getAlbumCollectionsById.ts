@@ -50,7 +50,7 @@ export const getAlbumCollectionsById = async (id: number) => {
       return collectionAlbums;
     });
 
-    return convertedCollections;
+    return convertedCollections.flat();
   } catch (error) {
     logger.error(
       {

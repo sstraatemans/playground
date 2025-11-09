@@ -1,20 +1,20 @@
 import { trpcClient } from "@/utils/trpcClient";
-import { AlbumSchema } from "@sw/s_w_trpcserver";
+import { CollectionSchema } from "@sw/s_w_trpcserver";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import z from "zod";
 
 /**
  * @swagger
- * /api/v1/albums:
+ * /api/v1/collections:
  *   get:
- *     summary: Get paginated albums
+ *     summary: Get paginated collections
  *     description: |
- *       Returns a paginated collection of albums following HAL+JSON conventions.
+ *       Returns a paginated collection of comic collections following HAL+JSON conventions.
  *       Clients **must** follow `_links` for navigation (next/prev/first/last).
- *     operationId: getAlbums
+ *     operationId: getCollections
  *     tags:
- *       - Albums
+ *       - Collections
  *     parameters:
  *       - in: query
  *         name: limit
@@ -33,33 +33,35 @@ import z from "zod";
  *         description: Offset for pagination (zero-based)
  *     responses:
  *       200:
- *         description: Successful response – paginated album collection
+ *         description: Successful response – paginated collection of collections
  *         content:
  *           application/hal+json:
  *             schema:
- *               $ref: '#/components/schemas/AlbumCollection'
+ *               $ref: '#/components/schemas/CollectionCollection'
  *             examples:
  *               default:
- *                 summary: Example with 2 albums
+ *                 summary: Example with 2 collections
  *                 value:
  *                   _links:
- *                     self: { href: "/api/v1/albums?limit=50&offset=0" }
- *                     next: { href: "/api/v1/albums?limit=50&offset=50" }
- *                     prev: { href: "/api/v1/albums?limit=50&offset=0" }
- *                     first: { href: "/api/v1/albums?limit=50&offset=0" }
- *                     last: { href: "/api/v1/albums?limit=50&offset=950" }
- *                     collection: { href: "/api/v1/albums" }
- *                   albums:
- *                     - id: 67
- *                       title: "Jeromba de Griek"
- *                       date: "1965-10-11"
+ *                     self: { href: "/api/v1/collections?limit=50&offset=0" }
+ *                     next: { href: "/api/v1/collections?limit=50&offset=50" }
+ *                     prev: { href: "/api/v1/collections?limit=50&offset=0" }
+ *                     first: { href: "/api/v1/collections?limit=50&offset=0" }
+ *                     last: { href: "/api/v1/collections?limit=50&offset=950" }
+ *                     collection: { href: "/api/v1/collections" }
+ *                   collections:
+ *                     - id: "VK"
+ *                       name: "Vierkleurenreeks"
+ *                       startYear: 1967
+ *                       endYear: null
  *                       _links:
- *                         self: { href: "/api/v1/albums/67" }
- *                     - id: 68
- *                       title: "De sprietatoom"
- *                       date: "1946-05-15"
+ *                         self: { href: "/api/v1/collections/VK" }
+ *                     - id: "BK"
+ *                       name: "Blauwe Klassiek reeks"
+ *                       startYear: 1993
+ *                       endYear: 1997
  *                       _links:
- *                         self: { href: "/api/v1/albums/68" }
+ *                         self: { href: "/api/v1/collections/BK" }
  *                   totalCount: 2
  *                   page:
  *                     limit: 50
@@ -89,13 +91,13 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const { data, totalCount } = await trpcClient.albums.all.query({
+    const { data, totalCount } = await trpcClient.collections.all.query({
       limit,
       offset,
     });
 
-    const parsedAlbums = z.array(AlbumSchema).parse(data);
-    const baseUrl = `${request.nextUrl.origin}/api/v1/albums`;
+    const parsedCollections = z.array(CollectionSchema).parse(data);
+    const baseUrl = `${request.nextUrl.origin}/api/v1/collections`;
     const selfUrl = `${baseUrl}?limit=${limit}&offset=${offset}`;
 
     const hasNext = offset + limit < totalCount;
@@ -117,18 +119,22 @@ export async function GET(request: NextRequest) {
       }),
     };
 
-    const albumsWithLinks = parsedAlbums.map((album) => ({
-      ...album,
+    const collectionsWithLinks = parsedCollections.map((collection) => ({
+      ...collection,
       _links: {
-        self: { href: `${baseUrl}/${album.id}` },
+        self: { href: `${baseUrl}/${collection.id}` },
       },
     }));
 
     const responseBody = {
       _links,
-      albums: albumsWithLinks,
+      collections: collectionsWithLinks,
       totalCount,
-      page: { limit, offset, returned: parsedAlbums.length },
+      page: {
+        limit,
+        offset,
+        returned: parsedCollections.length, // ← FIXED: was totalCount
+      },
     };
 
     return NextResponse.json(responseBody, {
@@ -140,7 +146,8 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    return Response.json(
+    return NextResponse.json(
+      // ← FIXED: was Response.json
       { message: "Error fetching data", error },
       { status: 500 },
     );

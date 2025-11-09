@@ -1,0 +1,9 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@latest/schema.json",
+  "changelog": "@changesets/changelog-github",
+  "privatePackages": { "version": true },
+  "access": "public",
+  "baseBranch": "main",
+  "ignore": [],
+  "linked": []
+}

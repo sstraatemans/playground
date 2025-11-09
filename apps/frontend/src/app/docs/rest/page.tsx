@@ -1,25 +1,28 @@
-import { createSwaggerSpec } from 'next-swagger-doc';
-import SwaggerUI from 'swagger-ui-react';
-import 'swagger-ui-react/swagger-ui.css';
-
-const spec = createSwaggerSpec({
-  apiFolder: 'src/app/api', // Scans your API routes folder
-  definition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'Next.js API', // Default title
-      version: '1.0.0', // Default version
-      description: 'API documentation for Next.js project', // Default description
-    },
-  },
-});
+import Stack from "@/components/layout/Stack";
+import { Heading } from "@/components/Typography/Heading";
+import { Typography } from "@/components/Typography/Typography";
+import { createSwaggerSpec } from "next-swagger-doc";
+import { Swagger } from "./Swagger";
 
 const Page = () => {
+  const spec = createSwaggerSpec({
+    apiFolder: "src/app/api/v1",
+    definition: {
+      openapi: "3.0.0",
+      info: {
+        title: "",
+        version: "1.0.0",
+      },
+    },
+  });
+
   return (
-    <div>
-      <h2>Rest Api Swagger</h2>
-      <SwaggerUI spec={spec} />
-    </div>
+    <Stack direction="col">
+      <Heading>REST API</Heading>
+
+      <Typography>This is the rest api</Typography>
+      <Swagger spec={spec} />
+    </Stack>
   );
 };
 

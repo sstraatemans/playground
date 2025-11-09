@@ -1,0 +1,14 @@
+{
+  "mode": "custom",
+  "pureModels": true,
+  "crud": false,
+  "emums": false,
+  "objects": false,
+  "variants": {
+    "pure": { "enabled": false },
+    "input": { "enabled": false },
+    "result": { "enabled": false }
+  },
+  "useMultipleFiles": false,
+  "output": "./../src/generated/zod"
+}
