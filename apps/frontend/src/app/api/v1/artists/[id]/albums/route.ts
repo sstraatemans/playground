@@ -6,15 +6,15 @@ import z from "zod";
 
 /**
  * @swagger
- * /api/v1/characters/{id}/albums:
+ * /api/v1/artists/{id}/albums:
  *   get:
- *     summary: Get all albums where the character makes an appearance by characterId
+ *     summary: Get all albums from an artist by artistId
  *     description: |
- *       Returns an array of albums where the character makes an appearance following HAL+JSON conventions.
+ *       Returns an array of albums of an artist following HAL+JSON conventions.
  *       Clients **must** follow `_links` for navigation.
- *     operationId: getCharacterAlbums
+ *     operationId: getArtistAlbums
  *     tags:
- *       - Characters
+ *       - Artists
  *     parameters:
  *       - in: path
  *         name: id
@@ -22,21 +22,21 @@ import z from "zod";
  *         schema:
  *           type: integer
  *           minimum: 1
- *         description: The album ID
+ *         description: The artist ID
  *     responses:
  *       200:
- *         description: Successful response – array of albums where the character makes an appearance
+ *         description: Successful response – array of albums of an artist
  *         content:
  *           application/hal+json:
  *             schema:
- *               $ref: '#/components/schemas/AlbumCharacterCollection'
+ *               $ref: '#/components/schemas/AlbumArtistCollection'
  *             examples:
  *               default:
  *                 summary: Example with 2 albums
  *                 value:
  *                   _links:
- *                     self: { href: "/api/v1/characters/1/albums" }
- *                     character: { href: "/api/v1/characters/1" }
+ *                     self: { href: "/api/v1/artists/1/albums" }
+ *                     character: { href: "/api/v1/artists/1" }
  *                     albums: { href: "/api/v1/albums" }
  *                   albums:
  *                     - id: 67
@@ -51,15 +51,15 @@ import z from "zod";
  *                         self: { href: "/api/v1/albums/68" }
  *                   totalCount: 2
  *       404:
- *         description: Character not found
+ *         description: Artist not found
  *         content:
  *           application/hal+json:
  *             example:
  *               error:
  *                 code: "NOT_FOUND"
- *                 message: "Character not found"
+ *                 message: "Artist not found"
  *               _links:
- *                 self: { href: "/api/v1/characters/1/albums" }
+ *                 self: { href: "/api/v1/artists/1/albums" }
  *       400:
  *         $ref: '#/components/responses/BadRequest'
  *       500:
@@ -74,14 +74,14 @@ export async function GET(
   const id = parseInt(rawId, 10);
 
   const baseV1Url = `${request.nextUrl.origin}/api/v1`;
-  const characterUrl = `${baseV1Url}/characters/${id}`;
-  const selfUrl = `${characterUrl}/albums`;
+  const artistUrl = `${baseV1Url}/artists/${id}`;
+  const selfUrl = `${artistUrl}/albums`;
 
   // Validation: must be a positive integer
   if (!rawId || isNaN(id) || id < 1) {
     return NextResponse.json(
       {
-        error: { code: "BAD_REQUEST", message: "Invalid character ID" },
+        error: { code: "BAD_REQUEST", message: "Invalid artist ID" },
         _links: { self: { href: selfUrl } },
       },
       { status: 400 },
@@ -89,16 +89,16 @@ export async function GET(
   }
 
   try {
-    const data = await trpcClient.characters.getCharactersAlbumsById.query(id);
+    const data = await trpcClient.artists.getArtistAlbumsById.query(id);
 
     if (!data) {
       return NextResponse.json(
         {
-          error: { code: "NOT_FOUND", message: "Character not found" },
+          error: { code: "NOT_FOUND", message: "Artist not found" },
           _links: {
             self: { href: selfUrl },
-            album: { href: characterUrl },
-            characters: { href: `${baseV1Url}/characters` },
+            album: { href: artistUrl },
+            albums: { href: `${baseV1Url}/albums` },
           },
         },
         { status: 404 },
@@ -109,7 +109,7 @@ export async function GET(
 
     const _links = {
       self: {
-        href: `${request.nextUrl.origin}/api/v1/characters/${id}/albums`,
+        href: `${request.nextUrl.origin}/api/v1/artists/${id}/albums`,
       },
     };
 
