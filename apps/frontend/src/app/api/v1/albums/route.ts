@@ -55,7 +55,12 @@ import z from "zod";
  *                       date: "1965-10-11"
  *                       _links:
  *                         self: { href: "/api/v1/albums/67" }
- *                   totalCount: 1234
+ *                     - id: 68
+ *                       title: "De sprietatoom"
+ *                       date: "1946-05-15"
+ *                       _links:
+ *                         self: { href: "/api/v1/albums/68" }
+ *                   totalCount: 2
  *                   page:
  *                     limit: 50
  *                     offset: 0
