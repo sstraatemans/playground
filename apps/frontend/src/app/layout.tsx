@@ -71,7 +71,7 @@ const RootLayout = ({
                     <Tab
                       id="graph"
                       onClick={() => {
-                        handleTabChange("/graphql/v1");
+                        handleTabChange("/docs/graphql");
                       }}
                     >
                       GraphQL

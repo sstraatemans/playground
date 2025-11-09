@@ -7,9 +7,13 @@
     "build": "turbo build",
     "lint": "turbo lint",
     "format": "prettier --write .",
-    "type-check": "turbo type-check"
+    "type-check": "turbo type-check",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo run build lint test && changeset version && changeset publish"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.29.7",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@typescript-eslint/eslint-plugin": "^8.46.2",
     "@typescript-eslint/parser": "^8.46.2",
