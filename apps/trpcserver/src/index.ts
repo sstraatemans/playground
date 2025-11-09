@@ -5,8 +5,4 @@ export type { AppRouter } from './server/trpc/index.js';
 export * from './generated/zod/schemas.js';
 
 // Export client creation utilities and pre-configured client
-export {
-  createClient,
-  trpcClient,
-  type CreateClientOptions,
-} from './client/index.js';
+export { createClient, type CreateClientOptions } from './client/index.js';

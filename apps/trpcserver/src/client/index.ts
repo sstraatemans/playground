@@ -33,16 +33,3 @@ export function createClient(options: CreateClientOptions) {
     ],
   });
 }
-
-// Export a pre-configured client instance for direct use
-// This maintains backward compatibility
-export const trpcClient = createTRPCClient<AppRouter>({
-  links: [
-    httpBatchLink({
-      url: 'https://playground-trpcserver.vercel.app/trpc/v1',
-      transformer: superjson,
-      maxURLLength: 4000,
-      maxItems: 3,
-    }),
-  ],
-});
