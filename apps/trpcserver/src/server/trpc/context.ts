@@ -1,12 +1,11 @@
-import type { Prisma, PrismaClient } from '@prisma/client';
-import type { DefaultArgs } from '@prisma/client/runtime/library';
+import type { PrismaClient } from '@prisma/client';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { prisma } from '../../db/client.js';
 
 export type Context = {
   req: FastifyRequest;
   reply: FastifyReply;
-  prisma: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>;
+  prisma: PrismaClient;
 };
 
 export function createContext(opts: {
