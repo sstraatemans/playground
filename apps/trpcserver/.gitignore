@@ -27,6 +27,6 @@ dist-ssr
 dist
 
 
-
+src/generated
 
 tsconfig.tsbuildinfo

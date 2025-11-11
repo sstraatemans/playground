@@ -1,5 +1,5 @@
 {
-  "name": "@sw/s_w_graphserver",
+  "name": "@sw/graphserver",
   "version": "1.0.0",
   "type": "module",
   "main": "public/src/server.js",
