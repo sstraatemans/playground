@@ -169,6 +169,41 @@ export const trpcClient = createClient({
 - **[API Reference](./docs/API_REFERENCE.md)** - Complete endpoint documentation with examples
 - **[Zod Schemas](./docs/SCHEMAS.md)** - All TypeScript types and Zod validation schemas
 - **[Next.js App Router Guide](./docs/APP_ROUTER.md)** - Integration with Next.js 13+ App Router
+- **[Online Documentation](https://susekeenwiske.dev)** - Full documentation, examples, and interactive API explorer
+
+---
+
+## Alternative APIs
+
+Don't want to use tRPC? No problem! The Suske en Wiske data is also available through other APIs:
+
+### GraphQL API
+
+Access the data using GraphQL for flexible queries and precise data fetching.
+
+```graphql
+query {
+  albums(limit: 10) {
+    id
+    title
+    year
+  }
+}
+```
+
+**GraphQL Endpoint:** `https://graphql.suskeenwiske.dev/v1`
+
+### REST API
+
+Use traditional REST endpoints for simple HTTP requests.
+
+```bash
+curl https://suskeenwiske.dev/api/v1/albums
+```
+
+**REST Base URL:** `https://suskeenwiske.dev/api/v1`
+
+For more information about the GraphQL and REST APIs, visit the [online documentation](https://susekeenwiske.dev).
 
 ---
 
