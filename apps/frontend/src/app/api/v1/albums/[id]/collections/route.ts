@@ -74,7 +74,7 @@ export async function GET(
 
   const baseV1Url = `${request.nextUrl.origin}/api/v1`;
   const albumUrl = `${baseV1Url}/albums/${id}`;
-  const selfUrl = `${albumUrl}/${id}/collections`;
+  const selfUrl = `${albumUrl}/collections`;
 
   // Validation: must be a positive integer
   if (!rawId || isNaN(id) || id < 1) {
