@@ -4,7 +4,10 @@
     "build": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**"],
-      "env": ["TRPCSERVER", "HYVETOKEN", "HYVETARGET", "SENTRYDSN", "ENV"]
+      "env": ["HYVETOKEN", "HYVETARGET", "SENTRYDSN", "ENV"]
+    },
+    "dev": {
+      "env": ["HYVETOKEN", "HYVETARGET", "SENTRYDSN", "ENV"]
     }
   }
 }

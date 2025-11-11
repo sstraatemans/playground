@@ -1,14 +1,6 @@
-import type { AppRouter } from '@sw/s_w_trpcserver';
-import { createTRPCClient, httpBatchLink } from '@trpc/client';
-import superjson from 'superjson';
+import { createClient } from "@sw/trpcclient";
 
-export const trpcClient = createTRPCClient<AppRouter>({
-  links: [
-    httpBatchLink({
-      url: process.env.TRPCSERVER ?? '', // Your server URL
-      transformer: superjson,
-      maxURLLength: 4000,
-      maxItems: 3,
-    }),
-  ],
+export const trpcClient = createClient({
+  url:
+    process.env.NEXT_PUBLIC_TRPC_SERVER_URL || "http://localhost:4000/trpc/v1",
 });

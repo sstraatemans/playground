@@ -1,5 +1,5 @@
 import type { Collection } from '@prisma/client';
-import { Prisma } from '@prisma/client';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { TRPCError } from '@trpc/server';
 import type { WikiAlbum } from 'server/utils/getAlbumsJson.js';
 import { prisma } from '../../db/client.js';
@@ -63,7 +63,7 @@ export const connectAlbum2Collections = async (
     logger.error(
       {
         code:
-          error instanceof Prisma.PrismaClientKnownRequestError
+          error instanceof PrismaClientKnownRequestError
             ? error.code
             : '',
         error: error instanceof Error ? error.message : String(error),
@@ -74,7 +74,7 @@ export const connectAlbum2Collections = async (
       'Failed to connect album to collections'
     );
 
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+    if (error instanceof PrismaClientKnownRequestError) {
       // P1001 = can't reach DB, P1003 = connection timeout, etc.
       if (['P1001', 'P1002', 'P1003', 'P1017'].includes(error.code)) {
         throw new TRPCError({

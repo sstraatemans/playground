@@ -1,5 +1,5 @@
 import { trpcClient } from "@/utils/trpcClient";
-import { CollectionAlbumSchema } from "@sw/s_w_trpcserver";
+import { CollectionAlbumSchema } from "@sw/trpcclient";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import z from "zod";
@@ -74,7 +74,7 @@ export async function GET(
 
   const baseV1Url = `${request.nextUrl.origin}/api/v1`;
   const albumUrl = `${baseV1Url}/albums/${id}`;
-  const selfUrl = `${albumUrl}/${id}/collections`;
+  const selfUrl = `${albumUrl}/collections`;
 
   // Validation: must be a positive integer
   if (!rawId || isNaN(id) || id < 1) {

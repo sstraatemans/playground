@@ -1,10 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { httpBatchLink } from "@trpc/client";
-import superjson from "superjson";
-import { trpc } from "@/providers/TRPCProvider";
 import { kodeMono, roboto } from "./fonts";
 import "./globals.css";
 import Stack from "@/components/layout/Stack";
@@ -19,17 +14,6 @@ const RootLayout = ({
   children: React.ReactNode;
 }>) => {
   const router = useRouter();
-  const [queryClient] = useState(() => new QueryClient());
-  const [trpcClient] = useState(() =>
-    trpc.createClient({
-      links: [
-        httpBatchLink({
-          url: "http://localhost:4000/trpc",
-          transformer: superjson,
-        }),
-      ],
-    }),
-  );
 
   const handleTabChange = (url: string) => {
     router.push(url);
@@ -49,61 +33,57 @@ const RootLayout = ({
         <meta content="#020E1B" name="theme-color" />
       </head>
       <body className="font-body bg-primary flex max-w-full flex-col items-center">
-        <trpc.Provider client={trpcClient} queryClient={queryClient}>
-          <QueryClientProvider client={queryClient}>
-            <Stack
-              direction="col"
-              className="mh-auto h-dvh max-w-[1600] items-start px-10"
-            >
-              <img src="/assets/header.png" />
+        <Stack
+          direction="col"
+          className="mh-auto h-dvh max-w-[1600] items-start px-10"
+        >
+          <img src="/assets/header.png" />
 
-              <Stack className="flex inline-block w-full max-w-full flex-1 rounded border-[5px] border-white bg-gray-200 bg-white p-8 outline outline-1 outline-offset-[-16px] outline-black">
-                <Tabs className="w-full">
-                  <TabList aria-label="Article categories">
-                    <Tab
-                      id="home"
-                      onClick={() => {
-                        handleTabChange("/");
-                      }}
-                    >
-                      Home
-                    </Tab>
-                    <Tab
-                      id="graph"
-                      onClick={() => {
-                        handleTabChange("/docs/graphql");
-                      }}
-                    >
-                      GraphQL
-                    </Tab>
-                    <Tab
-                      id="rest"
-                      onClick={() => {
-                        handleTabChange("/docs/rest");
-                      }}
-                    >
-                      Rest
-                    </Tab>
-                    <Tab
-                      id="trpc"
-                      onClick={() => {
-                        handleTabChange("/docs/trpc");
-                      }}
-                    >
-                      tRPC
-                    </Tab>
-                  </TabList>
-                </Tabs>
+          <Stack className="flex inline-block w-full max-w-full flex-1 rounded border-[5px] border-white bg-gray-200 bg-white p-8 outline outline-1 outline-offset-[-16px] outline-black">
+            <Tabs className="w-full">
+              <TabList aria-label="Article categories">
+                <Tab
+                  id="home"
+                  onClick={() => {
+                    handleTabChange("/");
+                  }}
+                >
+                  Home
+                </Tab>
+                <Tab
+                  id="graph"
+                  onClick={() => {
+                    handleTabChange("/docs/graphql");
+                  }}
+                >
+                  GraphQL
+                </Tab>
+                <Tab
+                  id="rest"
+                  onClick={() => {
+                    handleTabChange("/docs/rest");
+                  }}
+                >
+                  Rest
+                </Tab>
+                <Tab
+                  id="trpc"
+                  onClick={() => {
+                    handleTabChange("/docs/trpc");
+                  }}
+                >
+                  tRPC
+                </Tab>
+              </TabList>
+            </Tabs>
 
-                {children}
-              </Stack>
-              <Stack className="h-7 flex-row gap-2">
-                <Link href="/changelog">Changelog</Link>
-                <Link href="/about">About us</Link>
-              </Stack>
-            </Stack>
-          </QueryClientProvider>
-        </trpc.Provider>
+            {children}
+          </Stack>
+          <Stack className="h-7 flex-row gap-2">
+            <Link href="/changelog">Changelog</Link>
+            <Link href="/about">About us</Link>
+          </Stack>
+        </Stack>
       </body>
     </html>
   );
