@@ -1,8 +1,8 @@
 {
-  "name": "@straatemans/sw_frontend",
+  "name": "@sstraatemans/sw_frontend",
   "author": {
     "name": "Steven Straatemans",
-    "email": "steven@straatemans.nl",
+    "email": "steven@sstraatemans.nl",
     "url": "https://straatemans.nl"
   },
   "private": true,
@@ -15,7 +15,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@straatemans/sw_trpcclient": "workspace:*",
+    "@sstraatemans/sw_trpcclient": "workspace:*",
     "@tailwindcss/postcss": "^4.1.17",
     "@tanstack/react-query": "^5.90.6",
     "@trpc/client": "^11.7.1",

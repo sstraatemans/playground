@@ -1,6 +1,6 @@
 # Zod Schemas & TypeScript Types
 
-Complete reference for all Zod validation schemas and TypeScript types available in @straatemans/sw_trpcclient.
+Complete reference for all Zod validation schemas and TypeScript types available in @sstraatemans/sw_trpcclient.
 
 ---
 
@@ -38,10 +38,10 @@ import {
   ArtistSchema,
   type AlbumType,
   type CharacterType
-} from "@straatemans/sw_trpcclient";
+} from "@sstraatemans/sw_trpcclient";
 
 // Or import from schemas subpath
-import { AlbumSchema } from "@straatemans/sw_trpcclient/schemas";
+import { AlbumSchema } from "@sstraatemans/sw_trpcclient/schemas";
 ```
 
 ---
@@ -101,7 +101,7 @@ interface Album {
 #### Example Usage
 
 ```typescript
-import { AlbumSchema, type AlbumType } from '@straatemans/sw_trpcclient';
+import { AlbumSchema, type AlbumType } from '@sstraatemans/sw_trpcclient';
 
 // Validate data
 const album = AlbumSchema.parse({
@@ -169,7 +169,7 @@ interface Artist {
 #### Example Usage
 
 ```typescript
-import { ArtistSchema, type ArtistType } from '@straatemans/sw_trpcclient';
+import { ArtistSchema, type ArtistType } from '@sstraatemans/sw_trpcclient';
 
 const artist: ArtistType = {
   id: 1,
@@ -232,7 +232,7 @@ interface Character {
 import {
   CharacterSchema,
   type CharacterType,
-} from '@straatemans/sw_trpcclient';
+} from '@sstraatemans/sw_trpcclient';
 
 const character: CharacterType = {
   id: 1,
@@ -291,7 +291,7 @@ interface Collection {
 import {
   CollectionSchema,
   type CollectionType,
-} from '@straatemans/sw_trpcclient';
+} from '@sstraatemans/sw_trpcclient';
 
 const collection: CollectionType = {
   id: 'blauwe-reeks',
@@ -400,7 +400,7 @@ type AllAlbumsInput =
 #### Usage
 
 ```typescript
-import { AllAlbumsSchema } from '@straatemans/sw_trpcclient';
+import { AllAlbumsSchema } from '@sstraatemans/sw_trpcclient';
 
 // Valid inputs
 AllAlbumsSchema.parse({ offset: 0, limit: 10 }); // ✓
@@ -559,7 +559,7 @@ export type CollectionScalarFieldEnum = z.infer<
 Use schemas to validate runtime data:
 
 ```typescript
-import { AlbumSchema, CharacterSchema } from '@straatemans/sw_trpcclient';
+import { AlbumSchema, CharacterSchema } from '@sstraatemans/sw_trpcclient';
 
 // Validate and parse
 const album = AlbumSchema.parse(unknownData);
@@ -578,7 +578,7 @@ if (result.success) {
 Create type guard functions:
 
 ```typescript
-import { AlbumSchema, type AlbumType } from '@straatemans/sw_trpcclient';
+import { AlbumSchema, type AlbumType } from '@sstraatemans/sw_trpcclient';
 
 function isAlbum(data: unknown): data is AlbumType {
   return AlbumSchema.safeParse(data).success;
@@ -598,7 +598,7 @@ Use with form libraries like React Hook Form:
 ```typescript
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { AlbumSchema, type AlbumType } from "@straatemans/sw_trpcclient";
+import { AlbumSchema, type AlbumType } from "@sstraatemans/sw_trpcclient";
 
 function AlbumForm() {
   const { register, handleSubmit } = useForm<AlbumType>({
@@ -624,7 +624,7 @@ function AlbumForm() {
 Create partial versions for updates:
 
 ```typescript
-import { AlbumSchema } from '@straatemans/sw_trpcclient';
+import { AlbumSchema } from '@sstraatemans/sw_trpcclient';
 
 // Create a partial schema (all fields optional)
 const PartialAlbumSchema = AlbumSchema.partial();
@@ -642,7 +642,7 @@ type UpdateAlbumInput = z.infer<typeof UpdateAlbumSchema>;
 Add custom fields to existing schemas:
 
 ```typescript
-import { AlbumSchema } from '@straatemans/sw_trpcclient';
+import { AlbumSchema } from '@sstraatemans/sw_trpcclient';
 
 const AlbumWithMetadataSchema = AlbumSchema.extend({
   viewCount: z.number().int().default(0),
@@ -658,7 +658,7 @@ type AlbumWithMetadata = z.infer<typeof AlbumWithMetadataSchema>;
 Create schemas with only specific fields:
 
 ```typescript
-import { AlbumSchema } from '@straatemans/sw_trpcclient';
+import { AlbumSchema } from '@sstraatemans/sw_trpcclient';
 
 // Only id and title
 const AlbumSummarySchema = AlbumSchema.pick({
@@ -676,7 +676,7 @@ type AlbumSummary = z.infer<typeof AlbumSummarySchema>;
 Create schemas without specific fields:
 
 ```typescript
-import { AlbumSchema } from '@straatemans/sw_trpcclient';
+import { AlbumSchema } from '@sstraatemans/sw_trpcclient';
 
 // Everything except image
 const AlbumWithoutImageSchema = AlbumSchema.omit({
@@ -693,7 +693,7 @@ type AlbumWithoutImage = z.infer<typeof AlbumWithoutImageSchema>;
 ### Infer Types from API Responses
 
 ```typescript
-import { createClient } from '@straatemans/sw_trpcclient';
+import { createClient } from '@sstraatemans/sw_trpcclient';
 
 const trpc = createClient({
   url: 'https://playground-trpcserver.vercel.app/trpc/v1',
@@ -711,7 +711,7 @@ type Album = AlbumsAllResponse['data'][number];
 
 ```typescript
 import { useState } from 'react';
-import type { AlbumType, CharacterType } from '@straatemans/sw_trpcclient';
+import type { AlbumType, CharacterType } from '@sstraatemans/sw_trpcclient';
 
 function useAlbums() {
   const [albums, setAlbums] = useState<AlbumType[]>([]);
@@ -725,7 +725,7 @@ function useAlbums() {
 ### Array Utilities
 
 ```typescript
-import type { AlbumType } from '@straatemans/sw_trpcclient';
+import type { AlbumType } from '@sstraatemans/sw_trpcclient';
 
 // Filter albums by year
 function filterByYear(albums: AlbumType[], year: string): AlbumType[] {

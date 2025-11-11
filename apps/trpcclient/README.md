@@ -1,4 +1,4 @@
-# @straatemans/sw_trpcclient
+# @sstraatemans/sw_trpcclient
 
 > Type-safe client library for accessing Suske en Wiske (Spike and Suzy) comic data
 
@@ -24,19 +24,19 @@ A fully type-safe tRPC client package that provides auto-generated hooks and uti
 ### npm
 
 ```bash
-npm install @straatemans/sw_trpcclient
+npm install @sstraatemans/sw_trpcclient
 ```
 
 ### yarn
 
 ```bash
-yarn add @straatemans/sw_trpcclient
+yarn add @sstraatemans/sw_trpcclient
 ```
 
 ### pnpm
 
 ```bash
-pnpm add @straatemans/sw_trpcclient
+pnpm add @sstraatemans/sw_trpcclient
 ```
 
 ### Peer Dependencies
@@ -60,7 +60,7 @@ pnpm add superjson zod
 Get started in just a few lines of code:
 
 ```typescript
-import { createClient } from '@straatemans/sw_trpcclient';
+import { createClient } from '@sstraatemans/sw_trpcclient';
 
 // 1. Create the client
 const trpc = createClient({
@@ -85,7 +85,7 @@ console.log(`Album: ${album.title}`);
 The simplest way to set up the client:
 
 ```typescript
-import { createClient } from '@straatemans/sw_trpcclient';
+import { createClient } from '@sstraatemans/sw_trpcclient';
 
 export const trpcClient = createClient({
   url: 'https://playground-trpcserver.vercel.app/trpc/v1',
@@ -97,7 +97,7 @@ export const trpcClient = createClient({
 Add authentication or custom headers:
 
 ```typescript
-import { createClient } from '@straatemans/sw_trpcclient';
+import { createClient } from '@sstraatemans/sw_trpcclient';
 
 export const trpcClient = createClient({
   url: 'https://playground-trpcserver.vercel.app/trpc/v1',
@@ -148,7 +148,7 @@ interface CreateClientOptions {
 **Example with all options:**
 
 ```typescript
-import { createClient } from '@straatemans/sw_trpcclient';
+import { createClient } from '@sstraatemans/sw_trpcclient';
 import superjson from 'superjson';
 
 export const trpcClient = createClient({

@@ -1,5 +1,5 @@
 import { trpcClient } from "@/utils/trpcClient";
-import { CollectionSchema } from "@straatemans/sw_trpcclient";
+import { CollectionSchema } from "@sstraatemans/sw_trpcclient";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 

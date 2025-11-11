@@ -1,8 +1,8 @@
 {
-  "name": "@straatemans/graphserver",
+  "name": "@sstraatemans/graphserver",
   "author": {
     "name": "Steven Straatemans",
-    "email": "steven@straatemans.nl",
+    "email": "steven@sstraatemans.nl",
     "url": "https://straatemans.nl"
   },
   "version": "1.0.0",
@@ -34,7 +34,7 @@
     "@pothos/plugin-scope-auth": "^4.1.6",
     "@sentry/node": "^10.23.0",
     "@sentry/tracing": "^7.120.4",
-    "@straatemans/sw_trpcserver": "workspace:*",
+    "@sstraatemans/sw_trpcserver": "workspace:*",
     "@trpc/client": "^11.7.1",
     "graphql": "^16.12.0",
     "graphql-scalars": "^1.25.0",

@@ -1,6 +1,6 @@
 # API Reference
 
-Complete documentation for all available tRPC procedures in the @straatemans/sw_trpcclient package.
+Complete documentation for all available tRPC procedures in the @sstraatemans/sw_trpcclient package.
 
 ---
 
@@ -72,7 +72,7 @@ number;
 #### Example
 
 ```typescript
-import { createClient } from '@straatemans/sw_trpcclient';
+import { createClient } from '@sstraatemans/sw_trpcclient';
 
 const trpc = createClient({
   url: 'https://playground-trpcserver.vercel.app/trpc/v1',
@@ -836,7 +836,7 @@ try {
 ### Complete Error Handling Example
 
 ```typescript
-import type { AppRouter } from '@straatemans/sw_trpcclient';
+import type { AppRouter } from '@sstraatemans/sw_trpcclient';
 import { TRPCClientError } from '@trpc/client';
 
 try {

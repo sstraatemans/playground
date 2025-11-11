@@ -1,9 +1,9 @@
 {
-  "name": "@straatemans/sw_trpcclient",
+  "name": "@sstraatemans/sw_trpcclient",
   "description": "Shared tRPC types, Zod schemas, and client utilities",
   "author": {
     "name": "Steven Straatemans",
-    "email": "steven@straatemans.nl",
+    "email": "steven@sstraatemans.nl",
     "url": "https://straatemans.nl"
   },
   "version": "0.1.0",
@@ -43,7 +43,7 @@
     "seed": "tsx ./prisma/seed/seed.ts"
   },
   "dependencies": {
-    "@straatemans/sw_trpcserver": "workspace:*"
+    "@sstraatemans/sw_trpcserver": "workspace:*"
   },
   "peerDependencies": {
     "superjson": "^2.2.5",

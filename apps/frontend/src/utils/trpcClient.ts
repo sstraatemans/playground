@@ -1,4 +1,4 @@
-import { createClient } from "@straatemans/sw_trpcclient";
+import { createClient } from "@sstraatemans/sw_trpcclient";
 
 export const trpcClient = createClient({
   url:

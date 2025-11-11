@@ -1,10 +1,10 @@
 {
-  "name": "@straatemans/sw_trpcserver",
+  "name": "@sstraatemans/sw_trpcserver",
   "description": "tRPC server for Suske en Wiske Playground",
   "version": "0.1.0",
   "author": {
     "name": "Steven Straatemans",
-    "email": "steven@straatemans.nl",
+    "email": "steven@sstraatemans.nl",
     "url": "https://straatemans.nl"
   },
   "main": "./dist/index.js",
