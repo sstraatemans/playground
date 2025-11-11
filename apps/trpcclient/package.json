@@ -34,8 +34,10 @@
   "prisma": {
     "seed": "tsx ./prisma/seed/seed.ts"
   },
+  "dependencies": {
+    "@sw/trpcserver": "workspace:*"
+  },
   "peerDependencies": {
-    "@sw/trpcserver": "workspace:*",
     "superjson": "^2.2.5",
     "zod": "^4.1.12"
   },
