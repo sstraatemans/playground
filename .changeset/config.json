@@ -1,8 +1,5 @@
 {
-  "changelog": [
-    "./.changeset/changelog-config.js",
-    { "repo": "sstraatemans/playground" }
-  ],
+  "changelog": "@changesets/cli/changelog",
   "commit": true,
   "linked": [],
   "access": "public",
