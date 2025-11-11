@@ -26,7 +26,7 @@ const RootLayout = ({
       <body className="font-body bg-primary flex max-w-full flex-col items-center">
         <Stack
           direction="col"
-          className="mh-auto h-dvh max-w-[1600] items-start px-10"
+          className="mh-auto mb-10 h-dvh max-w-[1600] items-center px-10"
         >
           <img src="/assets/header.png" />
 
@@ -42,10 +42,6 @@ const RootLayout = ({
             <Stack className="flex-1 rounded border border-[1px] border-black p-6">
               {children}
             </Stack>
-          </Stack>
-          <Stack className="h-7 flex-row gap-2">
-            <Link href="/changelog">Changelog</Link>
-            <Link href="/about">About us</Link>
           </Stack>
         </Stack>
       </body>
