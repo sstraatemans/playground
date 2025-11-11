@@ -1,7 +1,7 @@
 {
   "changelog": [
     "@changesets/changelog-github",
-    { "repo": "your-org/your-repo" }
+    { "repo": "sstraatemans/playground" }
   ],
   "commit": true,
   "linked": [],
