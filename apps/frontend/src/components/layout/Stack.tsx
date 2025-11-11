@@ -12,7 +12,7 @@ type ResponsiveValue<T = string> =
 
 // Prop types for the Stack component
 interface StackProps extends Omit<HTMLAttributes<HTMLDivElement>, "dir"> {
-  children: ReactNode;
+  children?: ReactNode;
   direction?: ResponsiveValue<"row" | "row-reverse" | "col" | "col-reverse">;
   justify?: ResponsiveValue<
     "start" | "end" | "center" | "between" | "around" | "evenly"

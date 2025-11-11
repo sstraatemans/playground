@@ -8,6 +8,7 @@ const Page = () => {
       <Heading>GraphQL</Heading>
 
       <Typography>GraphQL documentation will be here soon.</Typography>
+      <a href="/graphql.suskeenwiske.dev/v1">Go to the graph docs</a>
     </Stack>
   );
 };

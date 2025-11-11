@@ -1,6 +1,7 @@
 import { readFile } from "fs/promises";
 import { join } from "path";
 import { MarkdownRenderer } from "@/components/MarkdownRenderer";
+import Stack from "@/components/layout/Stack";
 
 // Schemas & Types page
 const Page = async () => {
@@ -15,7 +16,7 @@ const Page = async () => {
   } catch (error) {
     console.error("Error loading schemas documentation:", error);
     return (
-      <div className="p-8">
+      <Stack className="p-8">
         <h1 className="mb-4 text-2xl font-bold">Documentation Not Available</h1>
         <p className="text-red-600">Unable to load schemas documentation.</p>
         {error instanceof Error && (
@@ -23,7 +24,7 @@ const Page = async () => {
             {error.message}
           </pre>
         )}
-      </div>
+      </Stack>
     );
   }
 };

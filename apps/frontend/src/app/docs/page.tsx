@@ -2,15 +2,11 @@
 
 import Stack from "@/components/layout/Stack";
 import { Heading } from "@/components/Typography/Heading";
-import { Typography } from "@/components/Typography/Typography";
 import Link from "next/link";
 
 const Page = () => {
   return (
     <Stack className="w-full flex-col">
-      <Typography>welcome to the suske en wiske api.</Typography>
-      <Typography>work in progress.</Typography>
-
       <Heading variant="h4">Docs</Heading>
       <ul>
         <li>

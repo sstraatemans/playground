@@ -32,7 +32,8 @@ DATABASE_URL= XXX // The Supabase URL for connection
 
 A frontend with all the info you need.
 
-## DISCLAIMER
+## Disclaimer
 
-Ofcourse I don't own any rights to Suske en Wiske, but all data that is here was found on the internet, I just made it accessable in a database.
-The stories are not mine. The drawings are not mine. I'm just a fan. Although, if the creators of Suske and Wiske ever need an artist, please reach out. It would be awesome to draw for them.
+The data exposed by this package is not owned by the package author or maintainer. All such data is freely available on the internet from public sources.
+
+The copyright to _Suske en Wiske_ and all related characters, stories, and intellectual property yada yada yada is owned by **Standaard Uitgeverij**. This package does not claim any ownership or endorsement rights.

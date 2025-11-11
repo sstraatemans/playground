@@ -3,9 +3,6 @@
 import { kodeMono, roboto } from "./fonts";
 import "./globals.css";
 import Stack from "@/components/layout/Stack";
-import { TabList, Tabs } from "react-aria-components";
-import { useRouter } from "next/navigation";
-import { Tab } from "@/components/Tabs/Tab";
 import Link from "next/link";
 
 const RootLayout = ({
@@ -13,12 +10,6 @@ const RootLayout = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const router = useRouter();
-
-  const handleTabChange = (url: string) => {
-    router.push(url);
-  };
-
   return (
     <html
       lang="en"
@@ -39,45 +30,18 @@ const RootLayout = ({
         >
           <img src="/assets/header.png" />
 
-          <Stack className="flex inline-block w-full max-w-full flex-1 rounded border-[5px] border-white bg-gray-200 bg-white p-8 outline outline-1 outline-offset-[-16px] outline-black">
-            <Tabs className="w-full">
-              <TabList aria-label="Article categories">
-                <Tab
-                  id="home"
-                  onClick={() => {
-                    handleTabChange("/");
-                  }}
-                >
-                  Home
-                </Tab>
-                <Tab
-                  id="graph"
-                  onClick={() => {
-                    handleTabChange("/docs/graphql");
-                  }}
-                >
-                  GraphQL
-                </Tab>
-                <Tab
-                  id="rest"
-                  onClick={() => {
-                    handleTabChange("/docs/rest");
-                  }}
-                >
-                  Rest
-                </Tab>
-                <Tab
-                  id="trpc"
-                  onClick={() => {
-                    handleTabChange("/docs/trpc");
-                  }}
-                >
-                  tRPC
-                </Tab>
-              </TabList>
-            </Tabs>
-
-            {children}
+          <Stack
+            direction="col"
+            className="w-full max-w-full flex-1 rounded bg-white p-4 pt-0"
+          >
+            <Stack direction="row" className="my-2 gap-6 self-center">
+              <Link href="/">Home</Link>
+              <Link href="/docs">Docs</Link>
+              <Link href="/about">About us</Link>
+            </Stack>
+            <Stack className="flex-1 rounded border border-[1px] border-black p-6">
+              {children}
+            </Stack>
           </Stack>
           <Stack className="h-7 flex-row gap-2">
             <Link href="/changelog">Changelog</Link>

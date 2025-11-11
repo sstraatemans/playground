@@ -224,6 +224,14 @@ This project is licensed under the **ISC License** - see the [LICENSE](LICENSE) 
 
 ---
 
+## Disclaimer
+
+The data exposed by this package is not owned by the package author or maintainer. All such data is freely available on the internet from public sources.
+
+The copyright to _Suske en Wiske_ and all related characters, stories, and intellectual property yada yada yada is owned by **Standaard Uitgeverij**. This package does not claim any ownership or endorsement rights.
+
+---
+
 ## Support
 
 [![GitHub issues](https://img.shields.io/github/issues/sstraatemans/playground.svg?style=flat-square)](https://github.com/sstraatemans/playground/issues)
