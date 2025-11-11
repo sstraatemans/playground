@@ -6,6 +6,11 @@
     "email": "steven@sstraatemans.nl",
     "url": "https://straatemans.nl"
   },
+  "homepage": "https://suskeenwiske.dev/docs/trpc",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sstraatemans/playground.git"
+  },
   "version": "0.1.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
