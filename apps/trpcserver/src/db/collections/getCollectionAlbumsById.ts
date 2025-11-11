@@ -1,5 +1,5 @@
 import type { CollectionAlbum } from '@prisma/client';
-import { Prisma } from '@prisma/client';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { TRPCError } from '@trpc/server';
 import { logger } from '../../utils/logger.js';
 import { prisma } from '../client.js';
@@ -66,7 +66,7 @@ export const getCollectionAlbumsById = async (
     logger.error(
       {
         code:
-          error instanceof Prisma.PrismaClientKnownRequestError
+          error instanceof PrismaClientKnownRequestError
             ? error.code
             : '',
         error: error instanceof Error ? error.message : String(error),
@@ -76,7 +76,7 @@ export const getCollectionAlbumsById = async (
       'Failed to retrieve collection albums'
     );
 
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+    if (error instanceof PrismaClientKnownRequestError) {
       // P1001 = can't reach DB, P1003 = connection timeout, etc.
       if (['P1001', 'P1002', 'P1003', 'P1017'].includes(error.code)) {
         throw new TRPCError({
