@@ -1,11 +1,5 @@
 {
-  "changelog": [
-    "@changesets/changelog-github",
-    {
-      "repo": "sstraatemans/playground",
-      "hideCredit": true
-    }
-  ],
+  "changelog": "@changesets/cli/changelog",
   "commit": true,
   "linked": [],
   "access": "public",
