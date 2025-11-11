@@ -169,7 +169,7 @@ export const trpcClient = createClient({
 - **[API Reference](./docs/API_REFERENCE.md)** - Complete endpoint documentation with examples
 - **[Zod Schemas](./docs/SCHEMAS.md)** - All TypeScript types and Zod validation schemas
 - **[Next.js App Router Guide](./docs/APP_ROUTER.md)** - Integration with Next.js 13+ App Router
-- **[Online Documentation](https://susekeenwiske.dev)** - Full documentation, examples, and interactive API explorer
+- **[Online Documentation](https://suskeenwiske.dev)** - Full documentation, examples, and interactive API explorer
 
 ---
 
@@ -203,7 +203,7 @@ curl https://suskeenwiske.dev/api/v1/albums
 
 **REST Base URL:** `https://suskeenwiske.dev/api/v1`
 
-For more information about the GraphQL and REST APIs, visit the [online documentation](https://susekeenwiske.dev).
+For more information about the GraphQL and REST APIs, visit the [online documentation](https://suskeenwiske.dev).
 
 ---
 

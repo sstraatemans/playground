@@ -4,7 +4,7 @@ import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 import classnames from "classnames";
 
 type HeaderProps<T extends "h1" | "h2" | "h3" | "h4" | "h5" | "h6"> = {
-  children: ReactNode;
+  children?: ReactNode;
   variant?: T;
   className?: string;
 } & ComponentPropsWithoutRef<T>;
