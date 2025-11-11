@@ -1,9 +1,17 @@
 {
-  "$schema": "https://unpkg.com/@changesets/config@latest/schema.json",
-  "changelog": "@changesets/changelog-github",
-  "privatePackages": { "version": true },
+  "changelog": [
+    "@changesets/changelog-github",
+    { "repo": "your-org/your-repo" }
+  ],
+  "commit": false,
+  "linked": [],
   "access": "public",
   "baseBranch": "main",
+  "updateInternalDependencies": "patch",
   "ignore": [],
-  "linked": []
+  "privatePackages": { "version": false, "tag": false },
+  "***": {
+    "bumpVersions": { "strategy": "override" },
+    "changelog": true
+  }
 }
