@@ -8,6 +8,9 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -34,5 +37,6 @@ jobs:
           version: pnpm changeset version # Runs 'changeset version' to update versions and changelogs
           commit: 'Version packages' # Commit message for the PR
           title: 'Version Packages' # PR title
+          publish: echo "Skipping npm publish" # Skip publishing to npm
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
