@@ -60,11 +60,7 @@ async function getReleaseLine(changeset, type, options) {
   return `\n\n- ${firstLine}${suffix}\n${futureLines.map((l) => `  ${l}`).join('\n')}`;
 }
 
-async function getDependencyReleaseLine(
-  changesets,
-  dependenciesUpdated,
-  options
-) {
+async function getDependencyReleaseLine(changesets, dependenciesUpdated) {
   if (dependenciesUpdated.length === 0) return '';
 
   const changesetLink = `- Updated dependencies [${changesets
