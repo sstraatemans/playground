@@ -1,35 +1,32 @@
-# .github/workflows/release.yml
 name: Release
+
 on:
   push:
-    branches: [main]
+    branches:
+      - main # Or your default branch
 
 jobs:
   release:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write # for git push of version commits
-      pull-requests: write # for PR comments
-      packages: write # for npm publish
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repo
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # needed for changeset version
+          fetch-depth: 0
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 # Adjust to your Node version
 
-      - name: Install
-        run: pnpm install --frozen-lockfile
+      - name: Install Dependencies
+        run: yarn install # Or npm ci
 
-      - name: Build & Test
-        run: pnpm turbo run build lint test --filter=...^...
-
-      - name: Version & Publish
+      - name: Create Release Pull Request
+        uses: changesets/action@v1
+        with:
+          version: yarn changeset version # Runs 'changeset version' to update versions and changelogs
+          commit: 'Version packages' # Commit message for the PR
+          title: 'Version Packages' # PR title
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          pnpm changeset version   # bumps package.json + CHANGELOG.md
-          pnpm changeset publish   # npm publish --access public
-          git push --follow-tags   # push version commit + tag
