@@ -1,6 +1,6 @@
 # Next.js App Router Integration
 
-Complete guide for using @sw/trpcclient with Next.js 13+ App Router, including Server Components, Client Components, and React Query integration.
+Complete guide for using @straatemans/sw_trpcclient with Next.js 13+ App Router, including Server Components, Client Components, and React Query integration.
 
 ---
 
@@ -24,7 +24,7 @@ Complete guide for using @sw/trpcclient with Next.js 13+ App Router, including S
 First, install the required dependencies:
 
 ```bash
-pnpm add @sw/trpcclient superjson zod
+pnpm add @straatemans/sw_trpcclient superjson zod
 pnpm add -D @trpc/react-query @tanstack/react-query
 ```
 
@@ -38,7 +38,7 @@ Create a `.env.local` file in your Next.js project root:
 
 ```bash
 # .env.local
-NEXT_PUBLIC_TRPC_SERVER_URL=http://localhost:4000/trpc/v1
+NEXT_PUBLIC_TRPC_SERVER_URL=https://playground-trpcserver.vercel.app/trpc/v1
 ```
 
 ### 2. Create tRPC Client
@@ -48,7 +48,7 @@ Create a client utility file:
 **`src/utils/trpc-client.ts`**
 
 ```typescript
-import { createClient } from '@sw/trpcclient';
+import { createClient } from '@straatemans/sw_trpcclient';
 
 export const trpcClient = createClient({
   url: process.env.NEXT_PUBLIC_TRPC_SERVER_URL!,
@@ -101,7 +101,7 @@ export default async function AlbumsPage() {
 ```typescript
 import { trpcClient } from "@/utils/trpc-client";
 import { notFound } from "next/navigation";
-import type { AlbumType } from "@sw/trpcclient";
+import type { AlbumType } from "@straatemans/sw_trpcclient";
 
 interface PageProps {
   params: {
@@ -708,7 +708,7 @@ export default async function AlbumsPage() {
 
 import { useState } from "react";
 import { useAlbums } from "@/hooks/use-albums";
-import type { AlbumType } from "@sw/trpcclient";
+import type { AlbumType } from "@straatemans/sw_trpcclient";
 import Link from "next/link";
 
 interface Props {

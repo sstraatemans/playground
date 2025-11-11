@@ -1,6 +1,6 @@
 # API Reference
 
-Complete documentation for all available tRPC procedures in the @sw/trpcclient package.
+Complete documentation for all available tRPC procedures in the @straatemans/sw_trpcclient package.
 
 ---
 
@@ -72,9 +72,11 @@ number;
 #### Example
 
 ```typescript
-import { createClient } from '@sw/trpcclient';
+import { createClient } from '@straatemans/sw_trpcclient';
 
-const trpc = createClient({ url: 'http://localhost:4000/trpc/v1' });
+const trpc = createClient({
+  url: 'https://playground-trpcserver.vercel.app/trpc/v1',
+});
 
 const count = await trpc.albums.count.query();
 console.log(`Total albums: ${count}`);
@@ -834,7 +836,7 @@ try {
 ### Complete Error Handling Example
 
 ```typescript
-import type { AppRouter } from '@sw/trpcclient';
+import type { AppRouter } from '@straatemans/sw_trpcclient';
 import { TRPCClientError } from '@trpc/client';
 
 try {

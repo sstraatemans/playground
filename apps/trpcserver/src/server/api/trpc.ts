@@ -21,7 +21,9 @@ async function main() {
 
   // Start server
   await app.listen({ port: 4000, host: '0.0.0.0' });
-  console.log('🚀 tRPC + Fastify ready on http://localhost:4000/trpc');
+  console.log(
+    '🚀 tRPC + Fastify ready on https://playground-trpcserver.vercel.app/trpc/v1'
+  );
 }
 
 main().catch((err) => {
