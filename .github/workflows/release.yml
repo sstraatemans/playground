@@ -1,0 +1,35 @@
+# .github/workflows/release.yml
+name: Release
+on:
+  push:
+    branches: [main]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # for git push of version commits
+      pull-requests: write # for PR comments
+      packages: write # for npm publish
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # needed for changeset version
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build & Test
+        run: pnpm turbo run build lint test --filter=...^...
+
+      - name: Version & Publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          pnpm changeset version   # bumps package.json + CHANGELOG.md
+          pnpm changeset publish   # npm publish --access public
+          git push --follow-tags   # push version commit + tag
