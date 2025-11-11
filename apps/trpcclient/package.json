@@ -1,6 +1,6 @@
 {
-  "name": "@sw/trpcserver",
-  "description": "tRPC server for Suske en Wiske Playground",
+  "name": "@sw/trpcclient",
+  "description": "Shared tRPC types, Zod schemas, and client utilities",
   "version": "0.1.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -25,22 +25,16 @@
     }
   },
   "scripts": {
-    "dev": "tsx ./src/server.ts",
-    "prebuild": "prisma generate",
     "build": "tsc",
-    "start": "node ./dist/server.js",
     "lint": "eslint . --config eslint.config.js",
     "type-check": "tsc --noEmit",
-    "seed": "tsx ./prisma/seed/seed.ts",
-    "update:album": "tsx ./src/server/update/album.ts",
-    "update:character": "tsx ./src/server/update/character.ts",
-    "prisma:generate": "prisma generate",
     "prepublishOnly": "pnpm build"
   },
   "prisma": {
     "seed": "tsx ./prisma/seed/seed.ts"
   },
   "peerDependencies": {
+    "@sw/trpcserver": "workspace:*",
     "@trpc/client": "^11.7.1",
     "@trpc/server": "^11.7.1",
     "superjson": "^2.2.5",

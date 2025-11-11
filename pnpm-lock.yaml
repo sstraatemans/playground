@@ -50,9 +50,9 @@ importers:
 
   apps/frontend:
     dependencies:
-      '@sw/s_w_trpcserver':
+      '@sw/trpcclient':
         specifier: workspace:*
-        version: link:../trpcserver
+        version: link:../trpcclient
       '@tailwindcss/postcss':
         specifier: ^4.1.17
         version: 4.1.17
@@ -153,7 +153,7 @@ importers:
       '@sentry/tracing':
         specifier: ^7.120.4
         version: 7.120.4
-      '@sw/s_w_trpcserver':
+      '@sw/trpcserver':
         specifier: workspace:*
         version: link:../trpcserver
       '@trpc/client':
@@ -187,6 +187,70 @@ importers:
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
+
+  apps/trpcclient:
+    dependencies:
+      '@sw/trpcserver':
+        specifier: workspace:*
+        version: link:../trpcserver
+    devDependencies:
+      '@config/eslint':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@fastify/cookie':
+        specifier: ^11.0.2
+        version: 11.0.2
+      '@fastify/cors':
+        specifier: ^11.1.0
+        version: 11.1.0
+      '@prisma/client':
+        specifier: ^6.3.0
+        version: 6.18.0(prisma@6.3.0(typescript@5.9.3))(typescript@5.9.3)
+      '@supabase/supabase-js':
+        specifier: ^2.80.0
+        version: 2.80.0
+      '@trpc/client':
+        specifier: ^11.7.1
+        version: 11.7.1(@trpc/server@11.7.1(typescript@5.9.3))(typescript@5.9.3)
+      '@trpc/server':
+        specifier: ^11.7.1
+        version: 11.7.1(typescript@5.9.3)
+      '@types/node':
+        specifier: ^24.10.0
+        version: 24.10.0
+      cheerio:
+        specifier: ^1.1.2
+        version: 1.1.2
+      dotenv:
+        specifier: ^17.2.3
+        version: 17.2.3
+      fastify:
+        specifier: ^5.6.1
+        version: 5.6.1
+      openai:
+        specifier: ^6.8.1
+        version: 6.8.1(ws@8.18.3)(zod@4.1.12)
+      pino:
+        specifier: ^10.1.0
+        version: 10.1.0
+      prisma:
+        specifier: ^6.3.0
+        version: 6.3.0(typescript@5.9.3)
+      prisma-zod-generator:
+        specifier: ^1.31.3
+        version: 1.31.3(prisma@6.3.0(typescript@5.9.3))(typescript@5.9.3)(zod@4.1.12)
+      superjson:
+        specifier: ^2.2.5
+        version: 2.2.5
+      tsx:
+        specifier: ^4.20.6
+        version: 4.20.6
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+      zod:
+        specifier: ^4.1.12
+        version: 4.1.12
 
   apps/trpcserver:
     devDependencies:
