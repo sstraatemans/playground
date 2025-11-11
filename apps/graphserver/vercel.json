@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd ../.. && pnpm build --filter=@sw/graphserver...",
+  "buildCommand": "cd ../.. && pnpm build --filter=@straatemans/graphserver...",
   "installCommand": "pnpm install",
   "rewrites": [
     {

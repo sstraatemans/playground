@@ -1,6 +1,11 @@
 {
-  "name": "@sw/trpcclient",
+  "name": "@straatemans/sw_trpcclient",
   "description": "Shared tRPC types, Zod schemas, and client utilities",
+  "author": {
+    "name": "Steven Straatemans",
+    "email": "steven@straatemans.nl",
+    "url": "https://straatemans.nl"
+  },
   "version": "0.1.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -9,6 +14,9 @@
     "dist",
     "README.md"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "exports": {
     ".": {
@@ -35,7 +43,7 @@
     "seed": "tsx ./prisma/seed/seed.ts"
   },
   "dependencies": {
-    "@sw/trpcserver": "workspace:*"
+    "@straatemans/sw_trpcserver": "workspace:*"
   },
   "peerDependencies": {
     "superjson": "^2.2.5",

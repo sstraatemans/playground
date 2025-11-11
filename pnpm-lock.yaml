@@ -50,7 +50,7 @@ importers:
 
   apps/frontend:
     dependencies:
-      '@sw/trpcclient':
+      '@straatemans/sw_trpcclient':
         specifier: workspace:*
         version: link:../trpcclient
       '@tailwindcss/postcss':
@@ -162,7 +162,7 @@ importers:
       '@sentry/tracing':
         specifier: ^7.120.4
         version: 7.120.4
-      '@sw/trpcserver':
+      '@straatemans/sw_trpcserver':
         specifier: workspace:*
         version: link:../trpcserver
       '@trpc/client':
@@ -199,7 +199,7 @@ importers:
 
   apps/trpcclient:
     dependencies:
-      '@sw/trpcserver':
+      '@straatemans/sw_trpcserver':
         specifier: workspace:*
         version: link:../trpcserver
     devDependencies:

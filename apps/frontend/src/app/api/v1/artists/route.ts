@@ -1,5 +1,5 @@
 import { trpcClient } from "@/utils/trpcClient";
-import { ArtistSchema } from "@sw/trpcclient";
+import { ArtistSchema } from "@straatemans/sw_trpcclient";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import z from "zod";

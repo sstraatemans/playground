@@ -6,7 +6,7 @@ In this project you can find multiple ways to get access to all that you ever wa
 
 ### ENV variables
 
-TRPCSERVER=http://localhost:4000/trpc //for production, this is of course the production version
+TRPCSERVER=https://playground-trpcserver.vercel.app/trpc/v1 //for production, this is of course the production version
 HYVETOKEN=XXXX //for analytics
 HYVETARGET=straatemans/suskeenwiske/development // `straatemans/suskeenwiske/production`
 SENTRYDSN=XXX

@@ -1,5 +1,10 @@
 {
   "name": "playground-monorepo",
+  "author": {
+    "name": "Steven Straatemans",
+    "email": "steven@straatemans.nl",
+    "url": "https://straatemans.nl"
+  },
   "private": true,
   "packageManager": "pnpm@9.0.0",
   "scripts": {
@@ -10,7 +15,7 @@
     "type-check": "turbo type-check",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "turbo run build lint test && changeset version && changeset publish"
+    "release": "turbo run build lint test --filter=... && changeset version && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.7",
