@@ -8,6 +8,7 @@ import { callOpenAI } from 'server/utils/callOpenAI.js';
 import { downloadAlbumImages } from 'server/utils/downloadAlbumImages.js';
 import { findArtistByName } from 'server/utils/findArtistByName.js';
 import { prisma } from '../../db/client.js';
+import { wait } from '../../server/utils/wait.js';
 
 export interface AlbumParams {
   albumId: number; // Or number, if you constrain it to digits
@@ -111,6 +112,7 @@ const main = async () => {
       continue;
     }
     await updateAlbumHandler(album.id);
+    await wait(15000);
   }
 };
 
