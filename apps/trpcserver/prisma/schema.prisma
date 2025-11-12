@@ -53,6 +53,7 @@ model Character {
   albumsTemp      String      @default("") // needed to connect the albums to the character later
   albumCharacters AlbumCharacter[] 
   wikiURL         String?
+  albumsImported  Boolean     @default(false)
 }
 
 model AlbumCharacter {
