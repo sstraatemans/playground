@@ -1,5 +1,6 @@
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { TRPCError } from '@trpc/server';
+import { getCacheStrategy } from 'utils/getCacheStrategy.js';
 import z from 'zod';
 import { CONSTANTS } from '../../constants.js';
 import { logger } from '../../utils/logger.js';
@@ -54,15 +55,13 @@ export const allCharacters = async ({
       skip: offset,
       take: limit,
       orderBy: { name: 'asc' },
+      ...getCacheStrategy(),
     });
     return { totalCount: await characterCount(), data: data };
   } catch (error) {
     logger.error(
       {
-        code:
-          error instanceof PrismaClientKnownRequestError
-            ? error.code
-            : '',
+        code: error instanceof PrismaClientKnownRequestError ? error.code : '',
         error: error instanceof Error ? error.message : String(error),
         stack: error instanceof Error ? error.stack : undefined,
         offset,

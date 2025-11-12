@@ -28,7 +28,7 @@ export function createClient(options: CreateClientOptions) {
         transformer: options.transformer ?? superjson,
         headers: options.headers,
         maxURLLength: options.maxURLLength ?? 4000,
-        maxItems: options.maxItems ?? 3,
+        maxItems: options.maxItems ?? 1,
       }),
     ],
   });

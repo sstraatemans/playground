@@ -1,5 +1,6 @@
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { TRPCError } from '@trpc/server';
+import { getCacheStrategy } from 'utils/getCacheStrategy.js';
 import { logger } from '../../utils/logger.js';
 import { prisma } from '../client.js';
 
@@ -38,16 +39,14 @@ export const getArtistAlbumsById = async (id: number) => {
           },
         ],
       },
+      ...getCacheStrategy(),
     });
 
     return albums;
   } catch (error) {
     logger.error(
       {
-        code:
-          error instanceof PrismaClientKnownRequestError
-            ? error.code
-            : '',
+        code: error instanceof PrismaClientKnownRequestError ? error.code : '',
         error: error instanceof Error ? error.message : String(error),
         stack: error instanceof Error ? error.stack : undefined,
         id,

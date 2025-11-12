@@ -1,5 +1,6 @@
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { TRPCError } from '@trpc/server';
+import { getCacheStrategy } from 'utils/getCacheStrategy.js';
 import { logger } from '../../utils/logger.js';
 import { prisma } from '../client.js';
 
@@ -26,15 +27,15 @@ import { prisma } from '../client.js';
  */
 export const getArtistById = async (id: number) => {
   try {
-    const data = await prisma.artist.findUnique({ where: { id } });
+    const data = await prisma.artist.findUnique({
+      where: { id },
+      ...getCacheStrategy(),
+    });
     return data;
   } catch (error) {
     logger.error(
       {
-        code:
-          error instanceof PrismaClientKnownRequestError
-            ? error.code
-            : '',
+        code: error instanceof PrismaClientKnownRequestError ? error.code : '',
         error: error instanceof Error ? error.message : String(error),
         stack: error instanceof Error ? error.stack : undefined,
         id,
