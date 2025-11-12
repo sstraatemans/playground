@@ -1,7 +1,7 @@
 import type { CollectionAlbum } from '@prisma/client';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { TRPCError } from '@trpc/server';
-import { getCacheStrategy } from 'utils/getCacheStrategy.js';
+import { getCacheStrategy } from '../../utils/getCacheStrategy.js';
 import { logger } from '../../utils/logger.js';
 import { prisma } from '../client.js';
 
