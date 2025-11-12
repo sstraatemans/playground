@@ -40,6 +40,7 @@
     "seed": "tsx ./prisma/seed/seed.ts",
     "update:album": "tsx ./src/server/update/album.ts",
     "update:character": "tsx ./src/server/update/character.ts",
+    "update:albumCharacter": "tsx ./src/server/update/albumcharacters.ts",
     "prisma:generate": "prisma generate",
     "prepublishOnly": "pnpm build"
   },
