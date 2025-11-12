@@ -1,5 +1,6 @@
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { TRPCError } from '@trpc/server';
+import { getCacheStrategy } from 'utils/getCacheStrategy.js';
 import z from 'zod';
 import { CONSTANTS } from '../../constants.js';
 import { logger } from '../../utils/logger.js';
@@ -54,6 +55,7 @@ export const allAlbums = async ({
       skip: offset,
       take: limit,
       orderBy: { id: 'asc' },
+      ...getCacheStrategy(),
     });
     return { totalCount: await albumCount(), data: data };
   } catch (error) {

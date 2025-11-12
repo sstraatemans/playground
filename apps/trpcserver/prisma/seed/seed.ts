@@ -17,44 +17,61 @@ async function main() {
     return;
   }
 
-  // await prisma.$transaction(
-  //   collections.map((collection) => {
-  //     return prisma.collection.upsert({
-  //       where: { id: collection.id },
-  //       update: collection,
-  //       create: collection,
-  //     });
-  //   })
-  // );
+  await prisma.$transaction(
+    collections.map((collection) => {
+      return prisma.collection.upsert({
+        where: { id: collection.id },
+        update: collection,
+        create: collection,
+      });
+    })
+  );
 
-  // await prisma.$transaction(
-  //   artists.map((artist) => {
-  //     return prisma.artist.upsert({
-  //       where: { id: artist.id },
-  //       update: artist,
-  //       create: artist,
-  //     });
-  //   })
-  // );
+  await prisma.$transaction(
+    artists.map((artist) => {
+      return prisma.artist.upsert({
+        where: { id: artist.id },
+        update: artist,
+        create: artist,
+      });
+    })
+  );
 
-  // await prisma.$transaction(
-  //   characters.map((character) => {
-  //     const c = {
-  //       id: character.id,
-  //       name: character.name,
-  //       description: character.description,
-  //       years: character.years,
-  //       albumsTemp: character.albumsTemp,
-  //       wikiURL: character.wikiURL,
-  //     };
+  await prisma.$transaction(
+    characters.map((character) => {
+      const c = {
+        id: character.id,
+        name: character.name,
+        description: character.description,
+        years: character.years,
+        albumsTemp: character.albumsTemp,
+        wikiURL: character.wikiURL,
+      };
 
-  //     return prisma.character.upsert({
-  //       where: { name: c.name },
-  //       update: c,
-  //       create: c,
-  //     });
-  //   })
-  // );
+      return prisma.character.upsert({
+        where: { name: c.name },
+        update: c,
+        create: c,
+      });
+    })
+  );
+
+  await prisma.$transaction(
+    albums.map((album) => {
+      const a = {
+        id: album.id,
+        title: album.title,
+        date: album.date,
+        wikiURL: album.wikiURL,
+      };
+
+      return prisma.album.upsert({
+        where: { id: a.id },
+        update: a,
+        create: a,
+      });
+    })
+  );
 
   //add collections relations to albums
   const promises = albums

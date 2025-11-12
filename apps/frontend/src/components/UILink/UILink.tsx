@@ -10,9 +10,7 @@ interface IProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 
 export const UILink: FC<IProps> = ({
   label,
-  variant = "primary",
   external = false,
-  outline = false,
   href,
   ...props
 }) => {

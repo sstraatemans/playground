@@ -265,6 +265,10 @@ importers:
         version: 4.1.12
 
   apps/trpcserver:
+    dependencies:
+      '@prisma/extension-accelerate':
+        specifier: ^2.0.2
+        version: 2.0.2(@prisma/client@6.3.0(prisma@6.3.0(typescript@5.9.3))(typescript@5.9.3))
     devDependencies:
       '@config/eslint':
         specifier: workspace:*
@@ -1409,6 +1413,12 @@ packages:
 
   '@prisma/engines@6.3.0':
     resolution: {integrity: sha512-RXqYhlZb9sx/xkUfYIZuEPn7sT0WgTxNOuEYQ7AGw3IMpP9QGVEDVsluc/GcNkM8NTJszeqk8AplJzI9lm7Jxw==}
+
+  '@prisma/extension-accelerate@2.0.2':
+    resolution: {integrity: sha512-yZK6/k7uOEFpEsKoZezQS1CKDboPtBCQ0NyI70e1Un8tDiRgg80iWGyjsJmRpps2ZIut3MroHP+dyR3wVKh8lA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@prisma/client': '>=4.16.1'
 
   '@prisma/fetch-engine@6.19.0':
     resolution: {integrity: sha512-OOx2Lda0DGrZ1rodADT06ZGqHzr7HY7LNMaFE2Vp8dp146uJld58sRuasdX0OiwpHgl8SqDTUKHNUyzEq7pDdQ==}
@@ -7061,6 +7071,10 @@ snapshots:
       '@prisma/fetch-engine': 6.3.0
       '@prisma/get-platform': 6.3.0
 
+  '@prisma/extension-accelerate@2.0.2(@prisma/client@6.3.0(prisma@6.3.0(typescript@5.9.3))(typescript@5.9.3))':
+    dependencies:
+      '@prisma/client': 6.3.0(prisma@6.3.0(typescript@5.9.3))(typescript@5.9.3)
+
   '@prisma/fetch-engine@6.19.0':
     dependencies:
       '@prisma/debug': 6.19.0
@@ -9970,7 +9984,7 @@ snapshots:
       eslint: 9.39.0(jiti@2.6.1)
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0)(eslint@9.39.0(jiti@2.6.1))
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.46.2(eslint@9.39.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.0(jiti@2.6.1))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.46.2(eslint@9.39.0(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.0(jiti@2.6.1))
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.39.0(jiti@2.6.1))
       eslint-plugin-react: 7.37.5(eslint@9.39.0(jiti@2.6.1))
       eslint-plugin-react-hooks: 7.0.1(eslint@9.39.0(jiti@2.6.1))
@@ -10053,7 +10067,7 @@ snapshots:
       tinyglobby: 0.2.15
       unrs-resolver: 1.11.1
     optionalDependencies:
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.46.2(eslint@9.39.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.0(jiti@2.6.1))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.46.2(eslint@9.39.0(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.0(jiti@2.6.1))
     transitivePeerDependencies:
       - supports-color
 
@@ -10105,7 +10119,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.46.2(eslint@9.39.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.0(jiti@2.6.1)):
+  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.46.2(eslint@9.39.0(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.0(jiti@2.6.1)):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.9

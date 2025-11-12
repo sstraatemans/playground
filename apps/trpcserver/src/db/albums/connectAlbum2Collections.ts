@@ -52,7 +52,7 @@ export const connectAlbum2Collections = async (
       }
 
       if (hasCollection) {
-        const res = await prisma.collectionAlbum.upsert({
+        await prisma.collectionAlbum.upsert({
           where: {
             albumId_collectionId: {
               albumId: album.id,
