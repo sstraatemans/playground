@@ -1,5 +1,12 @@
 # @sstraatemans/sw_trpcclient
 
+## 0.2.2
+
+### Patch Changes
+
+- Updated dependencies [aef1334]
+  - @sstraatemans/sw_trpcserver@0.2.0
+
 ## 0.2.1
 
 ### Patch Changes

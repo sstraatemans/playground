@@ -5,7 +5,7 @@
     "email": "steven@sstraatemans.nl",
     "url": "https://straatemans.nl"
   },
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "main": "public/src/server.js",
   "types": "public/src/server.d.ts",
