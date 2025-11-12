@@ -1,5 +1,12 @@
 # @sstraatemans/sw_graphserver
 
+## 1.0.2
+
+### Patch Changes
+
+- Updated dependencies [aef1334]
+  - @sstraatemans/sw_trpcserver@0.2.0
+
 ## 1.0.1
 
 ### Patch Changes
