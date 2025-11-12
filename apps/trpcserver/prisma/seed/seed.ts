@@ -17,49 +17,54 @@ async function main() {
     return;
   }
 
-  await prisma.$transaction(
-    collections.map((collection) => {
-      return prisma.collection.upsert({
-        where: { id: collection.id },
-        update: collection,
-        create: collection,
-      });
-    })
-  );
+  // await prisma.$transaction(
+  //   collections.map((collection) => {
+  //     return prisma.collection.upsert({
+  //       where: { id: collection.id },
+  //       update: collection,
+  //       create: collection,
+  //     });
+  //   })
+  // );
 
-  await prisma.$transaction(
-    artists.map((artist) => {
-      return prisma.artist.upsert({
-        where: { id: artist.id },
-        update: artist,
-        create: artist,
-      });
-    })
-  );
+  // await prisma.$transaction(
+  //   artists.map((artist) => {
+  //     return prisma.artist.upsert({
+  //       where: { id: artist.id },
+  //       update: artist,
+  //       create: artist,
+  //     });
+  //   })
+  // );
 
-  await prisma.$transaction(
-    characters.map((character) => {
-      const c = {
-        id: character.id,
-        name: character.name,
-        description: character.description,
-        years: character.years,
-        albumsTemp: character.albumsTemp,
-        wikiURL: character.wikiURL,
-      };
+  // await prisma.$transaction(
+  //   characters.map((character) => {
+  //     const c = {
+  //       id: character.id,
+  //       name: character.name,
+  //       description: character.description,
+  //       years: character.years,
+  //       albumsTemp: character.albumsTemp,
+  //       wikiURL: character.wikiURL,
+  //     };
 
-      return prisma.character.upsert({
-        where: { name: c.name },
-        update: c,
-        create: c,
-      });
-    })
-  );
+  //     return prisma.character.upsert({
+  //       where: { name: c.name },
+  //       update: c,
+  //       create: c,
+  //     });
+  //   })
+  // );
 
   //add collections relations to albums
-  const promises = albums.map(async (album) => {
-    return await connectAlbum2Collections(album, collections);
-  });
+  const promises = albums
+    .sort((a, b) => {
+      if (a.id < b.id) return -1;
+      return 1;
+    })
+    .map(async (album) => {
+      return await connectAlbum2Collections(album, collections);
+    });
 
   await Promise.allSettled(promises);
 

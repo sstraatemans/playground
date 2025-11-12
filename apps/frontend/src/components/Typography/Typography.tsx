@@ -5,7 +5,7 @@ type TypographySize = "small" | "default" | "large";
 type TypographyVariant = "body" | "code";
 
 interface TypographyProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   size?: TypographySize;
   variant?: TypographyVariant;
   bold?: boolean;

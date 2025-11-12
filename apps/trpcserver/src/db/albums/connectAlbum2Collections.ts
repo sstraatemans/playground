@@ -2,6 +2,7 @@ import type { Collection } from '@prisma/client';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { TRPCError } from '@trpc/server';
 import type { WikiAlbum } from 'server/utils/getAlbumsJson.js';
+import { tabletojson } from 'tabletojson';
 import { prisma } from '../../db/client.js';
 import { logger } from '../../utils/logger.js';
 
@@ -31,9 +32,27 @@ export const connectAlbum2Collections = async (
 ) => {
   try {
     const promises = collectionsData.map(async (collection) => {
-      const hasCollection = (album as any)[collection.id];
+      var hasCollection = (album as any)[collection.id];
+
+      if (collection.id === 'VK') {
+        //this data was not complete, so we are going to get the data from another source
+        const tables = await tabletojson.convertUrl(collection.wikiURL!, {
+          stripHtmlFromCells: true,
+        });
+
+        const table = tables[0];
+
+        const row = table.find(
+          (r: any) => r['Titel'].toLowerCase() === album.title.toLowerCase()
+        );
+
+        if (row) {
+          hasCollection = `${row['Nr.']}`;
+        }
+      }
+
       if (hasCollection) {
-        await prisma.collectionAlbum.upsert({
+        const res = await prisma.collectionAlbum.upsert({
           where: {
             albumId_collectionId: {
               albumId: album.id,
@@ -62,10 +81,7 @@ export const connectAlbum2Collections = async (
   } catch (error) {
     logger.error(
       {
-        code:
-          error instanceof PrismaClientKnownRequestError
-            ? error.code
-            : '',
+        code: error instanceof PrismaClientKnownRequestError ? error.code : '',
         error: error instanceof Error ? error.message : String(error),
         stack: error instanceof Error ? error.stack : undefined,
         albumId: album.id,

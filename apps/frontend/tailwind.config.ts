@@ -5,7 +5,7 @@ import reactAria from "tailwindcss-react-aria-components";
 
 // Import default theme for fallback
 
-const config: Config = {
+const config = {
   content: [
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -21,6 +21,6 @@ const config: Config = {
   },
 
   plugins: [reactAria],
-};
+} as Config;
 
 export default config;

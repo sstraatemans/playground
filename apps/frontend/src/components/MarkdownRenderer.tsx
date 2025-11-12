@@ -66,9 +66,7 @@ export const MarkdownRenderer = ({ content }: MarkdownRendererProps) => {
             </Heading>
           ),
           p: ({ ...props }) => (
-            <Typography variant="body" {...props}>
-              {props.content}
-            </Typography>
+            <Typography variant="body" {...props} className="mb-4" />
           ),
           code: ({ className, children, ...props }) => {
             const match = /language-(\w+)/.exec(className || "");
