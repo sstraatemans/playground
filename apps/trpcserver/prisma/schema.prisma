@@ -34,6 +34,7 @@ model Album {
   wikiURL         String?
   description     String?
   image           String?
+  charactersImported Boolean @default(false)
 }
 
 model Artist {
