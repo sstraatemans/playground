@@ -5,6 +5,7 @@ import {
   getWikiData,
 } from 'server/utils/ai/tools/getWikiData.js';
 import { callOpenAI } from 'server/utils/callOpenAI.js';
+import { wait } from 'server/utils/wait.js';
 import { prisma } from '../../db/client.js';
 
 export const updateCharacterHandler = async (characterId?: number) => {
@@ -91,6 +92,7 @@ const main = async () => {
       continue;
     }
     await updateCharacterHandler(character.id);
+    await wait(30000);
   }
 };
 

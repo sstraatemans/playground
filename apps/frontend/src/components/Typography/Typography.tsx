@@ -20,8 +20,8 @@ const sizeMap: Record<TypographySize, string> = {
 };
 
 const variantMap: Record<TypographyVariant, string> = {
-  body: "font-sans tracking-normal",
-  code: "font-mono text-xs bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded",
+  body: "font-sans tracking-normal  break-all",
+  code: "font-mono text-xs bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded  break-all text-balance",
 };
 
 export const Typography: FC<TypographyProps> = ({

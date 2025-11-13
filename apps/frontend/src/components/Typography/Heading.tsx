@@ -40,7 +40,7 @@ export const Heading = <
   const classes = classnames(
     fontSize[variant],
     fontWeight[variant],
-    "leading-tight tracking-tight",
+    "leading-tight tracking-tight break-all ",
     className,
   );
 
