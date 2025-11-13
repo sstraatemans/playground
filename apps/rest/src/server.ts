@@ -13,20 +13,9 @@ const app: Fastify.FastifyInstance = Fastify({
 
 async function main() {
   await app.register(cors, {
-    origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps, curl, etc.)
-      // TODO: make something nice
-      if (!origin) return callback(null, true);
-
-      const allowedOrigins = ['http://localhost:3000'];
-
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'), false);
-      }
-    },
+    origin: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true,
   });
 
   // Register common schemas (must be done before routes)
@@ -42,10 +31,10 @@ async function main() {
   await app.register(collectionRoutes);
 
   // 3️⃣ Start server
-  await app.listen({ port: 4000, host: '0.0.0.0' });
-  console.log('🚀 REST API ready on http://localhost:4000');
+  await app.listen({ port: 4002, host: '0.0.0.0' });
+  console.log('🚀 REST API ready on http://localhost:4002');
   console.log(
-    '📚 API Documentation available at http://localhost:4000/documentation'
+    '📚 API Documentation available at http://localhost:4002/documentation'
   );
 }
 
