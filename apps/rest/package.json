@@ -1,0 +1,45 @@
+{
+  "name": "@sstraatemans/sw_rest",
+  "description": "REST API for Suske en Wiske Playground",
+  "version": "0.1.0",
+  "author": {
+    "name": "Steven Straatemans",
+    "email": "steven@sstraatemans.nl",
+    "url": "https://straatemans.nl"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "tsx ./src/server.ts",
+    "build": "tsc",
+    "start": "node ./dist/server.js",
+    "lint": "eslint . --config eslint.config.js",
+    "type-check": "tsc --noEmit"
+  },
+  "prisma": {
+    "seed": "tsx ./prisma/seed/seed.ts"
+  },
+  "devDependencies": {
+    "@config/eslint": "workspace:*",
+    "@fastify/cookie": "^11.0.2",
+    "@fastify/cors": "^11.1.0",
+    "@trpc/client": "^11.7.1",
+    "@trpc/server": "^11.7.1",
+    "@types/node": "^24.10.0",
+    "pino": "^10.1.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@fastify/swagger": "^9.6.1",
+    "@fastify/swagger-ui": "^5.2.3",
+    "@sstraatemans/sw_trpcclient": "^0.2.2",
+    "@sstraatemans/sw_trpcserver": "workspace:*",
+    "fastify": "^5.6.1"
+  }
+}
