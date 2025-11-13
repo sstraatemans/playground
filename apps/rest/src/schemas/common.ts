@@ -84,6 +84,20 @@ export function registerCommonSchemas(app: FastifyInstance) {
     required: ['id', 'name'],
   });
 
+  // Collection schema (matches AlbumCollection from trpcclient)
+  app.addSchema({
+    $id: 'AlbumCollection',
+    type: 'object',
+    properties: {
+      albumId: { type: 'integer' },
+      collectionId: { type: 'string' },
+      number: { type: 'integer' },
+      image: { type: 'string', nullable: true },
+      _links: { $ref: 'Links#' },
+    },
+    required: ['albumId', 'collectionId', 'number', 'image'],
+  });
+
   // Collection schema (matches CollectionSchema from trpcclient)
   app.addSchema({
     $id: 'Collection',
@@ -91,8 +105,8 @@ export function registerCommonSchemas(app: FastifyInstance) {
     properties: {
       id: { type: 'string' },
       name: { type: 'string' },
-      startYear: { type: 'string' },
-      endYear: { type: 'string' },
+      startYear: { type: 'string', nullable: true },
+      endYear: { type: 'string', nullable: true },
       wikiURL: { type: ['string', 'null'], nullable: true },
       _links: { $ref: 'Links#' },
     },

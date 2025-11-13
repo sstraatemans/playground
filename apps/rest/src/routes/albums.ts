@@ -437,7 +437,7 @@ export async function albumRoutes(app: FastifyInstance) {
               _links: { $ref: 'Links#' },
               collections: {
                 type: 'array',
-                items: { $ref: 'Collection#' },
+                items: { $ref: 'AlbumCollection#' },
               },
               totalCount: { type: 'integer' },
             },
@@ -487,60 +487,62 @@ export async function albumRoutes(app: FastifyInstance) {
           .send(buildErrorResponse('BAD_REQUEST', 'Invalid album ID', selfUrl));
       }
 
-      try {
-        const data = await trpcClient.albums.getAlbumCollectionsById.query(id);
+      //try {
+      const data = await trpcClient.albums.getAlbumCollectionsById.query(id);
 
-        if (!data) {
-          return reply
-            .code(404)
-            .header('Content-Type', 'application/hal+json')
-            .send({
-              error: { code: 'NOT_FOUND', message: 'Album not found' },
-              _links: {
-                self: { href: selfUrl },
-                album: { href: albumUrl },
-                albums: { href: `${baseUrl}/v1/albums` },
-              },
-            });
-        }
-
-        const collectionsWithLinks = data.map((collection: any) => ({
-          ...collection,
-          _links: {
-            self: { href: `${baseUrl}/v1/collections/${collection.id}` },
-          },
-        }));
-
+      if (!data) {
         return reply
-          .code(200)
+          .code(404)
           .header('Content-Type', 'application/hal+json')
-          .header(
-            'Cache-Control',
-            'public, s-maxage=300, stale-while-revalidate=60'
-          )
           .send({
+            error: { code: 'NOT_FOUND', message: 'Album not found' },
             _links: {
               self: { href: selfUrl },
               album: { href: albumUrl },
               albums: { href: `${baseUrl}/v1/albums` },
-              collections: { href: `${baseUrl}/v1/collections` },
             },
-            collections: collectionsWithLinks,
-            totalCount: data.length,
           });
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      } catch (_error) {
-        return reply
-          .code(500)
-          .header('Content-Type', 'application/hal+json')
-          .send(
-            buildErrorResponse(
-              'INTERNAL_SERVER_ERROR',
-              'Error fetching album collections',
-              selfUrl
-            )
-          );
       }
+
+      const collectionsWithLinks = data.map((collection: any) => ({
+        ...collection,
+        _links: {
+          self: { href: `${baseUrl}/v1/collections/${collection.id}` },
+        },
+      }));
+
+      console.log('test', collectionsWithLinks);
+
+      return reply
+        .code(200)
+        .header('Content-Type', 'application/hal+json')
+        .header(
+          'Cache-Control',
+          'public, s-maxage=300, stale-while-revalidate=60'
+        )
+        .send({
+          _links: {
+            self: { href: selfUrl },
+            album: { href: albumUrl },
+            albums: { href: `${baseUrl}/v1/albums` },
+            collections: { href: `${baseUrl}/v1/collections` },
+          },
+          collections: collectionsWithLinks,
+          totalCount: data.length,
+        });
+
+      // } catch (_error) {
+      //   return reply
+      //     .code(500)
+      //     .header('Content-Type', 'application/hal+json')
+      //     .send(
+      //       buildErrorResponse(
+      //         'INTERNAL_SERVER_ERROR',
+      //         'Error fetching album collections',
+      //         selfUrl
+      //       )
+      //     );
+      // }
     }
   );
 }
