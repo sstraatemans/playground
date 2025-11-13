@@ -13,18 +13,16 @@ export const DocsLinks: FC = () => (
       </CardContent>
       <CardFooter>
         <UILink
-          variant="transparent"
-          external
-          href="https://graphql.suskeenwiske.dev/v1"
-          label="playground"
-        />
-
-        <UILink
           label="Changelogs"
           variant="secondary"
           href="/docs/graphql/changelogs"
         />
-        <UILink label="Docs" href="/docs/graphql" />
+        <UILink
+          variant="transparent"
+          external
+          href="https://graphql.suskeenwiske.dev/v1"
+          label="Playground"
+        />
       </CardFooter>
     </Card>
 

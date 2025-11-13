@@ -75,7 +75,7 @@ export const MarkdownRenderer = ({ content }: MarkdownRendererProps) => {
             if (isInline) {
               return (
                 <code
-                  className="rounded bg-gray-100 px-1.5 py-0.5 text-sm text-red-600"
+                  className="rounded bg-gray-100 px-1.5 py-0.5 text-sm text-wrap wrap-anywhere text-red-600"
                   style={{ fontFamily: "var(--font-kodemono)" }}
                   {...props}
                 >
@@ -86,7 +86,7 @@ export const MarkdownRenderer = ({ content }: MarkdownRendererProps) => {
 
             return (
               <code
-                className={`block overflow-x-auto rounded-lg bg-gray-900 p-4 text-sm text-white ${className}`}
+                className={`block overflow-x-auto rounded-lg bg-gray-900 p-4 text-sm text-wrap wrap-anywhere text-white ${className}`}
                 style={{ fontFamily: "var(--font-kodemono)" }}
                 {...props}
               >

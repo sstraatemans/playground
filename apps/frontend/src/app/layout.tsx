@@ -23,10 +23,10 @@ const RootLayout = ({
         <meta content="text/html; charset=UTF-8" name="Content-Type" />
         <meta content="#020E1B" name="theme-color" />
       </head>
-      <body className="font-body bg-primary flex max-w-full flex-col items-center">
+      <body className="font-body bg-primary flex w-dvw max-w-dvw flex-col items-center">
         <Stack
           direction="col"
-          className="mh-auto mb-10 h-dvh max-w-[1600] items-center px-10"
+          className="mh-auto mb-10 h-dvh max-w-[1600] items-center px-1 sm:px-4"
         >
           <img src="/assets/header.png" />
 

@@ -11,7 +11,7 @@ export default function TrpcDocsLayout({
     <Stack direction="col" className="w-full">
       <Heading>tRPC Client Documentation</Heading>
 
-      <nav className="mb-6 flex gap-4 border-b pb-2">
+      <nav className="mb-6 flex flex-col gap-4 border-b pb-2">
         <Link
           href="/docs/trpc"
           className="rounded px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
