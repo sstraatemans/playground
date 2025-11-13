@@ -55,19 +55,10 @@ export function registerCommonSchemas(app: FastifyInstance) {
       name: { type: 'string' },
       description: { type: 'string' },
       years: { type: 'string' },
-      albumsTemp: { type: 'string' },
       wikiURL: { type: ['string', 'null'], nullable: true },
-      albumsImported: { type: 'boolean' },
       _links: { $ref: 'Links#' },
     },
-    required: [
-      'id',
-      'name',
-      'description',
-      'years',
-      'albumsTemp',
-      'albumsImported',
-    ],
+    required: ['id', 'name', 'description', 'years'],
   });
 
   // Artist schema (matches ArtistSchema from trpcclient)

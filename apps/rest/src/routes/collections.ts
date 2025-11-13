@@ -59,6 +59,39 @@ export async function collectionRoutes(app: FastifyInstance) {
               totalCount: { type: 'integer' },
               page: { $ref: 'PaginationInfo#' },
             },
+            examples: [
+              {
+                _links: {
+                  self: { href: '/v1/collections?limit=10&offset=0' },
+                  next: { href: '/v1/collections?limit=10&offset=10' },
+                  first: { href: '/v1/collections?limit=10&offset=0' },
+                  last: { href: '/v1/collections?limit=10&offset=40' },
+                  collection: { href: '/v1/collections' },
+                },
+                collections: [
+                  {
+                    id: '1',
+                    name: 'De Blauwe Reeks',
+                    _links: {
+                      self: { href: '/v1/collections/1' },
+                    },
+                  },
+                  {
+                    id: '2',
+                    name: 'De Rode Reeks',
+                    _links: {
+                      self: { href: '/v1/collections/2' },
+                    },
+                  },
+                ],
+                totalCount: 50,
+                page: {
+                  limit: 10,
+                  offset: 0,
+                  returned: 2,
+                },
+              },
+            ],
           },
           400: { $ref: 'BadRequest#' },
           500: { $ref: 'ServerError#' },
@@ -159,7 +192,20 @@ export async function collectionRoutes(app: FastifyInstance) {
           required: ['id'],
         },
         response: {
-          200: { $ref: 'Collection#' },
+          200: {
+            description: 'Successful response – single collection resource',
+            allOf: [{ $ref: 'Collection#' }],
+            examples: [
+              {
+                id: '1',
+                name: 'De Blauwe Reeks',
+                _links: {
+                  self: { href: '/v1/collections/1' },
+                  collection: { href: '/v1/collections' },
+                },
+              },
+            ],
+          },
           404: { $ref: 'NotFound#' },
           400: { $ref: 'BadRequest#' },
           500: { $ref: 'ServerError#' },
@@ -262,6 +308,33 @@ export async function collectionRoutes(app: FastifyInstance) {
               },
               totalCount: { type: 'integer' },
             },
+            examples: [
+              {
+                _links: {
+                  self: { href: '/v1/collections/1/albums' },
+                  collection: { href: '/v1/collections/1' },
+                  collections: { href: '/v1/collections' },
+                  albums: { href: '/v1/albums' },
+                },
+                albums: [
+                  {
+                    albumId: 67,
+                    number: 1,
+                    _links: {
+                      self: { href: '/v1/albums/67' },
+                    },
+                  },
+                  {
+                    albumId: 68,
+                    number: 2,
+                    _links: {
+                      self: { href: '/v1/albums/68' },
+                    },
+                  },
+                ],
+                totalCount: 2,
+              },
+            ],
           },
           404: { $ref: 'NotFound#' },
           400: { $ref: 'BadRequest#' },

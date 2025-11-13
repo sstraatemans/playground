@@ -59,6 +59,39 @@ export async function artistRoutes(app: FastifyInstance) {
               totalCount: { type: 'integer' },
               page: { $ref: 'PaginationInfo#' },
             },
+            examples: [
+              {
+                _links: {
+                  self: { href: '/v1/artists?limit=10&offset=0' },
+                  next: { href: '/v1/artists?limit=10&offset=10' },
+                  first: { href: '/v1/artists?limit=10&offset=0' },
+                  last: { href: '/v1/artists?limit=10&offset=90' },
+                  collection: { href: '/v1/artists' },
+                },
+                artists: [
+                  {
+                    id: 1,
+                    name: 'Willy Vandersteen',
+                    _links: {
+                      self: { href: '/v1/artists/1' },
+                    },
+                  },
+                  {
+                    id: 2,
+                    name: 'Paul Geerts',
+                    _links: {
+                      self: { href: '/v1/artists/2' },
+                    },
+                  },
+                ],
+                totalCount: 100,
+                page: {
+                  limit: 10,
+                  offset: 0,
+                  returned: 2,
+                },
+              },
+            ],
           },
           400: { $ref: 'BadRequest#' },
           500: { $ref: 'ServerError#' },
@@ -155,7 +188,20 @@ export async function artistRoutes(app: FastifyInstance) {
           required: ['id'],
         },
         response: {
-          200: { $ref: 'Artist#' },
+          200: {
+            description: 'Successful response – single artist resource',
+            allOf: [{ $ref: 'Artist#' }],
+            examples: [
+              {
+                id: 1,
+                name: 'Willy Vandersteen',
+                _links: {
+                  self: { href: '/v1/artists/1' },
+                  collection: { href: '/v1/artists' },
+                },
+              },
+            ],
+          },
           404: { $ref: 'NotFound#' },
           400: { $ref: 'BadRequest#' },
           500: { $ref: 'ServerError#' },
@@ -245,6 +291,35 @@ export async function artistRoutes(app: FastifyInstance) {
               },
               totalCount: { type: 'integer' },
             },
+            examples: [
+              {
+                _links: {
+                  self: { href: '/v1/artists/1/albums' },
+                  artist: { href: '/v1/artists/1' },
+                  artists: { href: '/v1/artists' },
+                  albums: { href: '/v1/albums' },
+                },
+                albums: [
+                  {
+                    id: 67,
+                    title: 'Jeromba de Griek',
+                    date: '1965-10-11',
+                    _links: {
+                      self: { href: '/v1/albums/67' },
+                    },
+                  },
+                  {
+                    id: 68,
+                    title: 'De sprietatoom',
+                    date: '1946-05-15',
+                    _links: {
+                      self: { href: '/v1/albums/68' },
+                    },
+                  },
+                ],
+                totalCount: 2,
+              },
+            ],
           },
           404: { $ref: 'NotFound#' },
           400: { $ref: 'BadRequest#' },
