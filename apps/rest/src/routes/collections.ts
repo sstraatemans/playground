@@ -51,23 +51,7 @@ export async function collectionRoutes(app: FastifyInstance) {
               _links: { $ref: 'Links#' },
               collections: {
                 type: 'array',
-                items: {
-                  type: 'object',
-                  properties: {
-                    id: { type: 'string' },
-                    name: { type: 'string' },
-                    startYear: {
-                      type: 'integer',
-                      nullable: true,
-                    },
-                    endYear: {
-                      type: 'integer',
-                      nullable: true,
-                    },
-                    _links: { $ref: 'Links#' },
-                  },
-                  required: ['id', 'name', '_links'],
-                },
+                items: { $ref: 'Collection#' },
               },
               totalCount: { type: 'integer' },
               page: { $ref: 'PaginationInfo#' },
@@ -169,24 +153,7 @@ export async function collectionRoutes(app: FastifyInstance) {
           required: ['id'],
         },
         response: {
-          200: {
-            description: 'Successful response – single collection resource',
-            type: 'object',
-            properties: {
-              id: { type: 'string' },
-              name: { type: 'string' },
-              startYear: {
-                anyOf: [{ type: 'integer' }, { type: 'null' }],
-                nullable: true,
-              },
-              endYear: {
-                anyOf: [{ type: 'integer' }, { type: 'null' }],
-                nullable: true,
-              },
-              _links: { $ref: 'Links#' },
-            },
-            required: ['id', 'name', '_links'],
-          },
+          200: { $ref: 'Collection#' },
           404: { $ref: 'NotFound#' },
           400: { $ref: 'BadRequest#' },
           500: { $ref: 'ServerError#' },

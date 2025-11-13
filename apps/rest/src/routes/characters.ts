@@ -51,23 +51,7 @@ export async function characterRoutes(app: FastifyInstance) {
               _links: { $ref: 'Links#' },
               characters: {
                 type: 'array',
-                items: {
-                  type: 'object',
-                  properties: {
-                    id: { type: 'integer' },
-                    name: { type: 'string' },
-                    description: {
-                      anyOf: [{ type: 'string' }, { type: 'null' }],
-                    },
-                    years: {
-                      anyOf: [{ type: 'string' }, { type: 'null' }],
-                    },
-                    wikiURL: {
-                      anyOf: [{ type: 'string' }, { type: 'null' }],
-                    },
-                    _links: { $ref: 'Links#' },
-                  },
-                },
+                items: { $ref: 'Character#' },
               },
               totalCount: { type: 'integer' },
               page: { $ref: 'PaginationInfo#' },
@@ -165,24 +149,7 @@ export async function characterRoutes(app: FastifyInstance) {
           required: ['id'],
         },
         response: {
-          200: {
-            description: 'Successful response – single character resource',
-            type: 'object',
-            properties: {
-              id: { type: 'integer' },
-              name: { type: 'string' },
-              description: {
-                anyOf: [{ type: 'string' }, { type: 'null' }],
-              },
-              years: {
-                anyOf: [{ type: 'string' }, { type: 'null' }],
-              },
-              wikiURL: {
-                anyOf: [{ type: 'string' }, { type: 'null' }],
-              },
-              _links: { $ref: 'Links#' },
-            },
-          },
+          200: { $ref: 'Character#' },
           404: { $ref: 'NotFound#' },
           400: { $ref: 'BadRequest#' },
           500: { $ref: 'ServerError#' },
@@ -268,30 +235,7 @@ export async function characterRoutes(app: FastifyInstance) {
               _links: { $ref: 'Links#' },
               albums: {
                 type: 'array',
-                items: {
-                  type: 'object',
-                  properties: {
-                    id: { type: 'integer' },
-                    title: { type: 'string' },
-                    date: { type: 'string', format: 'date' },
-                    scenarioArtistId: {
-                      anyOf: [{ type: 'integer' }, { type: 'null' }],
-                    },
-                    drawArtistId: {
-                      anyOf: [{ type: 'integer' }, { type: 'null' }],
-                    },
-                    wikiURL: {
-                      anyOf: [{ type: 'string' }, { type: 'null' }],
-                    },
-                    description: {
-                      anyOf: [{ type: 'string' }, { type: 'null' }],
-                    },
-                    image: {
-                      anyOf: [{ type: 'string' }, { type: 'null' }],
-                    },
-                    _links: { $ref: 'Links#' },
-                  },
-                },
+                items: { $ref: 'Album#' },
               },
               totalCount: { type: 'integer' },
             },

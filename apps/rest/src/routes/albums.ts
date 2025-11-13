@@ -50,27 +50,7 @@ export async function albumRoutes(app: FastifyInstance) {
               _links: { $ref: 'Links#' },
               albums: {
                 type: 'array',
-                items: {
-                  type: 'object',
-                  properties: {
-                    id: { type: 'integer' },
-                    title: { type: 'string' },
-                    description: { type: 'string', nullable: true },
-                    date: {
-                      type: 'string',
-                      format: 'date-time',
-                      nullable: true,
-                    },
-                    scenarioArtistId: {
-                      type: ['integer', 'null'],
-                      nullable: true,
-                    },
-                    drawArtistId: { type: 'integer', nullable: true },
-                    image: { type: 'string', nullable: true },
-                    _links: { $ref: 'Links#' },
-                  },
-                  required: ['id', 'title', '_links'],
-                },
+                items: { $ref: 'Album#' },
               },
               totalCount: { type: 'integer' },
               page: { $ref: 'PaginationInfo#' },
@@ -169,21 +149,7 @@ export async function albumRoutes(app: FastifyInstance) {
         },
         response: {
           200: {
-            description: 'Successful response – single album resource',
-            type: 'object',
-            properties: {
-              id: { type: 'integer' },
-              title: { type: 'string' },
-              publicationDate: {
-                anyOf: [
-                  { type: 'string', format: 'date-time' },
-                  { type: 'null' },
-                ],
-                nullable: true,
-              },
-              _links: { $ref: 'Links#' },
-            },
-            required: ['id', 'title', '_links'],
+            $ref: 'Album#',
           },
           404: { $ref: 'NotFound#' },
           400: { $ref: 'BadRequest#' },
@@ -266,15 +232,7 @@ export async function albumRoutes(app: FastifyInstance) {
               _links: { $ref: 'Links#' },
               characters: {
                 type: 'array',
-                items: {
-                  type: 'object',
-                  properties: {
-                    id: { type: 'integer' },
-                    name: { type: 'string' },
-                    _links: { $ref: 'Links#' },
-                  },
-                  required: ['id', 'name', '_links'],
-                },
+                items: { $ref: 'Character#' },
               },
               totalCount: { type: 'integer' },
             },
@@ -377,23 +335,7 @@ export async function albumRoutes(app: FastifyInstance) {
               _links: { $ref: 'Links#' },
               collections: {
                 type: 'array',
-                items: {
-                  type: 'object',
-                  properties: {
-                    id: { type: 'string' },
-                    name: { type: 'string' },
-                    startYear: {
-                      anyOf: [{ type: 'integer' }, { type: 'null' }],
-                      nullable: true,
-                    },
-                    endYear: {
-                      anyOf: [{ type: 'integer' }, { type: 'null' }],
-                      nullable: true,
-                    },
-                    _links: { $ref: 'Links#' },
-                  },
-                  required: ['id', 'name', '_links'],
-                },
+                items: { $ref: 'Collection#' },
               },
               totalCount: { type: 'integer' },
             },

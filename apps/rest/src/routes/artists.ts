@@ -51,17 +51,7 @@ export async function artistRoutes(app: FastifyInstance) {
               _links: { $ref: 'Links#' },
               artists: {
                 type: 'array',
-                items: {
-                  type: 'object',
-                  properties: {
-                    id: { type: 'integer' },
-                    name: { type: 'string' },
-                    wikiURL: {
-                      anyOf: [{ type: 'string' }, { type: 'null' }],
-                    },
-                    _links: { $ref: 'Links#' },
-                  },
-                },
+                items: { $ref: 'Artist#' },
               },
               totalCount: { type: 'integer' },
               page: { $ref: 'PaginationInfo#' },
@@ -159,18 +149,7 @@ export async function artistRoutes(app: FastifyInstance) {
           required: ['id'],
         },
         response: {
-          200: {
-            description: 'Successful response – single artist resource',
-            type: 'object',
-            properties: {
-              id: { type: 'integer' },
-              name: { type: 'string' },
-              wikiURL: {
-                anyOf: [{ type: 'string' }, { type: 'null' }],
-              },
-              _links: { $ref: 'Links#' },
-            },
-          },
+          200: { $ref: 'Artist#' },
           404: { $ref: 'NotFound#' },
           400: { $ref: 'BadRequest#' },
           500: { $ref: 'ServerError#' },
@@ -253,30 +232,7 @@ export async function artistRoutes(app: FastifyInstance) {
               _links: { $ref: 'Links#' },
               albums: {
                 type: 'array',
-                items: {
-                  type: 'object',
-                  properties: {
-                    id: { type: 'integer' },
-                    title: { type: 'string' },
-                    date: { type: 'string', format: 'date' },
-                    scenarioArtistId: {
-                      anyOf: [{ type: 'integer' }, { type: 'null' }],
-                    },
-                    drawArtistId: {
-                      anyOf: [{ type: 'integer' }, { type: 'null' }],
-                    },
-                    wikiURL: {
-                      anyOf: [{ type: 'string' }, { type: 'null' }],
-                    },
-                    description: {
-                      anyOf: [{ type: 'string' }, { type: 'null' }],
-                    },
-                    image: {
-                      anyOf: [{ type: 'string' }, { type: 'null' }],
-                    },
-                    _links: { $ref: 'Links#' },
-                  },
-                },
+                items: { $ref: 'Album#' },
               },
               totalCount: { type: 'integer' },
             },
