@@ -13,10 +13,6 @@ export async function setupSwagger(app: FastifyInstance) {
       },
       servers: [
         {
-          url: 'http://localhost:4002',
-          description: 'Development server',
-        },
-        {
           url: 'https://playground-rest.vercel.app',
           description: 'Production server',
         },
