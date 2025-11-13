@@ -23,6 +23,9 @@ export async function collectionRoutes(app: FastifyInstance) {
     '/v1/collections',
     {
       schema: {
+        summary: 'Get paginated collections',
+        description:
+          'Returns a paginated collection of comic collections following HAL+JSON conventions. Clients **must** follow `_links` for navigation (next/prev/first/last).',
         tags: ['Collections'],
         querystring: {
           type: 'object',
@@ -144,6 +147,9 @@ export async function collectionRoutes(app: FastifyInstance) {
     '/v1/collections/:id',
     {
       schema: {
+        summary: 'Get a collection by ID',
+        description:
+          'Returns a single collection by ID following HAL+JSON conventions. Clients **must** follow `_links` for navigation.',
         tags: ['Collections'],
         params: {
           type: 'object',
@@ -221,6 +227,9 @@ export async function collectionRoutes(app: FastifyInstance) {
     '/v1/collections/:id/albums',
     {
       schema: {
+        summary: 'Get all albums in a collection by collectionId',
+        description:
+          'Returns an array of albums in a collection following HAL+JSON conventions. Clients **must** follow `_links` for navigation.',
         tags: ['Collections'],
         params: {
           type: 'object',

@@ -23,6 +23,9 @@ export async function artistRoutes(app: FastifyInstance) {
     '/v1/artists',
     {
       schema: {
+        summary: 'Get paginated artists',
+        description:
+          'Returns a paginated collection of artists following HAL+JSON conventions. Clients **must** follow `_links` for navigation (next/prev/first/last).',
         tags: ['Artists'],
         querystring: {
           type: 'object',
@@ -140,6 +143,9 @@ export async function artistRoutes(app: FastifyInstance) {
     '/v1/artists/:id',
     {
       schema: {
+        summary: 'Get an artist by ID',
+        description:
+          'Returns a single artist by ID following HAL+JSON conventions. Clients **must** follow `_links` for navigation.',
         tags: ['Artists'],
         params: {
           type: 'object',
@@ -216,6 +222,9 @@ export async function artistRoutes(app: FastifyInstance) {
     '/v1/artists/:id/albums',
     {
       schema: {
+        summary: 'Get all albums from an artist by artistId',
+        description:
+          'Returns an array of albums of an artist following HAL+JSON conventions. Clients **must** follow `_links` for navigation.',
         tags: ['Artists'],
         params: {
           type: 'object',

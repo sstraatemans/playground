@@ -23,6 +23,9 @@ export async function albumRoutes(app: FastifyInstance) {
     '/v1/albums',
     {
       schema: {
+        summary: 'Get paginated albums',
+        description:
+          'Returns a paginated collection of albums following HAL+JSON conventions. Clients **must** follow `_links` for navigation (next/prev/first/last).',
         tags: ['Albums'],
         querystring: {
           type: 'object',
@@ -139,6 +142,9 @@ export async function albumRoutes(app: FastifyInstance) {
     '/v1/albums/:id',
     {
       schema: {
+        summary: 'Get an album by ID',
+        description:
+          'Returns a single album by ID following HAL+JSON conventions. Clients **must** follow `_links` for navigation.',
         tags: ['Albums'],
         params: {
           type: 'object',
@@ -215,6 +221,9 @@ export async function albumRoutes(app: FastifyInstance) {
     '/v1/albums/:id/characters',
     {
       schema: {
+        summary: 'Get all characters in an album by albumId',
+        description:
+          'Returns an array of characters in a specific album following HAL+JSON conventions. Clients **must** follow `_links` for navigation.',
         tags: ['Albums'],
         params: {
           type: 'object',
@@ -318,6 +327,9 @@ export async function albumRoutes(app: FastifyInstance) {
     '/v1/albums/:id/collections',
     {
       schema: {
+        summary: 'Get all collections that include a specific album.',
+        description:
+          'Returns an array of collections that include a specific album following HAL+JSON conventions. Clients **must** follow `_links` for navigation.',
         tags: ['Albums'],
         params: {
           type: 'object',

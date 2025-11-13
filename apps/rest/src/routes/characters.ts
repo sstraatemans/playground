@@ -23,6 +23,9 @@ export async function characterRoutes(app: FastifyInstance) {
     '/v1/characters',
     {
       schema: {
+        summary: 'Get paginated characters',
+        description:
+          'Returns a paginated collection of characters following HAL+JSON conventions. Clients **must** follow `_links` for navigation (next/prev/first/last)',
         tags: ['Characters'],
         querystring: {
           type: 'object',
@@ -140,6 +143,9 @@ export async function characterRoutes(app: FastifyInstance) {
     '/v1/characters/:id',
     {
       schema: {
+        summary: 'Get a character by ID',
+        description:
+          'Returns a single character by ID following HAL+JSON conventions. Clients **must** follow `_links` for navigation.',
         tags: ['Characters'],
         params: {
           type: 'object',
@@ -218,6 +224,10 @@ export async function characterRoutes(app: FastifyInstance) {
     '/v1/characters/:id/albums',
     {
       schema: {
+        summary:
+          'Get all albums where the character makes an appearance by characterId',
+        description:
+          'Returns an array of albums where the character makes an appearance following HAL+JSON conventions. Clients **must** follow `_links` for navigation',
         tags: ['Characters'],
         params: {
           type: 'object',
