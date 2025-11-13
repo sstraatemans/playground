@@ -1,0 +1,377 @@
+import { CharacterSchema } from '@sstraatemans/sw_trpcclient';
+import { createClient } from '@sstraatemans/sw_trpcclient';
+import type { FastifyInstance } from 'fastify';
+import z from 'zod';
+import {
+  buildPaginationLinks,
+  buildResourceLinks,
+  buildErrorResponse,
+  parsePaginationParams,
+} from '../utils/hal.js';
+
+const trpcClient = createClient({
+  url:
+    process.env.TRPC_SERVER_URL ||
+    'https://playground-trpcserver.vercel.app/trpc/v1',
+});
+
+export async function characterRoutes(app: FastifyInstance) {
+  const baseUrl = process.env.BASE_URL || 'http://localhost:4000';
+
+  // GET /v1/characters - List all characters with pagination
+  app.get(
+    '/v1/characters',
+    {
+      schema: {
+        tags: ['Characters'],
+        querystring: {
+          type: 'object',
+          properties: {
+            limit: {
+              type: 'integer',
+              minimum: 1,
+              maximum: 100,
+              default: 10,
+              description: 'Number of items per page',
+            },
+            offset: {
+              type: 'integer',
+              minimum: 0,
+              default: 0,
+              description: 'Offset for pagination (zero-based)',
+            },
+          },
+        },
+        response: {
+          200: {
+            description:
+              'Successful response – paginated collection of characters',
+            type: 'object',
+            properties: {
+              _links: { $ref: 'Links#' },
+              characters: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  properties: {
+                    id: { type: 'integer' },
+                    name: { type: 'string' },
+                    description: {
+                      anyOf: [{ type: 'string' }, { type: 'null' }],
+                    },
+                    years: {
+                      anyOf: [{ type: 'string' }, { type: 'null' }],
+                    },
+                    wikiURL: {
+                      anyOf: [{ type: 'string' }, { type: 'null' }],
+                    },
+                    _links: { $ref: 'Links#' },
+                  },
+                },
+              },
+              totalCount: { type: 'integer' },
+              page: { $ref: 'PaginationInfo#' },
+            },
+          },
+          400: { $ref: 'BadRequest#' },
+          500: { $ref: 'ServerError#' },
+        },
+      },
+    },
+    async (request, reply) => {
+      const { limit: rawLimit, offset: rawOffset } = request.query as {
+        limit?: string;
+        offset?: string;
+      };
+
+      const { limit, offset, error } = parsePaginationParams(
+        rawLimit,
+        rawOffset
+      );
+
+      if (error) {
+        return reply
+          .code(400)
+          .header('Content-Type', 'application/hal+json')
+          .send(
+            buildErrorResponse('BAD_REQUEST', error, `${baseUrl}/v1/characters`)
+          );
+      }
+
+      try {
+        const { data, totalCount } = await trpcClient.characters.all.query({
+          limit,
+          offset,
+        });
+
+        const parsedCharacters = z.array(CharacterSchema).parse(data);
+        const charactersBaseUrl = `${baseUrl}/v1/characters`;
+
+        const _links = buildPaginationLinks({
+          limit,
+          offset,
+          totalCount,
+          baseUrl: charactersBaseUrl,
+        });
+
+        const charactersWithLinks = parsedCharacters.map((character) => ({
+          ...character,
+          _links: {
+            self: { href: `${charactersBaseUrl}/${character.id}` },
+          },
+        }));
+
+        return reply
+          .code(200)
+          .header('Content-Type', 'application/hal+json')
+          .header(
+            'Cache-Control',
+            'public, s-maxage=60, stale-while-revalidate=30'
+          )
+          .header('X-Total-Count', totalCount.toString())
+          .send({
+            _links,
+            characters: charactersWithLinks,
+            totalCount,
+            page: { limit, offset, returned: parsedCharacters.length },
+          });
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (_error) {
+        return reply
+          .code(500)
+          .header('Content-Type', 'application/hal+json')
+          .send(
+            buildErrorResponse(
+              'INTERNAL_SERVER_ERROR',
+              'Error fetching characters',
+              `${baseUrl}/v1/characters`
+            )
+          );
+      }
+    }
+  );
+
+  // GET /v1/characters/:id - Get a single character by ID
+  app.get(
+    '/v1/characters/:id',
+    {
+      schema: {
+        tags: ['Characters'],
+        params: {
+          type: 'object',
+          properties: {
+            id: { type: 'string' },
+          },
+          required: ['id'],
+        },
+        response: {
+          200: {
+            description: 'Successful response – single character resource',
+            type: 'object',
+            properties: {
+              id: { type: 'integer' },
+              name: { type: 'string' },
+              description: {
+                anyOf: [{ type: 'string' }, { type: 'null' }],
+              },
+              years: {
+                anyOf: [{ type: 'string' }, { type: 'null' }],
+              },
+              wikiURL: {
+                anyOf: [{ type: 'string' }, { type: 'null' }],
+              },
+              _links: { $ref: 'Links#' },
+            },
+          },
+          404: { $ref: 'NotFound#' },
+          400: { $ref: 'BadRequest#' },
+          500: { $ref: 'ServerError#' },
+        },
+      },
+    },
+    async (request, reply) => {
+      const { id: rawId } = request.params as { id: string };
+      const id = parseInt(rawId, 10);
+      const charactersBaseUrl = `${baseUrl}/v1/characters`;
+      const selfUrl = `${charactersBaseUrl}/${rawId}`;
+
+      if (!rawId || isNaN(id) || id < 1) {
+        return reply
+          .code(400)
+          .header('Content-Type', 'application/hal+json')
+          .send(
+            buildErrorResponse('BAD_REQUEST', 'Invalid character ID', selfUrl)
+          );
+      }
+
+      try {
+        const data = await trpcClient.characters.getCharacterById.query(id);
+
+        if (!data) {
+          return reply
+            .code(404)
+            .header('Content-Type', 'application/hal+json')
+            .send(
+              buildErrorResponse('NOT_FOUND', 'Character not found', selfUrl)
+            );
+        }
+
+        const parsedCharacter = CharacterSchema.parse(data);
+        const _links = buildResourceLinks(selfUrl, charactersBaseUrl);
+
+        return reply
+          .code(200)
+          .header('Content-Type', 'application/hal+json')
+          .header(
+            'Cache-Control',
+            'public, s-maxage=300, stale-while-revalidate=60'
+          )
+          .send({
+            ...parsedCharacter,
+            _links,
+          });
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (_error) {
+        return reply
+          .code(500)
+          .header('Content-Type', 'application/hal+json')
+          .send(
+            buildErrorResponse(
+              'INTERNAL_SERVER_ERROR',
+              'Error fetching character',
+              selfUrl
+            )
+          );
+      }
+    }
+  );
+
+  // GET /v1/characters/:id/albums - Get all albums where the character appears
+  app.get(
+    '/v1/characters/:id/albums',
+    {
+      schema: {
+        tags: ['Characters'],
+        params: {
+          type: 'object',
+          properties: {
+            id: { type: 'string' },
+          },
+          required: ['id'],
+        },
+        response: {
+          200: {
+            description:
+              'Successful response – array of albums where the character appears',
+            type: 'object',
+            properties: {
+              _links: { $ref: 'Links#' },
+              albums: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  properties: {
+                    id: { type: 'integer' },
+                    title: { type: 'string' },
+                    date: { type: 'string', format: 'date' },
+                    scenarioArtistId: {
+                      anyOf: [{ type: 'integer' }, { type: 'null' }],
+                    },
+                    drawArtistId: {
+                      anyOf: [{ type: 'integer' }, { type: 'null' }],
+                    },
+                    wikiURL: {
+                      anyOf: [{ type: 'string' }, { type: 'null' }],
+                    },
+                    description: {
+                      anyOf: [{ type: 'string' }, { type: 'null' }],
+                    },
+                    image: {
+                      anyOf: [{ type: 'string' }, { type: 'null' }],
+                    },
+                    _links: { $ref: 'Links#' },
+                  },
+                },
+              },
+              totalCount: { type: 'integer' },
+            },
+          },
+          404: { $ref: 'NotFound#' },
+          400: { $ref: 'BadRequest#' },
+          500: { $ref: 'ServerError#' },
+        },
+      },
+    },
+    async (request, reply) => {
+      const { id: rawId } = request.params as { id: string };
+      const id = parseInt(rawId, 10);
+      const characterUrl = `${baseUrl}/v1/characters/${rawId}`;
+      const selfUrl = `${characterUrl}/albums`;
+
+      if (!rawId || isNaN(id) || id < 1) {
+        return reply
+          .code(400)
+          .header('Content-Type', 'application/hal+json')
+          .send(
+            buildErrorResponse('BAD_REQUEST', 'Invalid character ID', selfUrl)
+          );
+      }
+
+      try {
+        const data =
+          await trpcClient.characters.getCharactersAlbumsById.query(id);
+
+        if (!data) {
+          return reply
+            .code(404)
+            .header('Content-Type', 'application/hal+json')
+            .send({
+              error: { code: 'NOT_FOUND', message: 'Character not found' },
+              _links: {
+                self: { href: selfUrl },
+                character: { href: characterUrl },
+                characters: { href: `${baseUrl}/v1/characters` },
+              },
+            });
+        }
+
+        const albumsWithLinks = data.map((album: any) => ({
+          ...album,
+          _links: {
+            self: { href: `${baseUrl}/v1/albums/${album.id}` },
+          },
+        }));
+
+        return reply
+          .code(200)
+          .header('Content-Type', 'application/hal+json')
+          .header(
+            'Cache-Control',
+            'public, s-maxage=300, stale-while-revalidate=60'
+          )
+          .send({
+            _links: {
+              self: { href: selfUrl },
+              character: { href: characterUrl },
+              characters: { href: `${baseUrl}/v1/characters` },
+              albums: { href: `${baseUrl}/v1/albums` },
+            },
+            albums: albumsWithLinks,
+            totalCount: data.length,
+          });
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (_error) {
+        return reply
+          .code(500)
+          .header('Content-Type', 'application/hal+json')
+          .send(
+            buildErrorResponse(
+              'INTERNAL_SERVER_ERROR',
+              'Error fetching character albums',
+              selfUrl
+            )
+          );
+      }
+    }
+  );
+}
