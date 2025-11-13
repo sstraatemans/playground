@@ -127,6 +127,17 @@ export function registerCommonSchemas(app: FastifyInstance) {
       _links: { $ref: 'Links#' },
     },
     required: ['error', '_links'],
+    examples: [
+      {
+        error: {
+          code: 'BAD_REQUEST',
+          message: 'Invalid pagination parameters',
+        },
+        _links: {
+          self: { href: '/v1/albums' },
+        },
+      },
+    ],
   });
 
   app.addSchema({
@@ -144,6 +155,17 @@ export function registerCommonSchemas(app: FastifyInstance) {
       _links: { $ref: 'Links#' },
     },
     required: ['error', '_links'],
+    examples: [
+      {
+        error: {
+          code: 'NOT_FOUND',
+          message: 'Album not found',
+        },
+        _links: {
+          self: { href: '/v1/albums/67' },
+        },
+      },
+    ],
   });
 
   app.addSchema({
@@ -161,5 +183,16 @@ export function registerCommonSchemas(app: FastifyInstance) {
       _links: { $ref: 'Links#' },
     },
     required: ['error', '_links'],
+    examples: [
+      {
+        error: {
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'Error fetching albums',
+        },
+        _links: {
+          self: { href: '/v1/albums' },
+        },
+      },
+    ],
   });
 }

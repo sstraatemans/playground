@@ -58,9 +58,48 @@ export async function albumRoutes(app: FastifyInstance) {
               totalCount: { type: 'integer' },
               page: { $ref: 'PaginationInfo#' },
             },
+            examples: [
+              {
+                _links: {
+                  self: { href: '/v1/albums?limit=10&offset=0' },
+                  next: { href: '/v1/albums?limit=10&offset=10' },
+                  first: { href: '/v1/albums?limit=10&offset=0' },
+                  last: { href: '/v1/albums?limit=10&offset=990' },
+                  collection: { href: '/v1/albums' },
+                },
+                albums: [
+                  {
+                    id: 67,
+                    title: 'Jeromba de Griek',
+                    date: '1965-10-11',
+                    _links: {
+                      self: { href: '/v1/albums/67' },
+                    },
+                  },
+                  {
+                    id: 68,
+                    title: 'De sprietatoom',
+                    date: '1946-05-15',
+                    _links: {
+                      self: { href: '/v1/albums/68' },
+                    },
+                  },
+                ],
+                totalCount: 1000,
+                page: {
+                  limit: 10,
+                  offset: 0,
+                  returned: 2,
+                },
+              },
+            ],
           },
-          400: { $ref: 'BadRequest#' },
-          500: { $ref: 'ServerError#' },
+          400: {
+            $ref: 'BadRequest#',
+          },
+          500: {
+            $ref: 'ServerError#',
+          },
         },
       },
     },
@@ -155,11 +194,29 @@ export async function albumRoutes(app: FastifyInstance) {
         },
         response: {
           200: {
-            $ref: 'Album#',
+            description: 'Successful response – single album resource',
+            allOf: [{ $ref: 'Album#' }],
+            examples: [
+              {
+                id: 67,
+                title: 'Jeromba de Griek',
+                date: '1965-10-11',
+                _links: {
+                  self: { href: '/v1/albums/67' },
+                  collection: { href: '/v1/albums' },
+                },
+              },
+            ],
           },
-          404: { $ref: 'NotFound#' },
-          400: { $ref: 'BadRequest#' },
-          500: { $ref: 'ServerError#' },
+          404: {
+            $ref: 'NotFound#',
+          },
+          400: {
+            $ref: 'BadRequest#',
+          },
+          500: {
+            $ref: 'ServerError#',
+          },
         },
       },
     },
@@ -245,10 +302,43 @@ export async function albumRoutes(app: FastifyInstance) {
               },
               totalCount: { type: 'integer' },
             },
+            examples: [
+              {
+                _links: {
+                  self: { href: '/v1/albums/67/characters' },
+                  album: { href: '/v1/albums/67' },
+                  albums: { href: '/v1/albums' },
+                  characters: { href: '/v1/characters' },
+                },
+                characters: [
+                  {
+                    id: 1,
+                    name: 'Suske',
+                    _links: {
+                      self: { href: '/v1/characters/1' },
+                    },
+                  },
+                  {
+                    id: 2,
+                    name: 'Wiske',
+                    _links: {
+                      self: { href: '/v1/characters/2' },
+                    },
+                  },
+                ],
+                totalCount: 2,
+              },
+            ],
           },
-          404: { $ref: 'NotFound#' },
-          400: { $ref: 'BadRequest#' },
-          500: { $ref: 'ServerError#' },
+          404: {
+            $ref: 'NotFound#',
+          },
+          400: {
+            $ref: 'BadRequest#',
+          },
+          500: {
+            $ref: 'ServerError#',
+          },
         },
       },
     },
@@ -351,10 +441,36 @@ export async function albumRoutes(app: FastifyInstance) {
               },
               totalCount: { type: 'integer' },
             },
+            examples: [
+              {
+                _links: {
+                  self: { href: '/v1/albums/67/collections' },
+                  album: { href: '/v1/albums/67' },
+                  albums: { href: '/v1/albums' },
+                  collections: { href: '/v1/collections' },
+                },
+                collections: [
+                  {
+                    id: 1,
+                    name: 'De Blauwe Reeks',
+                    _links: {
+                      self: { href: '/v1/collections/1' },
+                    },
+                  },
+                ],
+                totalCount: 1,
+              },
+            ],
           },
-          404: { $ref: 'NotFound#' },
-          400: { $ref: 'BadRequest#' },
-          500: { $ref: 'ServerError#' },
+          404: {
+            $ref: 'NotFound#',
+          },
+          400: {
+            $ref: 'BadRequest#',
+          },
+          500: {
+            $ref: 'ServerError#',
+          },
         },
       },
     },
