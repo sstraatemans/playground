@@ -6,16 +6,23 @@ import { getCacheStrategy } from '../../utils/getCacheStrategy.js';
 import { logger } from '../../utils/logger.js';
 import { prisma } from '../client.js';
 import { albumCount } from './albumCount.js';
+import type { AlbumOrderByType, AlbumOrderDirectionType } from './schemas.js';
 
 export interface AllAlbumsParams {
   offset?: number;
   limit?: number;
+  orderBy?: AlbumOrderByType;
+  orderDirection?: AlbumOrderDirectionType;
 }
 
 export const AllAlbumsSchema = z
   .object({
     offset: z.number().optional(),
     limit: z.number().optional(),
+    orderBy: z
+      .enum(['id', 'title', 'date', 'drawArtist', 'scenarioArtist'])
+      .optional(),
+    orderDirection: z.enum(['asc', 'desc']).optional(),
   })
   .optional();
 
@@ -25,16 +32,18 @@ export const AllAlbumsSchema = z
  *
  * @example
  *   // Client-side (tRPC React/Query)
- *   const { data } = trpc.album.all.useQuery({ offset: 0, limit: 10 });
+ *   const { data } = trpc.album.all.useQuery({ offset: 0, limit: 10, orderBy: 'title', orderDirection: 'asc' });
  *   // → { totalCount: 42, data: [...] }
  *
  *   // Server-side
- *   const albums = await ctx.album.all({ offset: 0, limit: 10 });
+ *   const albums = await ctx.album.all({ offset: 0, limit: 10, orderBy: 'date', orderDirection: 'desc' });
  *   // → { totalCount: 42, data: [...] }
  *
- * @param {AllAlbumsParams} params - Pagination parameters
+ * @param {AllAlbumsParams} params - Pagination and ordering parameters
  * @param {number} [params.offset=0] - Number of records to skip (negative values default to 0)
  * @param {number} [params.limit=100] - Maximum number of records to return (clamped to 1-100)
+ * @param {string} [params.orderBy='id'] - Field to order by: 'id', 'title', 'date', 'drawArtist', or 'scenarioArtist'
+ * @param {string} [params.orderDirection='asc'] - Order direction: 'asc' or 'desc'
  *
  * @throws {TRPCError} Only throws typed tRPC errors:
  *   - `INTERNAL_SERVER_ERROR` – unexpected Prisma/error
@@ -45,18 +54,38 @@ export const AllAlbumsSchema = z
 export const allAlbums = async ({
   offset = CONSTANTS.DEFAULT_OFFSET,
   limit = CONSTANTS.DEFAULT_LIMIT,
+  orderBy = 'id',
+  orderDirection = 'asc',
 }: AllAlbumsParams = {}) => {
   if (offset < 0) offset = CONSTANTS.DEFAULT_OFFSET;
   if (limit < 1 || limit > CONSTANTS.DEFAULT_LIMIT)
     limit = CONSTANTS.DEFAULT_LIMIT;
 
+  // Build the orderBy clause based on the field
+  let orderByClause;
+  switch (orderBy) {
+    case 'drawArtist':
+      orderByClause = { DrawArtist: { name: orderDirection } };
+      break;
+    case 'scenarioArtist':
+      orderByClause = { ScenarioArtist: { name: orderDirection } };
+      break;
+    case 'title':
+    case 'date':
+    case 'id':
+    default:
+      orderByClause = { [orderBy]: orderDirection };
+      break;
+  }
+
   try {
     const data = await prisma.album.findMany({
       skip: offset,
       take: limit,
-      orderBy: { id: 'asc' },
+      orderBy: orderByClause,
       ...getCacheStrategy(),
     });
+
     return { totalCount: await albumCount(), data: data };
   } catch (error) {
     logger.error(
@@ -66,6 +95,8 @@ export const allAlbums = async ({
         stack: error instanceof Error ? error.stack : undefined,
         offset,
         limit,
+        orderBy,
+        orderDirection,
       },
       'Failed to retrieve albums'
     );

@@ -1,9 +1,12 @@
 // src/client/index.ts
 import { createTRPCClient, httpBatchLink } from '@trpc/client';
+import type { CreateTRPCClient } from '@trpc/client';
 import superjson from 'superjson';
 import type { AppRouter } from '../server/trpc/index.js';
 
 export type { AppRouter };
+
+export type TRPCClient = CreateTRPCClient<AppRouter>;
 
 export interface CreateClientOptions {
   url: string;
@@ -20,7 +23,7 @@ export interface CreateClientOptions {
  * @param options - Configuration options for the client
  * @returns Typed tRPC client
  */
-export function createClient(options: CreateClientOptions) {
+export function createClient(options: CreateClientOptions): TRPCClient {
   return createTRPCClient<AppRouter>({
     links: [
       httpBatchLink({
