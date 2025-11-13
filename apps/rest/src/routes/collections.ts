@@ -1,6 +1,6 @@
 import { CollectionSchema } from '@sstraatemans/sw_trpcclient';
-import { createClient } from '@sstraatemans/sw_trpcclient';
 import type { FastifyInstance } from 'fastify';
+import { trpcClient } from 'utils/client.js';
 import z from 'zod';
 import {
   buildPaginationLinks,
@@ -8,12 +8,6 @@ import {
   buildErrorResponse,
   parsePaginationParams,
 } from '../utils/hal.js';
-
-const trpcClient = createClient({
-  url:
-    process.env.TRPC_SERVER_URL ||
-    'https://playground-trpcserver.vercel.app/trpc/v1',
-});
 
 export async function collectionRoutes(app: FastifyInstance) {
   const baseUrl = process.env.BASE_URL || 'http://localhost:4000';

@@ -1,10 +1,22 @@
 // src/schema/queries.ts
+import {
+  AlbumOrderBySchema,
+  AlbumOrderDirectionSchema,
+} from '@sstraatemans/sw_trpcclient';
 import { builder } from './builder.js';
 import { trpc } from './client.js';
 import { AlbumRef, AlbumsRef } from './types/Album.js';
 import { ArtistRef, ArtistsRef } from './types/Artist.js';
 import { CharacterRef, CharactersRef } from './types/Character.js';
 import { CollectionRef, CollectionsRef } from './types/Collection.js';
+
+const AlbumOrderByEnum = builder.enumType('AlbumOrderBy', {
+  values: AlbumOrderBySchema.options,
+});
+
+const AlbumOrderDirectionEnum = builder.enumType('AlbumOrderDirection', {
+  values: AlbumOrderDirectionSchema.options,
+});
 
 builder.queryType({
   fields: (t) => ({
@@ -85,11 +97,18 @@ builder.queryType({
       args: {
         offset: t.arg.int(),
         limit: t.arg.int(),
+        orderBy: t.arg({ type: AlbumOrderByEnum, defaultValue: 'id' }),
+        orderDirection: t.arg({
+          type: AlbumOrderDirectionEnum,
+          defaultValue: 'asc',
+        }),
       },
-      resolve: async (_, { offset, limit }) => {
+      resolve: async (_, { offset, limit, orderBy, orderDirection }) => {
         const { data, totalCount } = await trpc.albums.all.query({
           offset: offset ?? undefined,
           limit: limit ?? undefined,
+          orderBy: orderBy ?? undefined,
+          orderDirection: orderDirection ?? undefined,
         });
 
         return {

@@ -46,6 +46,24 @@ export function registerCommonSchemas(app: FastifyInstance) {
     required: ['id', 'title', 'date'],
   });
 
+  // AlbumOrderBy schema (matches AlbumOrderBySchema from trpcclient)
+  app.addSchema({
+    $id: 'AlbumOrderBy',
+    type: 'string',
+    default: 'id',
+    description: 'Field to order by',
+    enum: ['id', 'title', 'date', 'drawArtist', 'scenarioArtist'],
+  });
+
+  // AlbumOrderDirection schema (matches AlbumOrderDirectionSchema from trpcclient)
+  app.addSchema({
+    $id: 'AlbumOrderDirection',
+    type: 'string',
+    default: 'asc',
+    description: 'Order direction',
+    enum: ['asc', 'desc'],
+  });
+
   // Character schema (matches CharacterSchema from trpcclient)
   app.addSchema({
     $id: 'Character',

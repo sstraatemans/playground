@@ -1,6 +1,6 @@
 import { AlbumSchema } from '@sstraatemans/sw_trpcclient';
-import { createClient } from '@sstraatemans/sw_trpcclient';
 import type { FastifyInstance } from 'fastify';
+import { trpcClient } from 'utils/client.js';
 import z from 'zod';
 import {
   buildPaginationLinks,
@@ -8,12 +8,6 @@ import {
   buildErrorResponse,
   parsePaginationParams,
 } from '../utils/hal.js';
-
-const trpcClient = createClient({
-  url:
-    process.env.TRPC_SERVER_URL ||
-    'https://playground-trpcserver.vercel.app/trpc/v1',
-});
 
 export async function albumRoutes(app: FastifyInstance) {
   const baseUrl = process.env.BASE_URL || 'http://localhost:4000';
@@ -42,6 +36,12 @@ export async function albumRoutes(app: FastifyInstance) {
               minimum: 0,
               default: 0,
               description: 'Offset for pagination (zero-based)',
+            },
+            orderby: {
+              $ref: 'AlbumOrderBy#',
+            },
+            orderdirection: {
+              $ref: 'AlbumOrderDirection#',
             },
           },
         },
@@ -104,9 +104,16 @@ export async function albumRoutes(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
-      const { limit: rawLimit, offset: rawOffset } = request.query as {
+      const {
+        limit: rawLimit,
+        offset: rawOffset,
+        orderby,
+        orderdirection,
+      } = request.query as {
         limit?: string;
         offset?: string;
+        orderby?: 'id' | 'title' | 'date' | 'drawArtist' | 'scenarioArtist';
+        orderdirection?: 'asc' | 'desc';
       };
 
       const { limit, offset, error } = parsePaginationParams(
@@ -127,6 +134,8 @@ export async function albumRoutes(app: FastifyInstance) {
         const { data, totalCount } = await trpcClient.albums.all.query({
           limit,
           offset,
+          orderBy: orderby,
+          orderDirection: orderdirection,
         });
 
         const parsedAlbums = z.array(AlbumSchema).parse(data);
