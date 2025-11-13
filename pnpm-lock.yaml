@@ -209,8 +209,8 @@ importers:
         specifier: ^5.2.3
         version: 5.2.3
       '@sstraatemans/sw_trpcclient':
-        specifier: ^0.2.2
-        version: 0.2.2(superjson@2.2.5)(zod@4.1.12)
+        specifier: ^0.2.3
+        version: 0.2.3(superjson@2.2.5)(zod@4.1.12)
       '@sstraatemans/sw_trpcserver':
         specifier: workspace:*
         version: link:../trpcserver
@@ -2197,8 +2197,8 @@ packages:
     resolution: {integrity: sha512-zCKpyDIWKHwtervNK2ZlaK8mMV7gVUijAgFeJStH+CU/imcdquizV3pFLlSQYRswG+Lbyd6CT/LGRh3IbtkCFw==}
     engines: {node: '>=8'}
 
-  '@sstraatemans/sw_trpcclient@0.2.2':
-    resolution: {integrity: sha512-Pp23PEjoKUyhhO+yG/7Yaqe58ALbPykiwvwTTnE949KyCj34uKoGfEwau2+1p9EMz/IG5U8YUoJ04LKDg1xFxA==}
+  '@sstraatemans/sw_trpcclient@0.2.3':
+    resolution: {integrity: sha512-3F3A0/I0ZLpvz31d/qS8CHz4rFot+iDduoFX9GLigJ+wDnRE5TM+NfQwbdcYnxKQN1mN9IMRoHMxnsfb58sNYg==}
     peerDependencies:
       superjson: ^2.2.5
       zod: ^4.1.12
@@ -8452,7 +8452,7 @@ snapshots:
     dependencies:
       '@sentry/types': 7.120.4
 
-  '@sstraatemans/sw_trpcclient@0.2.2(superjson@2.2.5)(zod@4.1.12)':
+  '@sstraatemans/sw_trpcclient@0.2.3(superjson@2.2.5)(zod@4.1.12)':
     dependencies:
       '@sstraatemans/sw_trpcserver': link:apps/trpcserver
       superjson: 2.2.5
@@ -10122,7 +10122,7 @@ snapshots:
       eslint: 9.39.0(jiti@2.6.1)
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0)(eslint@9.39.0(jiti@2.6.1))
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.46.2(eslint@9.39.0(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.0(jiti@2.6.1))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.46.2(eslint@9.39.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.0(jiti@2.6.1))
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.39.0(jiti@2.6.1))
       eslint-plugin-react: 7.37.5(eslint@9.39.0(jiti@2.6.1))
       eslint-plugin-react-hooks: 7.0.1(eslint@9.39.0(jiti@2.6.1))
@@ -10205,7 +10205,7 @@ snapshots:
       tinyglobby: 0.2.15
       unrs-resolver: 1.11.1
     optionalDependencies:
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.46.2(eslint@9.39.0(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.0(jiti@2.6.1))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.46.2(eslint@9.39.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.0(jiti@2.6.1))
     transitivePeerDependencies:
       - supports-color
 
@@ -10257,7 +10257,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.46.2(eslint@9.39.0(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.0(jiti@2.6.1)):
+  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.46.2(eslint@9.39.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.0(jiti@2.6.1)):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.9
