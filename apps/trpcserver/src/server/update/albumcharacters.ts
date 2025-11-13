@@ -189,6 +189,11 @@ ${JSON.stringify(cleanedAlbumTitles)}
       });
     })
   );
+
+  await prisma.character.update({
+    data: { albumsImported: true },
+    where: { id: character.id },
+  });
 };
 
 const main = async () => {
@@ -229,6 +234,7 @@ const main = async () => {
       data: { charactersImported: true },
       where: { id: album.id },
     });
+
     await wait(10000);
   }
 };
