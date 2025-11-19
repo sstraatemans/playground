@@ -1,5 +1,16 @@
 # @sstraatemans/sw_graphserver
 
+## 1.1.0
+
+### Minor Changes
+
+- ecc949a: add ordering data option
+
+### Patch Changes
+
+- Updated dependencies [ecc949a]
+  - @sstraatemans/sw_trpcclient@0.3.0
+
 ## 1.0.3
 
 ### Patch Changes
