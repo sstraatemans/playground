@@ -211,7 +211,7 @@ const main = async () => {
     }
 
     console.log(
-      `Processing character: ${character.name} ${character.albumsTemp}`
+      `Processing character: ${character.name} (${character.id}) ${character.albumsTemp}`
     );
 
     await updateAlbumCharacters(character, albums);
@@ -227,7 +227,7 @@ const main = async () => {
     if (album.charactersImported) {
       continue;
     }
-    console.log(`Processing album: ${album.title}`);
+    console.log(`Processing album: ${album.title} (${album.id})`);
     await updateAlbumCharactersViaAlbumPages(characters, album);
 
     await prisma.album.update({
@@ -235,7 +235,7 @@ const main = async () => {
       where: { id: album.id },
     });
 
-    await wait(10000);
+    await wait(15000);
   }
 };
 

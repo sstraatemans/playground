@@ -79,6 +79,24 @@ export function registerCommonSchemas(app: FastifyInstance) {
     required: ['id', 'name', 'description', 'years'],
   });
 
+  // CharacterOrderBy schema (matches CharacterOrderBySchema from trpcclient)
+  app.addSchema({
+    $id: 'CharacterOrderBy',
+    type: 'string',
+    default: 'id',
+    description: 'Field to order by',
+    enum: ['id', 'name'],
+  });
+
+  // CharacterOrderDirection schema (matches CharacterOrderDirectionSchema from trpcclient)
+  app.addSchema({
+    $id: 'CharacterOrderDirection',
+    type: 'string',
+    default: 'asc',
+    description: 'Order direction',
+    enum: ['asc', 'desc'],
+  });
+
   // Artist schema (matches ArtistSchema from trpcclient)
   app.addSchema({
     $id: 'Artist',
@@ -91,6 +109,24 @@ export function registerCommonSchemas(app: FastifyInstance) {
       _links: { $ref: 'Links#' },
     },
     required: ['id', 'name'],
+  });
+
+  // ArtistOrderBy schema (matches ArtistOrderBySchema from trpcclient)
+  app.addSchema({
+    $id: 'ArtistOrderBy',
+    type: 'string',
+    default: 'id',
+    description: 'Field to order by',
+    enum: ['id', 'name'],
+  });
+
+  // ArtistOrderDirection schema (matches ArtistOrderDirectionSchema from trpcclient)
+  app.addSchema({
+    $id: 'ArtistOrderDirection',
+    type: 'string',
+    default: 'asc',
+    description: 'Order direction',
+    enum: ['asc', 'desc'],
   });
 
   // Collection schema (matches AlbumCollection from trpcclient)
@@ -120,6 +156,24 @@ export function registerCommonSchemas(app: FastifyInstance) {
       _links: { $ref: 'Links#' },
     },
     required: ['id', 'name', 'startYear', 'endYear'],
+  });
+
+  // CollectionOrderBy schema (matches CollectionOrderBySchema from trpcclient)
+  app.addSchema({
+    $id: 'CollectionOrderBy',
+    type: 'string',
+    default: 'id',
+    description: 'Field to order by',
+    enum: ['id', 'name'],
+  });
+
+  // CollectionOrderDirection schema (matches CollectionOrderDirectionSchema from trpcclient)
+  app.addSchema({
+    $id: 'CollectionOrderDirection',
+    type: 'string',
+    default: 'asc',
+    description: 'Order direction',
+    enum: ['asc', 'desc'],
   });
 
   // Pagination info schema

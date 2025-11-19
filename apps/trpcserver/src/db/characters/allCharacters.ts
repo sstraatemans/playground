@@ -6,16 +6,24 @@ import { getCacheStrategy } from '../../utils/getCacheStrategy.js';
 import { logger } from '../../utils/logger.js';
 import { prisma } from '../client.js';
 import { characterCount } from './characterCount.js';
+import type {
+  CharacterOrderByType,
+  CharacterOrderDirectionType,
+} from './schemas.js';
 
 export interface AllCharactersParams {
   offset?: number;
   limit?: number;
+  orderBy?: CharacterOrderByType;
+  orderDirection?: CharacterOrderDirectionType;
 }
 
 export const AllCharactersSchema = z
   .object({
     offset: z.number().optional(),
     limit: z.number().optional(),
+    orderBy: z.enum(['id', 'name']).optional(),
+    orderDirection: z.enum(['asc', 'desc']).optional(),
   })
   .optional();
 
@@ -35,6 +43,8 @@ export const AllCharactersSchema = z
  * @param {AllCharactersParams} params - Pagination parameters
  * @param {number} [params.offset=0] - Number of records to skip (negative values default to 0)
  * @param {number} [params.limit=100] - Maximum number of records to return (clamped to 1-100)
+ * @param {string} [params.orderBy='id'] - Field to order by: 'id', 'name'
+ * @param {string} [params.orderDirection='asc'] - Order direction: 'asc' or 'desc'
  *
  * @throws {TRPCError} Only throws typed tRPC errors:
  *   - `INTERNAL_SERVER_ERROR` – unexpected Prisma/error
@@ -45,6 +55,8 @@ export const AllCharactersSchema = z
 export const allCharacters = async ({
   offset = CONSTANTS.DEFAULT_OFFSET,
   limit = CONSTANTS.DEFAULT_LIMIT,
+  orderBy = 'id',
+  orderDirection = 'asc',
 }: AllCharactersParams = {}) => {
   if (offset < 0) offset = CONSTANTS.DEFAULT_OFFSET;
   if (limit < 1 || limit > CONSTANTS.DEFAULT_LIMIT)
@@ -54,7 +66,7 @@ export const allCharacters = async ({
     const data = await prisma.character.findMany({
       skip: offset,
       take: limit,
-      orderBy: { name: 'asc' },
+      orderBy: { [orderBy]: orderDirection },
       ...getCacheStrategy(),
     });
     return { totalCount: await characterCount(), data: data };
@@ -66,6 +78,8 @@ export const allCharacters = async ({
         stack: error instanceof Error ? error.stack : undefined,
         offset,
         limit,
+        orderBy,
+        orderDirection,
       },
       'Failed to retrieve characters'
     );

@@ -33,7 +33,7 @@ builder.objectType(CollectionsRef, {
 });
 
 CollectionRef.implement({
-  description: 'A Suske en Wiske albums series',
+  description: 'A Suske en Wiske albums collection',
   fields: (t) => ({
     id: t.exposeID('id'),
     name: t.exposeString('name'),

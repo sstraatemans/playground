@@ -37,6 +37,12 @@ export async function characterRoutes(app: FastifyInstance) {
               default: 0,
               description: 'Offset for pagination (zero-based)',
             },
+            orderby: {
+              $ref: 'CharacterOrderBy#',
+            },
+            orderdirection: {
+              $ref: 'CharacterOrderDirection#',
+            },
           },
         },
         response: {
@@ -93,9 +99,16 @@ export async function characterRoutes(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
-      const { limit: rawLimit, offset: rawOffset } = request.query as {
+      const {
+        limit: rawLimit,
+        offset: rawOffset,
+        orderby,
+        orderdirection,
+      } = request.query as {
         limit?: string;
         offset?: string;
+        orderby?: 'id' | 'name';
+        orderdirection?: 'asc' | 'desc';
       };
 
       const { limit, offset, error } = parsePaginationParams(
@@ -116,6 +129,8 @@ export async function characterRoutes(app: FastifyInstance) {
         const { data, totalCount } = await trpcClient.characters.all.query({
           limit,
           offset,
+          orderBy: orderby,
+          orderDirection: orderdirection,
         });
 
         const parsedCharacters = z.array(CharacterSchema).parse(data);
