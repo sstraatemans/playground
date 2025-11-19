@@ -35,6 +35,9 @@ export const getAlbumCharactersById = async (id: number) => {
           },
         },
       },
+      orderBy: {
+        id: 'asc',
+      },
       ...getCacheStrategy(),
     });
 

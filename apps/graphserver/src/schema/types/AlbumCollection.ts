@@ -13,7 +13,7 @@ export const AlbumCollectionRef =
   builder.objectRef<AlbumCollection>('AlbumCollection');
 
 AlbumCollectionRef.implement({
-  description: 'An album series relation with number',
+  description: 'An album collection relation with number',
   fields: (t) => ({
     albumId: t.exposeInt('albumId'),
     album: t.field({
@@ -30,13 +30,13 @@ AlbumCollectionRef.implement({
         };
       },
     }),
-    serieId: t.exposeID('collectionId'),
-    serie: t.field({
+    collectionId: t.exposeID('collectionId'),
+    collection: t.field({
       type: CollectionRef,
       nullable: true,
-      resolve: async (albumSerie) => {
+      resolve: async (albumCollection) => {
         const data = await trpc.collections.getCollectionById.query(
-          albumSerie.collectionId
+          albumCollection.collectionId
         );
         return data;
       },

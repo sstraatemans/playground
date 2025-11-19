@@ -1,10 +1,35 @@
 // src/schema/queries.ts
+import {
+  AlbumOrderBySchema,
+  AlbumOrderDirectionSchema,
+} from '@sstraatemans/sw_trpcclient';
+import { ArtistOrderBySchema } from '../../../trpcserver/src/db/artists/schemas.js';
+import { CharacterOrderBySchema } from '../../../trpcserver/src/db/characters/schemas.js';
 import { builder } from './builder.js';
 import { trpc } from './client.js';
 import { AlbumRef, AlbumsRef } from './types/Album.js';
 import { ArtistRef, ArtistsRef } from './types/Artist.js';
 import { CharacterRef, CharactersRef } from './types/Character.js';
 import { CollectionRef, CollectionsRef } from './types/Collection.js';
+
+const AlbumOrderByEnum = builder.enumType('AlbumOrderBy', {
+  values: AlbumOrderBySchema.options,
+});
+
+const ArtistOrderByEnum = builder.enumType('ArtistOrderBy', {
+  values: ArtistOrderBySchema.options,
+});
+
+const CharacterOrderByEnum = builder.enumType('CharacterOrderBy', {
+  values: CharacterOrderBySchema.options,
+});
+const CollectionOrderByEnum = builder.enumType('CollectionOrderBy', {
+  values: CharacterOrderBySchema.options,
+});
+
+const OrderDirectionEnum = builder.enumType('OrderDirection', {
+  values: AlbumOrderDirectionSchema.options,
+});
 
 builder.queryType({
   fields: (t) => ({
@@ -24,11 +49,18 @@ builder.queryType({
       args: {
         offset: t.arg.int(),
         limit: t.arg.int(),
+        orderBy: t.arg({ type: ArtistOrderByEnum, defaultValue: 'id' }),
+        orderDirection: t.arg({
+          type: OrderDirectionEnum,
+          defaultValue: 'asc',
+        }),
       },
-      resolve: async (_, { offset, limit }) => {
+      resolve: async (_, { offset, limit, orderBy, orderDirection }) => {
         const { data, totalCount } = await trpc.artists.all.query({
           offset: offset ?? undefined,
           limit: limit ?? undefined,
+          orderBy: orderBy ?? undefined,
+          orderDirection: orderDirection ?? undefined,
         });
         return {
           data,
@@ -52,11 +84,18 @@ builder.queryType({
       args: {
         offset: t.arg.int(),
         limit: t.arg.int(),
+        orderBy: t.arg({ type: CollectionOrderByEnum, defaultValue: 'id' }),
+        orderDirection: t.arg({
+          type: OrderDirectionEnum,
+          defaultValue: 'asc',
+        }),
       },
-      resolve: async (_, { offset, limit }) => {
+      resolve: async (_, { offset, limit, orderBy, orderDirection }) => {
         const { data, totalCount } = await trpc.collections.all.query({
           offset: offset ?? undefined,
           limit: limit ?? undefined,
+          orderBy: orderBy ?? undefined,
+          orderDirection: orderDirection ?? undefined,
         });
         return {
           data,
@@ -85,11 +124,18 @@ builder.queryType({
       args: {
         offset: t.arg.int(),
         limit: t.arg.int(),
+        orderBy: t.arg({ type: AlbumOrderByEnum, defaultValue: 'id' }),
+        orderDirection: t.arg({
+          type: OrderDirectionEnum,
+          defaultValue: 'asc',
+        }),
       },
-      resolve: async (_, { offset, limit }) => {
+      resolve: async (_, { offset, limit, orderBy, orderDirection }) => {
         const { data, totalCount } = await trpc.albums.all.query({
           offset: offset ?? undefined,
           limit: limit ?? undefined,
+          orderBy: orderBy ?? undefined,
+          orderDirection: orderDirection ?? undefined,
         });
 
         return {
@@ -117,11 +163,18 @@ builder.queryType({
       args: {
         offset: t.arg.int(),
         limit: t.arg.int(),
+        orderBy: t.arg({ type: CharacterOrderByEnum, defaultValue: 'id' }),
+        orderDirection: t.arg({
+          type: OrderDirectionEnum,
+          defaultValue: 'asc',
+        }),
       },
-      resolve: async (_, { offset, limit }) => {
+      resolve: async (_, { offset, limit, orderBy, orderDirection }) => {
         const { data, totalCount } = await trpc.characters.all.query({
           offset: offset ?? undefined,
           limit: limit ?? undefined,
+          orderBy: orderBy ?? undefined,
+          orderDirection: orderDirection ?? undefined,
         });
         return {
           data,

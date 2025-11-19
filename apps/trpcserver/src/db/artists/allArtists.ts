@@ -6,16 +6,21 @@ import { getCacheStrategy } from '../../utils/getCacheStrategy.js';
 import { logger } from '../../utils/logger.js';
 import { prisma } from '../client.js';
 import { artistCount } from './artistCount.js';
+import type { ArtistOrderByType, ArtistOrderDirectionType } from './schemas.js';
 
 export interface AllArtistsParams {
   offset?: number;
   limit?: number;
+  orderBy?: ArtistOrderByType;
+  orderDirection?: ArtistOrderDirectionType;
 }
 
 export const AllArtistsSchema = z
   .object({
     offset: z.number().optional(),
     limit: z.number().optional(),
+    orderBy: z.enum(['id', 'name']).optional(),
+    orderDirection: z.enum(['asc', 'desc']).optional(),
   })
   .optional();
 
@@ -35,6 +40,8 @@ export const AllArtistsSchema = z
  * @param {AllArtistsParams} params - Pagination parameters
  * @param {number} [params.offset=0] - Number of records to skip (negative values default to 0)
  * @param {number} [params.limit=100] - Maximum number of records to return (clamped to 1-100)
+ * @param {string} [params.orderBy='id'] - Field to order by: 'id', 'name'
+ * @param {string} [params.orderDirection='asc'] - Order direction: 'asc' or 'desc'
  *
  * @throws {TRPCError} Only throws typed tRPC errors:
  *   - `INTERNAL_SERVER_ERROR` – unexpected Prisma/error
@@ -45,6 +52,8 @@ export const AllArtistsSchema = z
 export const allArtists = async ({
   offset = CONSTANTS.DEFAULT_OFFSET,
   limit = CONSTANTS.DEFAULT_LIMIT,
+  orderBy = 'id',
+  orderDirection = 'asc',
 }: AllArtistsParams = {}) => {
   if (offset < 0) offset = CONSTANTS.DEFAULT_OFFSET;
   if (limit < 1 || limit > CONSTANTS.DEFAULT_LIMIT)
@@ -54,7 +63,7 @@ export const allArtists = async ({
     const data = await prisma.artist.findMany({
       skip: offset,
       take: limit,
-      orderBy: { id: 'asc' },
+      orderBy: { [orderBy]: orderDirection },
       ...getCacheStrategy(),
     });
     return { totalCount: await artistCount(), data: data };
@@ -66,6 +75,8 @@ export const allArtists = async ({
         stack: error instanceof Error ? error.stack : undefined,
         offset,
         limit,
+        orderBy,
+        orderDirection,
       },
       'Failed to retrieve artists'
     );
