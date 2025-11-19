@@ -1,7 +1,7 @@
 import { CollectionSchema } from '@sstraatemans/sw_trpcclient';
 import type { FastifyInstance } from 'fastify';
-import { trpcClient } from 'utils/client.js';
 import z from 'zod';
+import { trpcClient } from '../utils/client.js';
 import {
   buildPaginationLinks,
   buildResourceLinks,
