@@ -1,5 +1,11 @@
 # @sstraatemans/sw_trpcserver
 
+## 0.3.0
+
+### Minor Changes
+
+- ecc949a: add ordering data option
+
 ## 0.2.1
 
 ### Patch Changes

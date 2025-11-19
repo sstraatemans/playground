@@ -1,7 +1,7 @@
 {
   "name": "@sstraatemans/sw_rest",
   "description": "REST API for Suske en Wiske Playground",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": {
     "name": "Steven Straatemans",
     "email": "steven@sstraatemans.nl",
