@@ -15,7 +15,7 @@ async function main() {
       // TODO: make something nice
       if (!origin) return callback(null, true);
 
-      const allowedOrigins = ['http://localhost:3000'];
+      const allowedOrigins = ['*'];
 
       if (allowedOrigins.includes(origin)) {
         callback(null, true);
