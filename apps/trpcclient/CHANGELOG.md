@@ -1,5 +1,11 @@
 # @sstraatemans/sw_trpcclient
 
+## 0.5.0
+
+### Minor Changes
+
+- 41d5460: update the trpcserver package
+
 ## 0.4.0
 
 ### Minor Changes

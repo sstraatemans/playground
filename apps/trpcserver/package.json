@@ -1,11 +1,19 @@
 {
   "name": "@sstraatemans/sw_trpcserver",
   "description": "tRPC server for Suske en Wiske Playground",
-  "version": "0.4.0",
+  "version": "0.4.1",
+  "homepage": "https://suskeenwiske.dev/docs/trpc",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sstraatemans/playground.git"
+  },
   "author": {
     "name": "Steven Straatemans",
     "email": "steven@sstraatemans.nl",
     "url": "https://straatemans.nl"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -31,6 +39,7 @@
   },
   "scripts": {
     "dev": "tsx ./src/server.ts",
+    "prepare": "prisma generate",
     "postinstall": "prisma generate",
     "prebuild": "prisma generate",
     "build": "tsc",
