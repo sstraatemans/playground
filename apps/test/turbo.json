@@ -1,0 +1,10 @@
+{
+  "extends": ["//"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["public/**"],
+      "env": ["TRPCSERVER", "GRAPHQLSERVER"]
+    }
+  }
+}
