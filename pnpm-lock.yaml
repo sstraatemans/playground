@@ -258,8 +258,8 @@ importers:
         specifier: ^4.0.1
         version: 4.0.1(graphql-tag@2.12.6(graphql@16.12.0))(graphql@16.12.0)
       '@sstraatemans/sw_trpcclient':
-        specifier: workspace:*
-        version: link:../trpcclient
+        specifier: ^0.3.0
+        version: 0.3.0(superjson@2.2.5)(zod@4.1.12)
       '@tailwindcss/postcss':
         specifier: ^4.1.17
         version: 4.1.17
@@ -2956,6 +2956,12 @@ packages:
   '@sentry/utils@7.120.4':
     resolution: {integrity: sha512-zCKpyDIWKHwtervNK2ZlaK8mMV7gVUijAgFeJStH+CU/imcdquizV3pFLlSQYRswG+Lbyd6CT/LGRh3IbtkCFw==}
     engines: {node: '>=8'}
+
+  '@sstraatemans/sw_trpcclient@0.3.0':
+    resolution: {integrity: sha512-tWh5PQnY0trzIUCThMhWGN2HWvnDPLM+5gRTJMqWODTQBHycSXzhZjEVYkn9sDWaneJrpqdCa0bo3nenoW2eEA==}
+    peerDependencies:
+      superjson: ^2.2.5
+      zod: ^4.1.12
 
   '@standard-schema/spec@1.0.0':
     resolution: {integrity: sha512-m2bOd0f2RT9k8QJx1JN85cZYyH1RqFBdlwtkSlf4tBDYLCiiZnv1fIIwacK6cqwXavOydf0NPToMQgpKq+dVlA==}
@@ -10660,6 +10666,12 @@ snapshots:
   '@sentry/utils@7.120.4':
     dependencies:
       '@sentry/types': 7.120.4
+
+  '@sstraatemans/sw_trpcclient@0.3.0(superjson@2.2.5)(zod@4.1.12)':
+    dependencies:
+      '@sstraatemans/sw_trpcserver': link:apps/trpcserver
+      superjson: 2.2.5
+      zod: 4.1.12
 
   '@standard-schema/spec@1.0.0': {}
 

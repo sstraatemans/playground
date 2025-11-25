@@ -3,7 +3,6 @@
 import { GraphProvider } from "@/components/GraphProvider/GraphProvider";
 import { kodeMono, roboto } from "./fonts";
 import "./globals.css";
-import { Suspense } from "react";
 
 const RootLayout = ({
   children,
