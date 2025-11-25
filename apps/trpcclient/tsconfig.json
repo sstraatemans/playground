@@ -1,19 +1,30 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "outDir": "./dist",
     "rootDir": "./src",
     "baseUrl": "./src",
+    "target": "ES2022",
+    "strict": true,
     "esModuleInterop": true,
     "declaration": true,
     "declarationMap": true,
     "emitDeclarationOnly": false,
     "noEmit": false,
     "composite": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
   },
   "include": ["src/**/*"],
-  "exclude": ["dist", "node_modules", "**/*.test.ts", "**/*.spec.ts", "prisma"]
+  "exclude": [
+    "dist",
+    "node_modules",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "prisma",
+    "scripts"
+  ]
 }

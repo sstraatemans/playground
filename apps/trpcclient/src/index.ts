@@ -1,12 +1,10 @@
-// Export AppRouter type
-export type { AppRouter } from '@sstraatemans/sw_trpcserver';
-
-// Export all Zod schemas and types
-export * from '@sstraatemans/sw_trpcserver/schemas';
-export * from '@sstraatemans/sw_trpcserver';
-// Export client creation utilities and pre-configured client
+// Export client creation utilities
 export {
   createClient,
   type CreateClientOptions,
   type TRPCClient,
-} from '@sstraatemans/sw_trpcserver';
+} from './client/index.js';
+
+// Export all Zod schemas and types
+export * from './generated/zod/schemas.js';
+export * from './db/albums/schemas.js';

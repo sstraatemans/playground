@@ -28,5 +28,7 @@ dist
 
 
 src/generated
+src/db
+src/client
 
 tsconfig.tsbuildinfo

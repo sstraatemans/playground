@@ -266,9 +266,6 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.90.6
         version: 5.90.6(react@19.2.0)
-      '@trpc/client':
-        specifier: ^11.7.1
-        version: 11.7.1(@trpc/server@11.7.1(typescript@5.9.3))(typescript@5.9.3)
       '@trpc/react-query':
         specifier: ^11.7.1
         version: 11.7.1(@tanstack/react-query@5.90.6(react@19.2.0))(@trpc/client@11.7.1(@trpc/server@11.7.1(typescript@5.9.3))(typescript@5.9.3))(@trpc/server@11.7.1(typescript@5.9.3))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3)
@@ -336,6 +333,12 @@ importers:
       '@config/eslint':
         specifier: workspace:*
         version: link:../../packages/eslint-config
+      '@trpc/client':
+        specifier: ^11.7.1
+        version: 11.7.1(@trpc/server@11.7.1(typescript@5.9.3))(typescript@5.9.3)
+      '@trpc/server':
+        specifier: ^11.7.1
+        version: 11.7.1(typescript@5.9.3)
       '@types/react':
         specifier: ^19.2.2
         version: 19.2.2
@@ -351,12 +354,14 @@ importers:
       eslint-plugin-next:
         specifier: ^0.0.0
         version: 0.0.0
+      superjson:
+        specifier: ^2.2.5
+        version: 2.2.5
+      tsx:
+        specifier: ^4.20.6
+        version: 4.20.6
 
   apps/trpcclient:
-    dependencies:
-      '@sstraatemans/sw_trpcserver':
-        specifier: workspace:*
-        version: link:../trpcserver
     devDependencies:
       '@config/eslint':
         specifier: workspace:*
