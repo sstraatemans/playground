@@ -10,20 +10,9 @@ const app: Fastify.FastifyInstance = Fastify({
 
 async function main() {
   await app.register(cors, {
-    origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps, curl, etc.)
-      // TODO: make something nice
-      if (!origin) return callback(null, true);
-
-      const allowedOrigins = ['*'];
-
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'), false);
-      }
-    },
+    origin: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true,
   });
 
   await app.register(fastifyTRPCPlugin, {
