@@ -258,8 +258,8 @@ importers:
         specifier: ^4.0.1
         version: 4.0.1(graphql-tag@2.12.6(graphql@16.12.0))(graphql@16.12.0)
       '@sstraatemans/sw_trpcclient':
-        specifier: ^0.6.0
-        version: 0.6.0(superjson@2.2.5)(zod@4.1.12)
+        specifier: ^0.7.0
+        version: 0.7.0(@trpc/client@11.7.1(@trpc/server@11.7.1(typescript@5.9.3))(typescript@5.9.3))(@trpc/server@11.7.1(typescript@5.9.3))(superjson@2.2.5)(zod@4.1.12)
       '@tailwindcss/postcss':
         specifier: ^4.1.17
         version: 4.1.17
@@ -2962,9 +2962,11 @@ packages:
     resolution: {integrity: sha512-zCKpyDIWKHwtervNK2ZlaK8mMV7gVUijAgFeJStH+CU/imcdquizV3pFLlSQYRswG+Lbyd6CT/LGRh3IbtkCFw==}
     engines: {node: '>=8'}
 
-  '@sstraatemans/sw_trpcclient@0.6.0':
-    resolution: {integrity: sha512-LPPMH2R+pcwh4Tb3IymWWCAtPPcqnXfivbBebM+4EuY2tELlqh+NOp9H48qh7uOISn65RTCfYN8UTM1dRrof9g==}
+  '@sstraatemans/sw_trpcclient@0.7.0':
+    resolution: {integrity: sha512-W1oTyT4PAWjk6R1UAkcCE8gEuwsuRYKAzsXN87s3LGU0YpSw6MYpyQQyjmysYWTfT8bJRhnMNNGbmayjsruchA==}
     peerDependencies:
+      '@trpc/client': ^11.7.1
+      '@trpc/server': ^11.7.1
       superjson: ^2.2.5
       zod: ^4.1.12
 
@@ -10672,9 +10674,10 @@ snapshots:
     dependencies:
       '@sentry/types': 7.120.4
 
-  '@sstraatemans/sw_trpcclient@0.6.0(superjson@2.2.5)(zod@4.1.12)':
+  '@sstraatemans/sw_trpcclient@0.7.0(@trpc/client@11.7.1(@trpc/server@11.7.1(typescript@5.9.3))(typescript@5.9.3))(@trpc/server@11.7.1(typescript@5.9.3))(superjson@2.2.5)(zod@4.1.12)':
     dependencies:
-      '@sstraatemans/sw_trpcserver': link:apps/trpcserver
+      '@trpc/client': 11.7.1(@trpc/server@11.7.1(typescript@5.9.3))(typescript@5.9.3)
+      '@trpc/server': 11.7.1(typescript@5.9.3)
       superjson: 2.2.5
       zod: 4.1.12
 
