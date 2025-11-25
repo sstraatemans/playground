@@ -1,0 +1,19 @@
+@import "tailwindcss";
+@plugin "tailwindcss-react-aria-components";
+
+@variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --font-mono: var(--font-kodemono);
+  --color-primary: #f50000;
+}
+
+/* Optional: Ensure the font applies to body or root elements */
+:root {
+  font-family: var(--font-roboto), sans-serif;
+}
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}

@@ -1,0 +1,50 @@
+{
+  "name": "@sstraatemans/sw_test",
+  "description": "Test app for Suske en Wiske Playground",
+  "author": {
+    "name": "Steven Straatemans",
+    "email": "steven@sstraatemans.nl",
+    "url": "https://straatemans.nl"
+  },
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --config eslint.config.js",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@sstraatemans/sw_trpcclient": "workspace:*",
+    "@tailwindcss/postcss": "^4.1.17",
+    "@tanstack/react-query": "^5.90.6",
+    "@trpc/client": "^11.7.1",
+    "@trpc/react-query": "^11.7.1",
+    "autoprefixer": "^10.4.21",
+    "classnames": "^2.5.1",
+    "next": "^16.0.1",
+    "next-swagger-doc": "^0.4.1",
+    "postcss": "^8.5.6",
+    "prettier-plugin-tailwindcss": "^0.7.1",
+    "react": "^19.2.0",
+    "react-aria-components": "^1.13.0",
+    "react-dom": "^19.2.0",
+    "react-markdown": "^10.1.0",
+    "rehype-raw": "^7.0.0",
+    "remark-gfm": "^4.0.1",
+    "swagger-ui-react": "^5.30.2",
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss": "^4.1.17",
+    "tailwindcss-react-aria-components": "^2.0.1",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@config/eslint": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@types/swagger-ui-react": "^5.18.0",
+    "eslint-config-next": "^16.0.1",
+    "eslint-plugin-next": "^0.0.0"
+  }
+}

@@ -1,0 +1,26 @@
+/** @type {import('tailwindcss').Config} */
+import type { Config } from "tailwindcss";
+import theme from "tailwindcss/defaultTheme";
+import reactAria from "tailwindcss-react-aria-components";
+
+// Import default theme for fallback
+
+const config = {
+  content: [
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ["var(--font-roboto)", ...theme.fontFamily.sans],
+        mono: ["var(--font-kodemono)", ...theme.fontFamily.mono],
+      },
+    },
+  },
+
+  plugins: [reactAria],
+} as Config;
+
+export default config;
