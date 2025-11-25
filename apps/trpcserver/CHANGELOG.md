@@ -1,5 +1,11 @@
 # @sstraatemans/sw_trpcserver
 
+## 0.4.0
+
+### Minor Changes
+
+- 41d5460: fix cors issues
+
 ## 0.3.0
 
 ### Minor Changes

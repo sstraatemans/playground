@@ -1,5 +1,16 @@
 # @sstraatemans/sw_trpcclient
 
+## 0.4.0
+
+### Minor Changes
+
+- 41d5460: fix cors issues
+
+### Patch Changes
+
+- Updated dependencies [41d5460]
+  - @sstraatemans/sw_trpcserver@0.4.0
+
 ## 0.3.0
 
 ### Minor Changes

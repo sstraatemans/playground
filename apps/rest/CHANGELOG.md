@@ -1,5 +1,12 @@
 # @sstraatemans/sw_rest
 
+## 0.3.1
+
+### Patch Changes
+
+- Updated dependencies [41d5460]
+  - @sstraatemans/sw_trpcclient@0.4.0
+
 ## 0.3.0
 
 ### Minor Changes
