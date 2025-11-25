@@ -39,6 +39,7 @@
   },
   "scripts": {
     "dev": "tsx ./src/server.ts",
+    "prepare": "prisma generate",
     "postinstall": "prisma generate",
     "prebuild": "prisma generate",
     "build": "tsc",
