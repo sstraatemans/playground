@@ -1,7 +1,9 @@
 "use client";
 
+import { GraphProvider } from "@/components/GraphProvider/GraphProvider";
 import { kodeMono, roboto } from "./fonts";
 import "./globals.css";
+import { Suspense } from "react";
 
 const RootLayout = ({
   children,
@@ -40,7 +42,7 @@ const RootLayout = ({
         <meta name="apple-mobile-web-app-title" content="Suske en Wiske API" />
       </head>
       <body className="font-body m-5 flex w-dvw max-w-dvw flex-col">
-        {children}
+        <GraphProvider>{children}</GraphProvider>
       </body>
     </html>
   );
