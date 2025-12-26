@@ -52,7 +52,8 @@
     "@trpc/client": "^11.7.1",
     "@trpc/server": "^11.7.1",
     "superjson": "^2.2.5",
-    "zod": "^4.1.12"
+    "zod": "^4.1.12",
+    "@sstraatemans/sw_trpcserver": "workspace:*"
   },
   "devDependencies": {
     "@config/eslint": "workspace:*",
